@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Ollydbg手动UPX脱壳 - xia0le</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="xia0le"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="xia0le"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="0x01 壳&amp;amp;脱壳首先了解一下什么是壳，  壳实质上是一个子程序，它在程序运行时首先取得控制权并对程序进行压缩。同时隐藏程序真正的OEP。"><meta property="og:type" content="blog"><meta property="og:title" content="Ollydbg手动UPX脱壳"><meta property="og:url" content="http://example.com/2022/07/12/Ollydbg%E6%89%8B%E5%8A%A8UPX%E8%84%B1%E5%A3%B3/"><meta property="og:site_name" content="xia0le"><meta property="og:description" content="0x01 壳&amp;amp;脱壳首先了解一下什么是壳，  壳实质上是一个子程序，它在程序运行时首先取得控制权并对程序进行压缩。同时隐藏程序真正的OEP。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://example.com/images/image-20220328173744-xidude5.png"><meta property="og:image" content="http://example.com/assets/image-20220328173944-12ngcjg.png"><meta property="og:image" content="http://example.com/assets/image-20220328174140-97t9yod.png"><meta property="og:image" content="http://example.com/assets/image-20220328174358-g6cohyc.png"><meta property="og:image" content="http://example.com/assets/image-20220328174855-w3m1yuf.png"><meta property="og:image" content="http://example.com/assets/image-20220328174910-mwi7nw5.png"><meta property="og:image" content="http://example.com/assets/image-20220328174934-k9ajlhy.png"><meta property="og:image" content="http://example.com/assets/image-20220328175028-yao7d4h.png"><meta property="article:published_time" content="2022-07-12T03:41:10.000Z"><meta property="article:modified_time" content="2022-07-16T06:41:13.972Z"><meta property="article:author" content="John Doe"><meta property="article:tag" content="Reverse"><meta property="article:tag" content="Binary"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/images/image-20220328173744-xidude5.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/07/12/Ollydbg%E6%89%8B%E5%8A%A8UPX%E8%84%B1%E5%A3%B3/"},"headline":"Ollydbg手动UPX脱壳","image":["http://example.com/images/image-20220328173744-xidude5.png","http://example.com/assets/image-20220328173944-12ngcjg.png","http://example.com/assets/image-20220328174140-97t9yod.png","http://example.com/assets/image-20220328174358-g6cohyc.png","http://example.com/assets/image-20220328174855-w3m1yuf.png","http://example.com/assets/image-20220328174910-mwi7nw5.png","http://example.com/assets/image-20220328174934-k9ajlhy.png","http://example.com/assets/image-20220328175028-yao7d4h.png"],"datePublished":"2022-07-12T03:41:10.000Z","dateModified":"2022-07-16T06:41:13.972Z","author":{"@type":"Person","name":"John Doe"},"publisher":{"@type":"Organization","name":"xia0le","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.svg"}},"description":"0x01 壳&amp;脱壳首先了解一下什么是壳，  壳实质上是一个子程序，它在程序运行时首先取得控制权并对程序进行压缩。同时隐藏程序真正的OEP。"}</script><link rel="canonical" href="http://example.com/2022/07/12/Ollydbg%E6%89%8B%E5%8A%A8UPX%E8%84%B1%E5%A3%B3/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+          Array
+              .from(document.querySelectorAll('.tab-content'))
+              .forEach($tab => {
+                  $tab.classList.add('is-hidden');
+              });
+          Array
+              .from(document.querySelectorAll('.tabs li'))
+              .forEach($tab => {
+                  $tab.classList.remove('is-active');
+              });
+          const $activeTab = document.querySelector(location.hash);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+          const $tabMenu = document.querySelector(`a[href="${location.hash}"]`);
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.2.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="xia0le" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2022-07-12T03:41:10.000Z" title="2022/7/12 11:41:10">2022-07-12</time>发表</span><span class="level-item"><time dateTime="2022-07-16T06:41:13.972Z" title="2022/7/16 14:41:13">2022-07-16</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/Reverse/">Reverse</a></span><span class="level-item">7 分钟读完 (大约1106个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Ollydbg手动UPX脱壳</h1><div class="content"><h1 id="0x01-壳-amp-脱壳"><a href="#0x01-壳-amp-脱壳" class="headerlink" title="0x01 壳&amp;脱壳"></a>0x01 壳&amp;脱壳</h1><p>首先了解一下什么是壳，</p>
+<blockquote>
+<p>壳实质上是一个子程序，它在程序运行时首先取得控制权并对程序进行压缩。同时隐藏程序真正的OEP。</p>
+</blockquote>
+<span id="more"></span>
+
+<p>而脱壳的过程总体分为三个步骤：</p>
+<blockquote>
+<ul>
+<li>查找真正的程序入口点</li>
+<li>抓取内存镜像文件</li>
+<li>重建PE文件</li>
+</ul>
+</blockquote>
+<p>关于壳的类型有以下几种：</p>
+<blockquote>
+<ul>
+<li>解压-&gt;运行</li>
+<li>解压-&gt;运行-&gt;解压.-&gt;运行</li>
+<li>解压 decoder|encoded code-&gt;decode -&gt;exc</li>
+<li>Run the virtual machine</li>
+</ul>
+</blockquote>
+<h1 id="0x02-Dump"><a href="#0x02-Dump" class="headerlink" title="0x02 Dump"></a>0x02 Dump</h1><blockquote>
+<p>一般找到程序入口点（OEP）后我们需要Dump出脱壳之后的文件。<br>那么，什么是dump?</p>
+</blockquote>
+<h4 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h4><p>一些dump工具（如LoardPE、PETools等）利用Module32Next函数，函数声明如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BOOL  <span class="title function_">Module32Next</span><span class="params">(HANDLE hSnapshot,LPMODULEENTRY32 lpme)</span></span><br></pre></td></tr></table></figure>
+
+<p>LPMODULEENTRY32其实是一个结构体指针，结构体类型是MODULEENTRY32，这个结构体有两个字段modBaseSize，modBaseAddr，分别代表了一个进程的映像大小与基址。<br>这类工具先根据这俩个字段获取了一个进程的映像大小与基址；然后用ReadProcessMemory函数读取进程数据同时检测DOS文件头和PE文件头的字段完整性，最终决定是直接用进程文件头还是换用原始文件头（LordPE工具是直接获取原始文件头）  </p>
+<h1 id="0x03-ESP定律（栈平衡原理）"><a href="#0x03-ESP定律（栈平衡原理）" class="headerlink" title="0x03 ESP定律（栈平衡原理）"></a>0x03 ESP定律（栈平衡原理）</h1><p>先给出esp寄存器的功能：</p>
+<blockquote>
+<p>存放栈顶的偏移地址</p>
+</blockquote>
+<p>有关汇编代码中call指令实质上是</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">push ip                 ;把下一条指令的地址（存放在ip寄存器中）入栈</span><br><span class="line">jmp near ptr 地址        ;跳转到该函数的地址处</span><br></pre></td></tr></table></figure>
+
+<p>还有ret和retf（一个函数结束的标志）：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pop ip      ；（ret）返回到call指令的下一条指令</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pop IP      ；（retf）返回到call指令的下一条指令</span><br><span class="line">pop CS</span><br></pre></td></tr></table></figure>
+
+<p>在编写加壳软件时，我们必须要保证外壳初始化的现场环境（即各个寄存器的值）与源程序的现场环境是相同的，所以，在程序自解密或者自解压过程中，对于多数壳，它们会先将当前寄存器状态压栈，如使用pushad&#x2F;pushfd。<br>而在解压结束后, 会将之前的寄存器值出栈，如使用popad&#x2F;popfd，一般标志寄存器不是很重要，一般不做处理。<br>所以编写加壳软件必须遵守的是栈平衡原理。</p>
+<p>因此在寄存器出栈时, 往往程序代码被恢复, 此时硬件断点触发（pop IP），这就是我们要下硬件断点的原因，然后在程序当前位置，只需要一些单步操作，就会到达正确的OEP位置。</p>
+<p>也就是说，我们可以这么认为，如果载入程序后只有esp寄存器（eip除外）内容发生变化，那么这个程序多半可以用ESP定律。</p>
+<p>程序<a href="assets/Lab01-02-20220328173755-5jveu3f.exe">Lab01-02.exe</a></p>
+<p>ollydbg：<a href="assets/%E5%90%BE%E7%88%B1%E7%A0%B4%E8%A7%A3%E4%B8%93%E7%94%A8%E7%89%88Ollydbg-20220328173842-zhu14c7.rar">吾爱破解专用版Ollydbg.rar</a></p>
+<p>将程序拖入ollydbg此时程序停在了pushad</p>
+<p><img src="/images/image-20220328173744-xidude5.png" alt="image.png"><br /></p>
+<p>F8执行完pushad，再看寄存器窗口，除了EIP指令，只有ESP寄存器变红</p>
+<p><img src="/assets/image-20220328173944-12ngcjg.png" alt="image.png"></p>
+<p>下硬件断点，查看esp寄存器里的值是18FF6C，od命令行输入“hr 18FF6C”下硬件读断点。</p>
+<p><img src="/assets/image-20220328174140-97t9yod.png" alt="image.png"></p>
+<p>按F9，看到程序停在了popad指令的下一条指令，说明程序处理完了外壳代码，在调用popad指令恢复现场环境时访问这些栈，此时触发中断。我们比对也可以发现那些寄存器里的初始值恢复了，离我们的OEP不远了。</p>
+<p><img src="/assets/image-20220328174358-g6cohyc.png" alt="image.png"></p>
+<p>F8单步执行下去（中途有个循环可以下断点跳出去），然后jmp指令跳转（跳回程序的OEP），看到了几个push语句如下：</p>
+<p><img src="/assets/image-20220328174855-w3m1yuf.png" alt="image.png"></p>
+<p><img src="/assets/image-20220328174910-mwi7nw5.png" alt="image.png"></p>
+<p>直接脱壳即可</p>
+<p><img src="/assets/image-20220328174934-k9ajlhy.png" alt="image.png"></p>
+<p>ida打开</p>
+<p><img src="/assets/image-20220328175028-yao7d4h.png" alt="image.png"></p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Ollydbg手动UPX脱壳</p><p><a href="http://example.com/2022/07/12/Ollydbg手动UPX脱壳/">http://example.com/2022/07/12/Ollydbg手动UPX脱壳/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>John Doe</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-07-12</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-07-16</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Reverse/">Reverse</a><a class="link-muted mr-2" rel="tag" href="/tags/Binary/">Binary</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2022/07/16/hello-world/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Hello World</span></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/avatar.png" alt="xia0le"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">xia0le</p><p class="is-size-6 is-block">求知若渴,虚心若愚</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>HeFei,China</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">2</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">1</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">2</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/xia0le" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/xia0le"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Reverse/"><span class="level-start"><span class="level-item">Reverse</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-07-16T05:17:28.873Z">2022-07-16</time></p><p class="title"><a href="/2022/07/16/hello-world/">Hello World</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-07-12T03:41:10.000Z">2022-07-12</time></p><p class="title"><a href="/2022/07/12/Ollydbg%E6%89%8B%E5%8A%A8UPX%E8%84%B1%E5%A3%B3/">Ollydbg手动UPX脱壳</a></p><p class="categories"><a href="/categories/Reverse/">Reverse</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2022/07/"><span class="level-start"><span class="level-item">七月 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Binary/"><span class="tag">Binary</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Reverse/"><span class="tag">Reverse</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="xia0le" height="28"></a><p class="is-size-7"><span>&copy; 2022 John Doe</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
