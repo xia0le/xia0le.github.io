@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Lab3-1 - xia0le&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="xia0le&#039;s Blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="xia0le&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="1.找出这个恶意代码的导入函数与字符串列表?"><meta property="og:type" content="blog"><meta property="og:title" content="Lab3-1"><meta property="og:url" content="http://example.com/2022/07/18/Lab3/"><meta property="og:site_name" content="xia0le&#039;s Blog"><meta property="og:description" content="1.找出这个恶意代码的导入函数与字符串列表?"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/20180514181759411-20220331162316-3iws82k.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/20180514184102274-20220331162337-3ccajso.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/20180514190041298-20220331162356-pad6rf7.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/20180514190124116-20220331162358-uedx41v.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/20180514190705956-20220331162411-amdrn2k.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/20180514210842560-20220331162432-gosk9zt.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/2018051421110768-20220331162436-xl9wlu6.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/20180514211136137-20220331162443-camo3nd.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/20180514213234781-20220331162451-fcev0lu.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402171653-hhvfppb.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220331195109-0a1zq02.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220331195447-rlj3mzi.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220331195511-aog0cdt.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220331195717-3s4uhk3.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220331195746-nk9jcro.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402172329-lnpm56a.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402172418-54lx7cw.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402172919-krowa2h.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/20180515135042577-20220331200209-9f8uz80.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402173112-6ouiers.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402173155-y8azqiv.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402173427-ztd1c1o.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402173444-rvctp7y.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402173606-8s47ykz.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/20180515141910585-20220331200316-rhsv34f.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/2018051514192576-20220331200320-w2wo1bh.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402175207-vuu0yqs.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402175406-5v9mihn.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402175516-updjpc5.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402175641-19k8r1y.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402175711-4al781k.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402180001-o30m2q6.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402180245-yj8h7cd.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402180651-7tgmslt.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402180751-w7pw0z2.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402180954-fpe6x5h.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402181013-9suqjcm.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402190034-vulqghi.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402190051-yykg4ej.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402190228-lmgdfbu.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402190257-18xhjzf.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402190657-i07va5i.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402190918-skgvrl1.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402191255-clg6ryk.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402191431-j58h59k.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402191451-hofzuzi.png"><meta property="og:image" content="http://example.com/2022/07/18/Lab3/image-20220402191841-52rt2vv.png"><meta property="article:published_time" content="2022-07-18T14:05:36.000Z"><meta property="article:modified_time" content="2022-07-17T04:29:15.513Z"><meta property="article:author" content="Xia0le"><meta property="article:tag" content="Binary"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/2022/07/18/Lab3/20180514181759411-20220331162316-3iws82k.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/07/18/Lab3/"},"headline":"Lab3-1","image":["http://example.com/2022/07/18/Lab3/20180514181759411-20220331162316-3iws82k.png","http://example.com/2022/07/18/Lab3/20180514184102274-20220331162337-3ccajso.png","http://example.com/2022/07/18/Lab3/20180514190041298-20220331162356-pad6rf7.png","http://example.com/2022/07/18/Lab3/20180514190124116-20220331162358-uedx41v.png","http://example.com/2022/07/18/Lab3/20180514190705956-20220331162411-amdrn2k.png","http://example.com/2022/07/18/Lab3/20180514210842560-20220331162432-gosk9zt.png","http://example.com/2022/07/18/Lab3/2018051421110768-20220331162436-xl9wlu6.png","http://example.com/2022/07/18/Lab3/20180514211136137-20220331162443-camo3nd.png","http://example.com/2022/07/18/Lab3/20180514213234781-20220331162451-fcev0lu.png","http://example.com/2022/07/18/Lab3/image-20220402171653-hhvfppb.png","http://example.com/2022/07/18/Lab3/image-20220331195109-0a1zq02.png","http://example.com/2022/07/18/Lab3/image-20220331195447-rlj3mzi.png","http://example.com/2022/07/18/Lab3/image-20220331195511-aog0cdt.png","http://example.com/2022/07/18/Lab3/image-20220331195717-3s4uhk3.png","http://example.com/2022/07/18/Lab3/image-20220331195746-nk9jcro.png","http://example.com/2022/07/18/Lab3/image-20220402172329-lnpm56a.png","http://example.com/2022/07/18/Lab3/image-20220402172418-54lx7cw.png","http://example.com/2022/07/18/Lab3/image-20220402172919-krowa2h.png","http://example.com/2022/07/18/Lab3/20180515135042577-20220331200209-9f8uz80.png","http://example.com/2022/07/18/Lab3/image-20220402173112-6ouiers.png","http://example.com/2022/07/18/Lab3/image-20220402173155-y8azqiv.png","http://example.com/2022/07/18/Lab3/image-20220402173427-ztd1c1o.png","http://example.com/2022/07/18/Lab3/image-20220402173444-rvctp7y.png","http://example.com/2022/07/18/Lab3/image-20220402173606-8s47ykz.png","http://example.com/2022/07/18/Lab3/20180515141910585-20220331200316-rhsv34f.png","http://example.com/2022/07/18/Lab3/2018051514192576-20220331200320-w2wo1bh.png","http://example.com/2022/07/18/Lab3/image-20220402175207-vuu0yqs.png","http://example.com/2022/07/18/Lab3/image-20220402175406-5v9mihn.png","http://example.com/2022/07/18/Lab3/image-20220402175516-updjpc5.png","http://example.com/2022/07/18/Lab3/image-20220402175641-19k8r1y.png","http://example.com/2022/07/18/Lab3/image-20220402175711-4al781k.png","http://example.com/2022/07/18/Lab3/image-20220402180001-o30m2q6.png","http://example.com/2022/07/18/Lab3/image-20220402180245-yj8h7cd.png","http://example.com/2022/07/18/Lab3/image-20220402180651-7tgmslt.png","http://example.com/2022/07/18/Lab3/image-20220402180751-w7pw0z2.png","http://example.com/2022/07/18/Lab3/image-20220402180954-fpe6x5h.png","http://example.com/2022/07/18/Lab3/image-20220402181013-9suqjcm.png","http://example.com/2022/07/18/Lab3/image-20220402190034-vulqghi.png","http://example.com/2022/07/18/Lab3/image-20220402190051-yykg4ej.png","http://example.com/2022/07/18/Lab3/image-20220402190228-lmgdfbu.png","http://example.com/2022/07/18/Lab3/image-20220402190257-18xhjzf.png","http://example.com/2022/07/18/Lab3/image-20220402190657-i07va5i.png","http://example.com/2022/07/18/Lab3/image-20220402190918-skgvrl1.png","http://example.com/2022/07/18/Lab3/image-20220402191255-clg6ryk.png","http://example.com/2022/07/18/Lab3/image-20220402191431-j58h59k.png","http://example.com/2022/07/18/Lab3/image-20220402191451-hofzuzi.png","http://example.com/2022/07/18/Lab3/image-20220402191841-52rt2vv.png"],"datePublished":"2022-07-18T14:05:36.000Z","dateModified":"2022-07-17T04:29:15.513Z","author":{"@type":"Person","name":"Xia0le"},"publisher":{"@type":"Organization","name":"xia0le's Blog","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.png"}},"description":"1.找出这个恶意代码的导入函数与字符串列表?"}</script><link rel="canonical" href="http://example.com/2022/07/18/Lab3/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+          Array
+              .from(document.querySelectorAll('.tab-content'))
+              .forEach($tab => {
+                  $tab.classList.add('is-hidden');
+              });
+          Array
+              .from(document.querySelectorAll('.tabs li'))
+              .forEach($tab => {
+                  $tab.classList.remove('is-active');
+              });
+          const $activeTab = document.querySelector(location.hash);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+          const $tabMenu = document.querySelector(`a[href="${location.hash}"]`);
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.2.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.png" alt="xia0le&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">家</a><a class="navbar-item" href="/archives">档案</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2022-07-18T14:05:36.000Z" title="2022/7/18 22:05:36">2022-07-18</time>发表</span><span class="level-item"><time dateTime="2022-07-17T04:29:15.513Z" title="2022/7/17 12:29:15">2022-07-17</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90/">恶意代码分析</a></span><span class="level-item">10 分钟读完 (大约1523个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">Lab3-1</h1><div class="content"><h2 id="1-找出这个恶意代码的导入函数与字符串列表"><a href="#1-找出这个恶意代码的导入函数与字符串列表" class="headerlink" title="1.找出这个恶意代码的导入函数与字符串列表?"></a>1.找出这个恶意代码的导入函数与字符串列表?</h2><span id="more"></span>
+<p>依照惯例,静态分析查看是否<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%8A%A0%E5%AF%86&spm=1001.2101.3001.7020">加密</a>然后看输入表和字符串</p>
+<p><img src="/2022/07/18/Lab3/20180514181759411-20220331162316-3iws82k.png" alt="20180514181759411.png"></p>
+<p>可以看出文件被PEncrypt加密</p>
+<p>dependency查看输入表可以看到很少的函数,kernel只有一个ExitProcess</p>
+<p>strings查看<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%AD%97%E7%AC%A6%E4%B8%B2&spm=1001.2101.3001.7020">字符串</a></p>
+<p><img src="/2022/07/18/Lab3/20180514184102274-20220331162337-3ccajso.png" alt="20180514184102274.png"></p>
+<h2 id="2-这个恶意代码在主机上的感染迹象特征是什么"><a href="#2-这个恶意代码在主机上的感染迹象特征是什么" class="headerlink" title="2.这个恶意代码在主机上的感染迹象特征是什么?"></a>2.这个恶意代码在主机上的感染迹象特征是什么?</h2><p>processexp查看handles和dll</p>
+<p><img src="/2022/07/18/Lab3/20180514190041298-20220331162356-pad6rf7.png" alt="20180514190041298.png"></p>
+<p><img src="/2022/07/18/Lab3/20180514190124116-20220331162358-uedx41v.png" alt="20180514190124116.png"></p>
+<p>了解到关键信息,互斥量WinVMX32,和网络相关的dll联系上面字符串可以知道程序访问了<a target="_blank" rel="noopener" href="http://www.practicalmalwareanalysis.com/">www.practicalmalwareanalysis.com</a></p>
+<p>字符串中有注册表相关字符,可以推测又和注册表相关操作,还有vmx32to64.exez字符可以推测有文件操作,查看Regsetvalue和writefile两个函数,在procmon中查看结果:<br>​<img src="/2022/07/18/Lab3/20180514190705956-20220331162411-amdrn2k.png" alt="20180514190705956.png"></p>
+<p>看前三条信息足以,第一个是写一个随机数发生种子,第二个是创建了一个.exe文件,正是前面看到的vmx32to64.exe,第三个是将这个程序写到注册表自启动项.</p>
+<p>d537acb8f56a1ce206bc35cf8ff959c0   vmx32to64.exe</p>
+<p>d537acb8f56a1ce206bc35cf8ff959c0   Lab03-01.exe</p>
+<p>可以看到两个文件md5一样,可以知道,vmx32to64就是Lab03-01复制过去的<br><br /></p>
+<h2 id="3-这个恶意代码是否存在一些有用的网络特征码-如果存在，它们是什么"><a href="#3-这个恶意代码是否存在一些有用的网络特征码-如果存在，它们是什么" class="headerlink" title="3.这个恶意代码是否存在一些有用的网络特征码?如果存在，它们是什么?"></a>3.这个恶意代码是否存在一些有用的网络特征码?如果存在，它们是什么?</h2><p>使用apateDNS 和nc</p>
+<p><img src="/2022/07/18/Lab3/20180514210842560-20220331162432-gosk9zt.png" alt="20180514210842560.png"></p>
+<p><img src="/2022/07/18/Lab3/2018051421110768-20220331162436-xl9wlu6.png" alt="2018051421110768.png"></p>
+<p>两次不一样</p>
+<p><img src="/2022/07/18/Lab3/20180514211136137-20220331162443-camo3nd.png" alt="20180514211136137.png"></p>
+<p>wireshark抓包结果</p>
+<p><img src="/2022/07/18/Lab3/20180514213234781-20220331162451-fcev0lu.png" alt="20180514213234781.png"></p>
+<h1 id="Lab3-2"><a href="#Lab3-2" class="headerlink" title="Lab3-2"></a>Lab3-2</h1><p>Regshot注册表快照（对比）</p>
+<h2 id="1-你怎样才能让这个恶意代码自行安装"><a href="#1-你怎样才能让这个恶意代码自行安装" class="headerlink" title="1.你怎样才能让这个恶意代码自行安装?"></a>1.你怎样才能让这个恶意代码自行安装?</h2><p>strings 查看</p>
+<p><img src="/2022/07/18/Lab3/image-20220402171653-hhvfppb.png" alt="image.png"></p>
+<p>这里我想用PEtool查看输出函数</p>
+<p>可以推测可能需要rundll32.exe工具将该dll安装成一个服务</p>
+<p>使用命令: rundll32.exe Lab03-02.dll,installA</p>
+<p><img src="/2022/07/18/Lab3/image-20220331195109-0a1zq02.png" alt="image.png"></p>
+<p>保存注册表</p>
+<p><img src="/2022/07/18/Lab3/image-20220331195447-rlj3mzi.png" alt="image.png"></p>
+<p>cmd执行</p>
+<p><img src="/2022/07/18/Lab3/image-20220331195511-aog0cdt.png" alt="image.png"></p>
+<p>然后保存注册表</p>
+<p><img src="/2022/07/18/Lab3/image-20220331195717-3s4uhk3.png" alt="image.png"></p>
+<p>对比前后注册表区别</p>
+<p><img src="/2022/07/18/Lab3/image-20220331195746-nk9jcro.png" alt="image.png"></p>
+<p>增加了HKLM\SYSTEM\ControlSet001\Services\IPRIP,HKLM\SYSTEM\CurrentControlSet\Services\IPRIP,可以知道.dll创建一个名为IPRIP的服务</p>
+<p><img src="/2022/07/18/Lab3/image-20220402172329-lnpm56a.png" alt="image.png"></p>
+<p>表明恶意代码将在svchost.exe中启动</p>
+<p><img src="/2022/07/18/Lab3/image-20220402172418-54lx7cw.png" alt="image.png"></p>
+<h2 id="2．在安装之后，你如何让这个恶意代码运行起来"><a href="#2．在安装之后，你如何让这个恶意代码运行起来" class="headerlink" title="2．在安装之后，你如何让这个恶意代码运行起来?"></a>2．在安装之后，你如何让这个恶意代码运行起来?</h2><p>可以了解到服务IPRIP的servicedll就是Lab03-02.dll,那么我们就可以用net start IPRIP来打开这个服务</p>
+<p><img src="/2022/07/18/Lab3/image-20220402172919-krowa2h.png" alt="image.png"></p>
+<p><img src="/2022/07/18/Lab3/20180515135042577-20220331200209-9f8uz80.png" alt="20180515135042577.png"></p>
+<h2 id="3-你怎么能找到这个恶意代码是在哪个进程下运行的"><a href="#3-你怎么能找到这个恶意代码是在哪个进程下运行的" class="headerlink" title="3.你怎么能找到这个恶意代码是在哪个进程下运行的?"></a>3.你怎么能找到这个恶意代码是在哪个进程下运行的?</h2><p>processexp搜索Lab03-02.dll即可</p>
+<p><img src="/2022/07/18/Lab3/image-20220402173112-6ouiers.png" alt="image.png"></p>
+<p>进程PID是1028</p>
+<p><img src="/2022/07/18/Lab3/image-20220402173155-y8azqiv.png" alt="image.png"></p>
+<h2 id="4-你可以在-procmon工具中设置什么样的过滤器，才能收集这个恶意代码的信息"><a href="#4-你可以在-procmon工具中设置什么样的过滤器，才能收集这个恶意代码的信息" class="headerlink" title="4.你可以在 procmon工具中设置什么样的过滤器，才能收集这个恶意代码的信息?"></a>4.你可以在 procmon工具中设置什么样的过滤器，才能收集这个恶意代码的信息?</h2><p>可由上图知道,IPRIP服务运行在PID 1028使用procmon来进行过滤</p>
+<p><img src="/2022/07/18/Lab3/image-20220402173427-ztd1c1o.png" alt="image.png"></p>
+<p><img src="/2022/07/18/Lab3/image-20220402173444-rvctp7y.png" alt="image.png"></p>
+<h2 id="5-这个恶意代码在主机上的感染迹象特征是什么"><a href="#5-这个恶意代码在主机上的感染迹象特征是什么" class="headerlink" title="5.这个恶意代码在主机上的感染迹象特征是什么?"></a>5.这个恶意代码在主机上的感染迹象特征是什么?</h2><p>恶意代码特征上面分析了很多,服务IPRIP,Lab03-02.dll,服务名称 Intranet Network Awareness (INA+),还有上面的多项注册表信息等</p>
+<p>恶意代码对系统的影响（特征）</p>
+<p><img src="/2022/07/18/Lab3/image-20220402173606-8s47ykz.png" alt="image.png"></p>
+<h2 id="6-这个恶意代码是否存在一些有用的网络特征码"><a href="#6-这个恶意代码是否存在一些有用的网络特征码" class="headerlink" title="6.这个恶意代码是否存在一些有用的网络特征码?"></a>6.这个恶意代码是否存在一些有用的网络特征码?</h2><p>查看nc和ApateDNS可以了解到网络特征</p>
+<p><img src="/2022/07/18/Lab3/20180515141910585-20220331200316-rhsv34f.png" alt="20180515141910585.png"></p>
+<p><img src="/2022/07/18/Lab3/2018051514192576-20220331200320-w2wo1bh.png" alt="2018051514192576.png"></p>
+<h1 id="Lab3-3"><a href="#Lab3-3" class="headerlink" title="Lab3-3"></a>Lab3-3</h1><h2 id="1-当你使用Process-Explorer工具进行监视时，你注意到了什么"><a href="#1-当你使用Process-Explorer工具进行监视时，你注意到了什么" class="headerlink" title="1.当你使用Process Explorer工具进行监视时，你注意到了什么?"></a>1.当你使用Process Explorer工具进行监视时，你注意到了什么?</h2><p>运行Lab03-03后,注意到explore下面多了一个不成寻常进程svchost.exe,我们有理由相信这是Lab03-03.exe动的手脚,还可以双击这个进程查看他的内存字符串,和正常svchost的磁盘字符串区别,可以知道他绝对是个恶意代码,并且有这几个字符串推测是击键记录器(.log和[SHIFT]等推测出,这完全是经验之谈了)</p>
+<p>程序创建了svchost.exe 随后消失<br>​<img src="/2022/07/18/Lab3/image-20220402175207-vuu0yqs.png" alt="image.png"></p>
+<p>留下了一个孤儿进程，svchost.exe</p>
+<p><img src="/2022/07/18/Lab3/image-20220402175406-5v9mihn.png" alt="image.png"></p>
+<p>正常的svchost.exe父进程位services.exe</p>
+<p><img src="/2022/07/18/Lab3/image-20220402175516-updjpc5.png" alt="image.png"></p>
+<h2 id="2-你可以找出任何的内存修改行为吗"><a href="#2-你可以找出任何的内存修改行为吗" class="headerlink" title="2.你可以找出任何的内存修改行为吗?"></a>2.你可以找出任何的内存修改行为吗?</h2><p>属性</p>
+<p><img src="/2022/07/18/Lab3/image-20220402175641-19k8r1y.png" alt="image.png"></p>
+<p>查看字符串（映像）</p>
+<p><img src="/2022/07/18/Lab3/image-20220402175711-4al781k.png" alt="image.png"> </p>
+<p>查看字符串（磁盘）</p>
+<p>有log文件和类似键盘的字符，可能是键盘记录</p>
+<p><img src="/2022/07/18/Lab3/image-20220402180001-o30m2q6.png" alt="image.png"></p>
+<h2 id="3-这个恶意代码在主机上的感染迹象特征是什么"><a href="#3-这个恶意代码在主机上的感染迹象特征是什么" class="headerlink" title="3.这个恶意代码在主机上的感染迹象特征是什么?"></a>3.这个恶意代码在主机上的感染迹象特征是什么?</h2><p>process monitor 使用pid过滤</p>
+<p><img src="/2022/07/18/Lab3/image-20220402180245-yj8h7cd.png" alt="image.png"></p>
+<h2 id="4-这个恶意代码的目的是什么"><a href="#4-这个恶意代码的目的是什么" class="headerlink" title="4.这个恶意代码的目的是什么?"></a>4.这个恶意代码的目的是什么?</h2><p>新建文件写入字符</p>
+<p><img src="/2022/07/18/Lab3/image-20220402180651-7tgmslt.png" alt="image.png"></p>
+<p>process monitor添加过滤pid、 operation的CreateFile 和 operation的WriteFile</p>
+<p><img src="/2022/07/18/Lab3/image-20220402180751-w7pw0z2.png" alt="image.png"></p>
+<p>频繁对这个log文件操作</p>
+<p><img src="/2022/07/18/Lab3/image-20220402180954-fpe6x5h.png" alt="image.png"></p>
+<p>打开这个log文件查看</p>
+<p>记录了pid、输入内容、打开的应用</p>
+<p><img src="/2022/07/18/Lab3/image-20220402181013-9suqjcm.png" alt="image.png"></p>
+<h1 id="Lab3-4"><a href="#Lab3-4" class="headerlink" title="Lab3-4"></a>Lab3-4</h1><h2 id="1-当你运行这个文件时，会发生什么呢"><a href="#1-当你运行这个文件时，会发生什么呢" class="headerlink" title="1.当你运行这个文件时，会发生什么呢?"></a>1.当你运行这个文件时，会发生什么呢?</h2><h3 id="静态分析"><a href="#静态分析" class="headerlink" title="静态分析"></a>静态分析</h3><p>CopyFile、WriteFile、GetSystemDirectoryA可能用于隐藏自身</p>
+<p><img src="/2022/07/18/Lab3/image-20220402190034-vulqghi.png" alt="image.png"></p>
+<p><img src="/2022/07/18/Lab3/image-20220402190051-yykg4ej.png" alt="image.png"></p>
+<p>程序会创建服务修改注册表</p>
+<p><img src="/2022/07/18/Lab3/image-20220402190228-lmgdfbu.png" alt="image.png"></p>
+<p>程序有联网操作</p>
+<p><img src="/2022/07/18/Lab3/image-20220402190257-18xhjzf.png" alt="image.png"></p>
+<p>有联网（HTTP）有参数–in，可能是http后门</p>
+<p><img src="/2022/07/18/Lab3/image-20220402190657-i07va5i.png" alt="image.png"></p>
+<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><p>打开process explorer</p>
+<p>然后打开程序</p>
+<p><img src="/2022/07/18/Lab3/image-20220402190918-skgvrl1.png" alt="image.png"></p>
+<p>process explorer无变化，程序自行删除了</p>
+<h2 id="2-是什么原因造成动态分析无法有效实施"><a href="#2-是什么原因造成动态分析无法有效实施" class="headerlink" title="2.是什么原因造成动态分析无法有效实施?"></a>2.是什么原因造成动态分析无法有效实施?</h2><p>使用process monitor监控运行</p>
+<p><img src="/2022/07/18/Lab3/image-20220402191255-clg6ryk.png" alt="image.png"></p>
+<p>只看进程监控</p>
+<p><img src="/2022/07/18/Lab3/image-20220402191431-j58h59k.png" alt="image.png"></p>
+<p>使用cmd删除自身,所以无法动态分析</p>
+<p><img src="/2022/07/18/Lab3/image-20220402191451-hofzuzi.png" alt="image.png"></p>
+<h2 id="3-是否有其他方式来运行这个程序"><a href="#3-是否有其他方式来运行这个程序" class="headerlink" title="3.是否有其他方式来运行这个程序?"></a>3.是否有其他方式来运行这个程序?</h2><p>使用cmd加-in运行，程序还是会自己删除</p>
+<p><img src="/2022/07/18/Lab3/image-20220402191841-52rt2vv.png" alt="image.png"></p>
+<p>后面章节讲</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Lab3-1</p><p><a href="http://example.com/2022/07/18/Lab3/">http://example.com/2022/07/18/Lab3/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Xia0le</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-07-18</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-07-17</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Binary/">Binary</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/07/17/2022seetf/"><span class="level-item">2022seetf</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><ul class="menu-list"><li><a class="level is-mobile" href="#1-找出这个恶意代码的导入函数与字符串列表"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">1.找出这个恶意代码的导入函数与字符串列表?</span></span></a></li><li><a class="level is-mobile" href="#2-这个恶意代码在主机上的感染迹象特征是什么"><span class="level-left"><span class="level-item">1.2</span><span class="level-item">2.这个恶意代码在主机上的感染迹象特征是什么?</span></span></a></li><li><a class="level is-mobile" href="#3-这个恶意代码是否存在一些有用的网络特征码-如果存在，它们是什么"><span class="level-left"><span class="level-item">1.3</span><span class="level-item">3.这个恶意代码是否存在一些有用的网络特征码?如果存在，它们是什么?</span></span></a></li></ul><li><a class="level is-mobile" href="#Lab3-2"><span class="level-left"><span class="level-item">2</span><span class="level-item">Lab3-2</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#1-你怎样才能让这个恶意代码自行安装"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">1.你怎样才能让这个恶意代码自行安装?</span></span></a></li><li><a class="level is-mobile" href="#2．在安装之后，你如何让这个恶意代码运行起来"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">2．在安装之后，你如何让这个恶意代码运行起来?</span></span></a></li><li><a class="level is-mobile" href="#3-你怎么能找到这个恶意代码是在哪个进程下运行的"><span class="level-left"><span class="level-item">2.3</span><span class="level-item">3.你怎么能找到这个恶意代码是在哪个进程下运行的?</span></span></a></li><li><a class="level is-mobile" href="#4-你可以在-procmon工具中设置什么样的过滤器，才能收集这个恶意代码的信息"><span class="level-left"><span class="level-item">2.4</span><span class="level-item">4.你可以在 procmon工具中设置什么样的过滤器，才能收集这个恶意代码的信息?</span></span></a></li><li><a class="level is-mobile" href="#5-这个恶意代码在主机上的感染迹象特征是什么"><span class="level-left"><span class="level-item">2.5</span><span class="level-item">5.这个恶意代码在主机上的感染迹象特征是什么?</span></span></a></li><li><a class="level is-mobile" href="#6-这个恶意代码是否存在一些有用的网络特征码"><span class="level-left"><span class="level-item">2.6</span><span class="level-item">6.这个恶意代码是否存在一些有用的网络特征码?</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Lab3-3"><span class="level-left"><span class="level-item">3</span><span class="level-item">Lab3-3</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#1-当你使用Process-Explorer工具进行监视时，你注意到了什么"><span class="level-left"><span class="level-item">3.1</span><span class="level-item">1.当你使用Process Explorer工具进行监视时，你注意到了什么?</span></span></a></li><li><a class="level is-mobile" href="#2-你可以找出任何的内存修改行为吗"><span class="level-left"><span class="level-item">3.2</span><span class="level-item">2.你可以找出任何的内存修改行为吗?</span></span></a></li><li><a class="level is-mobile" href="#3-这个恶意代码在主机上的感染迹象特征是什么"><span class="level-left"><span class="level-item">3.3</span><span class="level-item">3.这个恶意代码在主机上的感染迹象特征是什么?</span></span></a></li><li><a class="level is-mobile" href="#4-这个恶意代码的目的是什么"><span class="level-left"><span class="level-item">3.4</span><span class="level-item">4.这个恶意代码的目的是什么?</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Lab3-4"><span class="level-left"><span class="level-item">4</span><span class="level-item">Lab3-4</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#1-当你运行这个文件时，会发生什么呢"><span class="level-left"><span class="level-item">4.1</span><span class="level-item">1.当你运行这个文件时，会发生什么呢?</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#静态分析"><span class="level-left"><span class="level-item">4.1.1</span><span class="level-item">静态分析</span></span></a></li><li><a class="level is-mobile" href="#运行"><span class="level-left"><span class="level-item">4.1.2</span><span class="level-item">运行</span></span></a></li></ul></li><li><a class="level is-mobile" href="#2-是什么原因造成动态分析无法有效实施"><span class="level-left"><span class="level-item">4.2</span><span class="level-item">2.是什么原因造成动态分析无法有效实施?</span></span></a></li><li><a class="level is-mobile" href="#3-是否有其他方式来运行这个程序"><span class="level-left"><span class="level-item">4.3</span><span class="level-item">3.是否有其他方式来运行这个程序?</span></span></a></li></ul></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.png" alt="xia0le&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2022 Xia0le</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
