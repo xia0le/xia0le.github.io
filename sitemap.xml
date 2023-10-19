@@ -2,6 +2,14 @@
   xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml"
   ><url>
-      <loc>http://example.org/categories/</loc></url><url>
-      <loc>http://example.org/tags/</loc></url><url>
-      <loc>http://example.org/</loc></url></urlset>
+      <loc>http://example.org/categories/</loc><lastmod>2023-10-15T21:47:44&#43;08:00</lastmod></url><url>
+      <loc>http://example.org/tags/draft/</loc><lastmod>2023-10-15T21:47:44&#43;08:00</lastmod></url><url>
+      <loc>http://example.org/categories/draft/</loc><lastmod>2023-10-15T21:47:44&#43;08:00</lastmod></url><url>
+      <loc>http://example.org/posts/first_post/</loc><lastmod>2023-10-15T21:47:44&#43;08:00</lastmod></url><url>
+      <loc>http://example.org/posts/</loc><lastmod>2023-10-15T21:47:44&#43;08:00</lastmod></url><url>
+      <loc>http://example.org/tags/</loc><lastmod>2023-10-15T21:47:44&#43;08:00</lastmod></url><url>
+      <loc>http://example.org/</loc><lastmod>2023-10-15T21:47:44&#43;08:00</lastmod></url><url>
+      <loc>http://example.org/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-pwn--guess/</loc><lastmod>2021-07-04T12:00:00&#43;00:00</lastmod></url><url>
+      <loc>http://example.org/tags/ctf/</loc><lastmod>2021-07-04T12:00:00&#43;00:00</lastmod></url><url>
+      <loc>http://example.org/categories/pwn/</loc><lastmod>2021-07-04T12:00:00&#43;00:00</lastmod></url><url>
+      <loc>http://example.org/posts/sspstack-smashes-protect%E7%BB%95%E8%BF%87/</loc></url></urlset>
