@@ -1,22 +1,22 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
   <channel>
     <title>PWN - Tag - xia0le&#39;s Blog</title>
-    <link>http://localhost:1313/tags/pwn/</link>
+    <link>http://example.org/tags/pwn/</link>
     <description>PWN - Tag - xia0le&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 15 Oct 2023 21:47:44 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/tags/pwn/" rel="self" type="application/rss+xml" /><item>
+    <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 15 Oct 2023 21:47:44 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/pwn/" rel="self" type="application/rss+xml" /><item>
   <title>2018 网鼎杯-GUESS</title>
-  <link>http://localhost:1313/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/</link>
+  <link>http://example.org/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/</link>
   <pubDate>Sun, 15 Oct 2023 21:47:44 &#43;0800</pubDate>
   <author>Author</author>
-  <guid>http://localhost:1313/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/</guid>
+  <guid>http://example.org/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/</guid>
   <description><![CDATA[checksec 开了 canary，nx 主函数 分析 gets可溢出，但有canary 不能爆破（只有3次机会） 可用SSP（stack smashes protect） leak canary 程序检]]></description>
 </item>
 <item>
   <title>2022 强网杯-devnull</title>
-  <link>http://localhost:1313/posts/2022%E5%BC%BA%E7%BD%91%E6%9D%AF-devnull/</link>
+  <link>http://example.org/posts/2022%E5%BC%BA%E7%BD%91%E6%9D%AF-devnull/</link>
   <pubDate>Wed, 03 Aug 2022 21:47:44 &#43;0800</pubDate>
   <author>Author</author>
-  <guid>http://localhost:1313/posts/2022%E5%BC%BA%E7%BD%91%E6%9D%AF-devnull/</guid>
+  <guid>http://example.org/posts/2022%E5%BC%BA%E7%BD%91%E6%9D%AF-devnull/</guid>
   <description><![CDATA[devnull devnull 程序分析 可用来修改可执行 ‍ mprotect() 函数可以修改调用进程内存页的保护属性，如果调用进程尝试以违反保护属性的方式访问该内存，则内核会发出一个SIG]]></description>
 </item>
 </channel>
