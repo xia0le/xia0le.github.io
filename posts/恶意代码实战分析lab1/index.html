@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>恶意代码分析实战Lab1 - xia0le&#39;s Blog</title><meta name="author" content="">
+<meta name="author-link" content="">
+<meta name="description" content="Lab1-1 1、将这个文件上传http://virustotal.com/进行分析并查看报告。文件匹配到已有的反病毒软件特征了吗？ 2、这些文件是什么时" /><meta name="keywords" content='病毒分析, Binary' /><meta itemprop="name" content="恶意代码分析实战Lab1">
+<meta itemprop="description" content="Lab1-1 1、将这个文件上传http://virustotal.com/进行分析并查看报告。文件匹配到已有的反病毒软件特征了吗？ 2、这些文件是什么时"><meta itemprop="datePublished" content="2022-03-28T21:47:44+08:00" />
+<meta itemprop="dateModified" content="2022-03-28T21:47:44+08:00" />
+<meta itemprop="wordCount" content="1825"><meta itemprop="image" content="http://localhost:1313/logo.png" />
+<meta itemprop="keywords" content="病毒分析,Binary," /><meta property="og:title" content="恶意代码分析实战Lab1" />
+<meta property="og:description" content="Lab1-1 1、将这个文件上传http://virustotal.com/进行分析并查看报告。文件匹配到已有的反病毒软件特征了吗？ 2、这些文件是什么时" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/" /><meta property="og:image" content="http://localhost:1313/logo.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-28T21:47:44+08:00" />
+<meta property="article:modified_time" content="2022-03-28T21:47:44+08:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="http://localhost:1313/logo.png" /><meta name="twitter:title" content="恶意代码分析实战Lab1"/>
+<meta name="twitter:description" content="Lab1-1 1、将这个文件上传http://virustotal.com/进行分析并查看报告。文件匹配到已有的反病毒软件特征了吗？ 2、这些文件是什么时"/>
+<meta name="twitter:site" content="@XL_xiaole"/>
+<meta name="application-name" content="FixIt">
+<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/" /><link rel="next" href="http://localhost:1313/posts/2022%E5%BC%BA%E7%BD%91%E6%9D%AF-devnull/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "恶意代码分析实战Lab1",
+    "inLanguage": "en",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "http:\/\/localhost:1313\/posts\/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1\/"
+    },"genre": "posts","keywords": "病毒分析, Binary","wordcount":  1825 ,
+    "url": "http:\/\/localhost:1313\/posts\/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1\/","datePublished": "2022-03-28T21:47:44+08:00","dateModified": "2022-03-28T21:47:44+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "xia0le"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="xia0le&#39;s Blog"><span id="typeit-header-desktop" class="typeit"></span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              >Posts</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              >Categories</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              >Tags</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/about/"
+                
+                
+              >About</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="Search titles or contents ..." id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="Switch Theme">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="xia0le&#39;s Blog"><span id="typeit-header-title-mobile" class="typeit"></span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="Search titles or contents ..." id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              Cancel
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                >Posts</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                >Categories</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                >Tags</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/about/"
+                  
+                  
+                >About</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="Switch Theme"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="container"><aside class="toc" id="toc-auto"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside>
+
+  <aside class="aside-custom">
+    </aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span title="Repost" class="icon-repost"><i class="fa-solid fa-share fa-fw" aria-hidden="true"></i></span><span>恶意代码分析实战Lab1</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      xia0le</span></span>
+          <span class="post-category">included in <a href="/categories/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E5%AE%9E%E6%88%98/"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 恶意代码分析实战</a></span></div>
+      <div class="post-meta-line"><span title="published on 2022-03-28 21:47:44"><i class="fa-regular fa-calendar-alt fa-fw me-1" aria-hidden="true"></i><time datetime="2022-03-28">2022-03-28</time></span>&nbsp;<span title="Updated on 2022-03-28 21:47:44"><i class="fa-regular fa-edit fa-fw me-1" aria-hidden="true"></i><time datetime="2022-03-28">2022-03-28</time></span>&nbsp;<span title="1825 words"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>About 1900 words</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>4 minutes</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>Contents</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#lab1-1">Lab1-1</a>
+      <ul>
+        <li><a href="#1将这个文件上传httpvirustotalcomhttpswwwvirustotalcom进行分析并查看报告文件匹配到已有的反病毒软件特征了吗">1、将这个文件上传<a href="https://www.virustotal.com/">http://virustotal.com/</a>进行分析并查看报告。文件匹配到已有的反病毒软件特征了吗？</a></li>
+        <li><a href="#2这些文件是什么时候编译的">2、这些文件是什么时候编译的?</a></li>
+        <li><a href="#3这两个文件中是否存在迹象说明它们是否被加壳或混淆了如果是这些迹象在哪里">3、这两个文件中是否存在迹象说明它们是否被加壳或混淆了﹖如果是，这些迹象在哪里?</a></li>
+        <li><a href="#4是否有导入函数显示出了这个恶意代码是做什么的如果是是哪些导入函数">4、是否有导入函数显示出了这个恶意代码是做什么的?如果是，是哪些导入函数?</a></li>
+        <li><a href="#5是否有任何其他文件或基于主机的迹象让你可以在受感染系统上查找">5、是否有任何其他文件或基于主机的迹象，让你可以在受感染系统上查找?</a></li>
+        <li><a href="#strings-lab01exe查看字符">strings Lab01.exe查看字符</a></li>
+        <li><a href="#6是否有基于网络的迹象可以用来发现受感染机器上的这个恶意代码">6、是否有基于网络的迹象，可以用来发现受感染机器上的这个恶意代码?</a></li>
+        <li><a href="#7你猜这些文件的目的是什么">7、你猜这些文件的目的是什么?</a></li>
+      </ul>
+    </li>
+    <li><a href="#lab1-2">Lab1-2</a>
+      <ul>
+        <li><a href="#1将lab01-o2exe文件上传至httpvirustotalcomhttpvirustotalcom进行分析并查看报告文件匹配到了已有的反病毒软件特征吗">1．将Lab01-O2.exe文件上传至<a href="http://virustotal.com/">http://virustotal.com/</a>进行分析并查看报告。文件匹配到了已有的反病毒软件特征吗?</a></li>
+        <li><a href="#2是否有这个文件被加壳或混淆的任何迹象如果是这样这些迹象是什么如果该文件被加壳请进行脱壳如果可能的话">2．是否有这个文件被加壳或混淆的任何迹象﹖如果是这样，这些迹象是什么?如果该文件被加壳，请进行脱壳，如果可能的话。</a></li>
+        <li><a href="#3有没有任何导入函数能够暗示出这个程序的功能如果是是哪些导入函数它们会告诉你什么">3．有没有任何导入函数能够暗示出这个程序的功能?如果是，是哪些导入函数，它们会告诉你什么?</a></li>
+        <li><a href="#4哪些基于主机或基于网络的迹象可以被用来确定被这个恶意代码所感染的机器">4．哪些基于主机或基于网络的迹象可以被用来确定被这个恶意代码所感染的机器?</a></li>
+      </ul>
+    </li>
+    <li><a href="#lab1-3">Lab1-3</a>
+      <ul>
+        <li><a href="#1将lab01-03exe文件上传至httpwwwvirustotalcom进行分析并查看报告文件匹配到了已有的反病毒软件特征吗">1．将Lab01-03.exe文件上传至http://www.VirusTotal.com/进行分析并查看报告。文件匹配到了已有的反病毒软件特征吗?</a></li>
+        <li><a href="#2是否有这个文件被加壳或混淆的任何迹象如果是这样这些迹象是什么如果该文件被加壳请进行脱壳如果可能的话-1">2．是否有这个文件被加壳或混淆的任何迹象?如果是这样，这些迹象是什么﹖如果该文件被加壳，请进行脱壳，如果可能的话。</a></li>
+        <li><a href="#3有没有任何导入函数能够暗示出这个程序的功能如果是是哪些导入函数它们会告诉你什么-1">3．有没有任何导入函数能够暗示出这个程序的功能?如果是，是哪些导入函数，它们会告诉你什么?</a></li>
+        <li><a href="#4有哪些基于主机或基于网络的迹象可以被用来确定被这个恶意代码所感染的机器">4．有哪些基于主机或基于网络的迹象，可以被用来确定被这个恶意代码所感染的机器?</a></li>
+      </ul>
+    </li>
+    <li><a href="#lab1-4">Lab1-4</a>
+      <ul>
+        <li><a href="#1将lab01-04exe文件上传至-httpwwwvirustotalcom进行分析并查看报告文件匹配到了已有的反病毒软件特征吗">1．将Lab01-04.exe文件上传至 <a href="http://www.VirusTotal.com/">http://www.VirusTotal.com/</a>进行分析并查看报告。文件匹配到了已有的反病毒软件特征吗?</a></li>
+        <li><a href="#2是否有这个文件被加壳或混淆的任何迹象如果是这样这些迹象是什么如果该文件被加壳请进行脱壳如果可能的话-2">2．是否有这个文件被加壳或混淆的任何迹象﹖如果是这样，这些迹象是什么?如果该文件被加壳，请进行脱壳，如果可能的话。</a></li>
+        <li><a href="#3这个文件是什么时候被编译的">3．这个文件是什么时候被编译的?</a></li>
+        <li><a href="#4有没有任何导入函数能够暗示出这个程序的功能如果是是哪些导入函数它们会告诉你什么">4．有没有任何导入函数能够暗示出这个程序的功能?如果是，是哪些导入函数，它们会告诉你什么?</a></li>
+        <li><a href="#5有哪些基于主机或基于网络的迹象可以被用来确定被这个恶意代码所感染的机器">5．有哪些基于主机或基于网络的迹象，可以被用来确定被这个恶意代码所感染的机器?</a></li>
+        <li><a href="#6这个文件在资源段中包含一个资源使用resource-hacker-工具来检查资源然后抽取资源从资源中你能发现什么吗">6．这个文件在资源段中包含一个资源。使用Resource Hacker 工具来检查资源，然后抽取资源。从资源中你能发现什么吗?</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><h2 id="lab1-1">Lab1-1</h2>
+<h3 id="1将这个文件上传httpvirustotalcomhttpswwwvirustotalcom进行分析并查看报告文件匹配到已有的反病毒软件特征了吗">1、将这个文件上传<a href="https://www.virustotal.com/"target="_blank" rel="external nofollow noopener noreferrer">http://virustotal.com/</a>进行分析并查看报告。文件匹配到已有的反病毒软件特征了吗？</h3>
+<p><img loading="lazy" src="images/image-20220328212510-tsxjtcc.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220328212510-tsxjtcc.png, images/image-20220328212510-tsxjtcc.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220328212510-tsxjtcc.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="1870" height="906" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<h3 id="2这些文件是什么时候编译的">2、这些文件是什么时候编译的?</h3>
+<p><img loading="lazy" src="images/image-20220329093153-e1a1nbw.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329093153-e1a1nbw.png, images/image-20220329093153-e1a1nbw.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329093153-e1a1nbw.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="2968" height="1911" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<h4 id="查看lab01-01exe">查看Lab01-01.exe</h4>
+<p><img loading="lazy" src="images/image-20220329094152-ikl2kih.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329094152-ikl2kih.png, images/image-20220329094152-ikl2kih.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329094152-ikl2kih.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="1491" height="651" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<h4 id="查看lab01-01dll">查看Lab01-01.dll</h4>
+<p><img loading="lazy" src="images/image-20220329094408-ai6a16u.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329094408-ai6a16u.png, images/image-20220329094408-ai6a16u.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329094408-ai6a16u.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="1469" height="614" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>两文件相差19秒可能是同时编译的</p>
+<h3 id="3这两个文件中是否存在迹象说明它们是否被加壳或混淆了如果是这些迹象在哪里">3、这两个文件中是否存在迹象说明它们是否被加壳或混淆了﹖如果是，这些迹象在哪里?</h3>
+<h4 id="lab01-01exe未被加壳">Lab01-01.exe未被加壳</h4>
+<p><img loading="lazy" src="images/image-20220329094827-cnitcef.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329094827-cnitcef.png, images/image-20220329094827-cnitcef.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329094827-cnitcef.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="1312" height="502" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<h4 id="lab01-01dll未被加壳">Lab01-01.dll未被加壳</h4>
+<p><img loading="lazy" src="images/image-20220329094906-503yw9q.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329094906-503yw9q.png, images/image-20220329094906-503yw9q.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329094906-503yw9q.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="1202" height="595" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<h3 id="4是否有导入函数显示出了这个恶意代码是做什么的如果是是哪些导入函数">4、是否有导入函数显示出了这个恶意代码是做什么的?如果是，是哪些导入函数?</h3>
+<h4 id="lab01-01exe">Lab01-01.exe</h4>
+<p><img loading="lazy" src="images/image-20220329095324-crea17d.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329095324-crea17d.png, images/image-20220329095324-crea17d.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329095324-crea17d.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="1252" height="671" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>CreateFileA:创建一个文件</p>
+<p>CopyFileA：复制一个文件</p>
+<p>&hellip;</p>
+<h4 id="lab01-01dll">Lab01-01.dll</h4>
+<p><img loading="lazy" src="images/image-20220329100104-oa72bkg.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329100104-oa72bkg.png, images/image-20220329100104-oa72bkg.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329100104-oa72bkg.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="1289" height="635" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>WS2_32.dll：联网操作</p>
+<p>Sleep：休眠</p>
+<p>CreateProcessA：创建进程</p>
+<p>CreateMutexA：创建互斥量</p>
+<h3 id="5是否有任何其他文件或基于主机的迹象让你可以在受感染系统上查找">5、是否有任何其他文件或基于主机的迹象，让你可以在受感染系统上查找?</h3>
+<h3 id="strings-lab01exe查看字符">strings Lab01.exe查看字符</h3>
+<p><img loading="lazy" src="images/image-20220329100742-oz7wg3x.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329100742-oz7wg3x.png, images/image-20220329100742-oz7wg3x.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329100742-oz7wg3x.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="1062" height="698" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>kerne132.dll是1不是l，伪装为系统文件</p>
+<p><img loading="lazy" src="images/image-20220329101113-vm3zi3c.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329101113-vm3zi3c.png, images/image-20220329101113-vm3zi3c.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329101113-vm3zi3c.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="923" height="711" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<h4 id="strings-lab01dll查看字符">strings Lab01.dll查看字符</h4>
+<p><img loading="lazy" src="images/image-20220329101939-m3ng1pv.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329101939-m3ng1pv.png, images/image-20220329101939-m3ng1pv.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329101939-m3ng1pv.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="666" height="617" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<h3 id="6是否有基于网络的迹象可以用来发现受感染机器上的这个恶意代码">6、是否有基于网络的迹象，可以用来发现受感染机器上的这个恶意代码?</h3>
+<p>127.26.152.13为恶意地址（反弹shell）</p>
+<p>exec：执行命令</p>
+<p>sleep：休眠等待链接</p>
+<p>结合WS2_32.dll推测他可能链接这个IP地址,获取exec命令来运行一个程序,一个sleep来是后门程序休眠</p>
+<h3 id="7你猜这些文件的目的是什么">7、你猜这些文件的目的是什么?</h3>
+<p>后门程序常用GetProcess和sleep,得到总结.dll是个后门程序,而.exe加载运行.dll</p>
+<p>‍</p>
+<h2 id="lab1-2">Lab1-2</h2>
+<h3 id="1将lab01-o2exe文件上传至httpvirustotalcomhttpvirustotalcom进行分析并查看报告文件匹配到了已有的反病毒软件特征吗">1．将Lab01-O2.exe文件上传至<a href="http://virustotal.com/"target="_blank" rel="external nofollow noopener noreferrer">http://virustotal.com/</a>进行分析并查看报告。文件匹配到了已有的反病毒软件特征吗?</h3>
+<p><img loading="lazy" src="images/image-20220329102929-4r5f9nw.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329102929-4r5f9nw.png, images/image-20220329102929-4r5f9nw.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329102929-4r5f9nw.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="1901" height="872" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<h3 id="2是否有这个文件被加壳或混淆的任何迹象如果是这样这些迹象是什么如果该文件被加壳请进行脱壳如果可能的话">2．是否有这个文件被加壳或混淆的任何迹象﹖如果是这样，这些迹象是什么?如果该文件被加壳，请进行脱壳，如果可能的话。</h3>
+<p>加壳了</p>
+<p><img loading="lazy" src="images/image-20220329103015-q7j215z.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329103015-q7j215z.png, images/image-20220329103015-q7j215z.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329103015-q7j215z.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="1039" height="592" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>深度扫描</p>
+<p><img loading="lazy" src="images/image-20220329103151-x5pc8r0.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329103151-x5pc8r0.png, images/image-20220329103151-x5pc8r0.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329103151-x5pc8r0.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="581" height="354" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>是upx加壳</p>
+<p><img loading="lazy" src="images/image-20220329103201-5oxu69j.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329103201-5oxu69j.png, images/image-20220329103201-5oxu69j.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329103201-5oxu69j.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="430" height="236" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<h4 id="upx自动脱壳">UPX自动脱壳</h4>
+<p>移动到upx目录下</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">upx</span> <span class="o">-</span><span class="n">d</span> <span class="err">文件</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img loading="lazy" src="images/image-20220329103359-mjs43to.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329103359-mjs43to.png, images/image-20220329103359-mjs43to.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329103359-mjs43to.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="1013" height="629" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>完成脱壳</p>
+<p><img loading="lazy" src="images/image-20220329103444-cgr4wjq.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329103444-cgr4wjq.png, images/image-20220329103444-cgr4wjq.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329103444-cgr4wjq.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="1103" height="642" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<h4 id="upx手动脱壳">UPX手动脱壳</h4>
+<p>‍</p>
+<h3 id="3有没有任何导入函数能够暗示出这个程序的功能如果是是哪些导入函数它们会告诉你什么">3．有没有任何导入函数能够暗示出这个程序的功能?如果是，是哪些导入函数，它们会告诉你什么?</h3>
+<p>PEid查看</p>
+<p><img loading="lazy" src="images/image-20220329103900-o0w8qrr.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329103900-o0w8qrr.png, images/image-20220329103900-o0w8qrr.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329103900-o0w8qrr.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="894" height="650" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>OpenMutexA：打开一个互斥</p>
+<p>CreateMutexA：创建一个互斥</p>
+<p>CreateThread：创建线程</p>
+<p>CreateServiceA：创建一个服务</p>
+<p><img loading="lazy" src="images/image-20220329104038-e6r31a2.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329104038-e6r31a2.png, images/image-20220329104038-e6r31a2.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329104038-e6r31a2.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="636" height="331" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>联网操作</p>
+<p>下面两个函数说明了程序会打开一个链接</p>
+<p><img loading="lazy" src="images/image-20220329104133-84vnjpc.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329104133-84vnjpc.png, images/image-20220329104133-84vnjpc.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329104133-84vnjpc.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="632" height="333" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<h3 id="4哪些基于主机或基于网络的迹象可以被用来确定被这个恶意代码所感染的机器">4．哪些基于主机或基于网络的迹象可以被用来确定被这个恶意代码所感染的机器?</h3>
+<p>一个Malservice服务名称,一个链接,可以通过监视网络流量检查被恶意代码感染的主机</p>
+<p><img loading="lazy" src="images/image-20220329104343-gi1c8ws.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329104343-gi1c8ws.png, images/image-20220329104343-gi1c8ws.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329104343-gi1c8ws.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="950" height="698" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>‍</p>
+<h2 id="lab1-3">Lab1-3</h2>
+<h3 id="1将lab01-03exe文件上传至httpwwwvirustotalcom进行分析并查看报告文件匹配到了已有的反病毒软件特征吗">1．将Lab01-03.exe文件上传至http://www.VirusTotal.com/进行分析并查看报告。文件匹配到了已有的反病毒软件特征吗?</h3>
+<p><img loading="lazy" src="images/image-20220329105426-rfdtgnv.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329105426-rfdtgnv.png, images/image-20220329105426-rfdtgnv.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329105426-rfdtgnv.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="1905" height="863" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<h3 id="2是否有这个文件被加壳或混淆的任何迹象如果是这样这些迹象是什么如果该文件被加壳请进行脱壳如果可能的话-1">2．是否有这个文件被加壳或混淆的任何迹象?如果是这样，这些迹象是什么﹖如果该文件被加壳，请进行脱壳，如果可能的话。</h3>
+<p>FSG壳</p>
+<p><img loading="lazy" src="images/image-20220329105447-0eucgsu.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329105447-0eucgsu.png, images/image-20220329105447-0eucgsu.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329105447-0eucgsu.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="430" height="239" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>使用linxerunpacker脱壳</p>
+<p><img loading="lazy" src="images/image-20220329105933-ydw5z9q.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329105933-ydw5z9q.png, images/image-20220329105933-ydw5z9q.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329105933-ydw5z9q.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="486" height="639" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<h3 id="3有没有任何导入函数能够暗示出这个程序的功能如果是是哪些导入函数它们会告诉你什么-1">3．有没有任何导入函数能够暗示出这个程序的功能?如果是，是哪些导入函数，它们会告诉你什么?</h3>
+<p>组件对象模型com的相关操作，创建对象</p>
+<p><img loading="lazy" src="images/image-20220329110416-ikgfi0e.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329110416-ikgfi0e.png, images/image-20220329110416-ikgfi0e.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329110416-ikgfi0e.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="632" height="328" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<h3 id="4有哪些基于主机或基于网络的迹象可以被用来确定被这个恶意代码所感染的机器">4．有哪些基于主机或基于网络的迹象，可以被用来确定被这个恶意代码所感染的机器?</h3>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">strings</span> <span class="n">unpacked</span><span class="p">.</span><span class="n">exe</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>得到一个链接,可以作为网络迹象说明主机是否被感染</p>
+<p><img loading="lazy" src="images/image-20220329110516-wxq5bd2.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329110516-wxq5bd2.png, images/image-20220329110516-wxq5bd2.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329110516-wxq5bd2.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="667" height="770" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>‍</p>
+<h2 id="lab1-4">Lab1-4</h2>
+<h3 id="1将lab01-04exe文件上传至-httpwwwvirustotalcom进行分析并查看报告文件匹配到了已有的反病毒软件特征吗">1．将Lab01-04.exe文件上传至 <a href="http://www.VirusTotal.com/"target="_blank" rel="external nofollow noopener noreferrer">http://www.VirusTotal.com/</a>进行分析并查看报告。文件匹配到了已有的反病毒软件特征吗?</h3>
+<p><img loading="lazy" src="images/image-20220329145406-iwyc4sk.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329145406-iwyc4sk.png, images/image-20220329145406-iwyc4sk.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329145406-iwyc4sk.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="1905" height="869" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<h3 id="2是否有这个文件被加壳或混淆的任何迹象如果是这样这些迹象是什么如果该文件被加壳请进行脱壳如果可能的话-2">2．是否有这个文件被加壳或混淆的任何迹象﹖如果是这样，这些迹象是什么?如果该文件被加壳，请进行脱壳，如果可能的话。</h3>
+<p>未加壳</p>
+<p><img loading="lazy" src="images/image-20220329145507-79fmsyf.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329145507-79fmsyf.png, images/image-20220329145507-79fmsyf.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329145507-79fmsyf.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="746" height="243" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<h3 id="3这个文件是什么时候被编译的">3．这个文件是什么时候被编译的?</h3>
+<p>PETool查看时间,可以看出是个不可信的时间</p>
+<p>2019年8月30日22:26:59</p>
+<p><img loading="lazy" src="images/image-20220329145630-fzbr5yz.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329145630-fzbr5yz.png, images/image-20220329145630-fzbr5yz.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329145630-fzbr5yz.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="916" height="365" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<h3 id="4有没有任何导入函数能够暗示出这个程序的功能如果是是哪些导入函数它们会告诉你什么">4．有没有任何导入函数能够暗示出这个程序的功能?如果是，是哪些导入函数，它们会告诉你什么?</h3>
+<p>权限操作相关函数</p>
+<p><img loading="lazy" src="images/image-20220329150051-ntav7c3.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329150051-ntav7c3.png, images/image-20220329150051-ntav7c3.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329150051-ntav7c3.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="625" height="329" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>WinExec和WriteFile表示程序将会创建一个可执行文件并且运行他</p>
+<p><img loading="lazy" src="images/image-20220329150133-5bb03ny.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329150133-5bb03ny.png, images/image-20220329150133-5bb03ny.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329150133-5bb03ny.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="624" height="330" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>‍</p>
+<h3 id="5有哪些基于主机或基于网络的迹象可以被用来确定被这个恶意代码所感染的机器">5．有哪些基于主机或基于网络的迹象，可以被用来确定被这个恶意代码所感染的机器?</h3>
+<p>wupdmgrd.exe是恶意代码创建的程序</p>
+<p><img loading="lazy" src="images/image-20220329150336-3fkttrb.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329150336-3fkttrb.png, images/image-20220329150336-3fkttrb.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329150336-3fkttrb.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="666" height="865" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<h3 id="6这个文件在资源段中包含一个资源使用resource-hacker-工具来检查资源然后抽取资源从资源中你能发现什么吗">6．这个文件在资源段中包含一个资源。使用Resource Hacker 工具来检查资源，然后抽取资源。从资源中你能发现什么吗?</h3>
+<p>使用Resource Hacker打开</p>
+<p>然后保存为二进制文件</p>
+<p><img loading="lazy" src="images/image-20220329151155-7s7mcrx.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329151155-7s7mcrx.png, images/image-20220329151155-7s7mcrx.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329151155-7s7mcrx.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="860" height="733" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>‍</p>
+<p>使用PETools打开，文件头，特征，发现dll未勾选所以不是dll文件只能是exe文件</p>
+<p><img loading="lazy" src="images/image-20220329151403-gwg8o64.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329151403-gwg8o64.png, images/image-20220329151403-gwg8o64.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329151403-gwg8o64.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="604" height="596" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>strings 分析程序</p>
+<p>查看字符串可以看到一个链接,推测wupdmgrd.exe程序就是从这个链接下载得到</p>
+<p><img loading="lazy" src="images/image-20220329151610-hgo731c.png" srcset="/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329151610-hgo731c.png, images/image-20220329151610-hgo731c.png 1.5x, /posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/images/image-20220329151610-hgo731c.png 2x" sizes="auto" data-title="image.png" data-alt="image.png" width="666" height="862" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p>‍</p>
+</div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="Updated on 2022-03-28 21:47:44">Updated on 2022-03-28&nbsp;</span>
+      </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"></div>
+      <div class="post-info-share">
+        <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:1313/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/" data-title="恶意代码分析实战Lab1" data-via="XL_xiaole" data-hashtags="病毒分析,Binary"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/" data-hashtag="病毒分析"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on WhatsApp" data-sharer="whatsapp" data-url="http://localhost:1313/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/" data-title="恶意代码分析实战Lab1" data-web><i class="fa-brands fa-whatsapp fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://localhost:1313/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/" data-title="恶意代码分析实战Lab1"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://localhost:1313/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/" data-title="恶意代码分析实战Lab1"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Myspace" data-sharer="myspace" data-url="http://localhost:1313/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/" data-title="恶意代码分析实战Lab1" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Blogger" data-sharer="blogger" data-url="http://localhost:1313/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/" data-title="恶意代码分析实战Lab1" data-description=""><i class="fa-brands fa-blogger fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Evernote" data-sharer="evernote" data-url="http://localhost:1313/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/" data-title="恶意代码分析实战Lab1"><i class="fa-brands fa-evernote fa-fw" aria-hidden="true"></i></a>
+  </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/%E7%97%85%E6%AF%92%E5%88%86%E6%9E%90/' class="post-tag">病毒分析</a><a href='/tags/binary/' class="post-tag">Binary</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+    </section>
+  </div>
+
+  <div class="post-nav">
+      <a href="/posts/2022%E5%BC%BA%E7%BD%91%E6%9D%AF-devnull/" class="post-nav-item" rel="next" title="2022 强网杯-devnull">2022 强网杯-devnull<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.123.8">Hugo</a> | Theme - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18-lts.1"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div><div class="footer-line visitor">
+          <span id="busuanzi_container_site_uv" title='Total visitors'><i class="fa-regular fa-user fa-fw" aria-hidden="true"></i>&nbsp;<span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span></span><span id="busuanzi_container_site_pv" class="footer-divider" title='Total visits'><i class="fa-regular fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span></span>
+        </div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">Theme FixIt works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/typeit/index.umd.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async defer></script><script>window.config={"code":{"copyTitle":"Copy to clipboard","editLockTitle":"Lock editable code block","editUnLockTitle":"Unlock editable code block","editable":true,"maxShownLines":500},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"typeit-header-desktop":"xia0le's Blog","typeit-header-title-mobile":"xia0le's Blog"},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"typeit-header-desktop":["typeit-header-desktop"],"typeit-header-title-mobile":["typeit-header-title-mobile"]},"duration":-1,"loop":false,"speed":100}};</script><script src="/js/theme.min.js" defer></script></body>
+</html>

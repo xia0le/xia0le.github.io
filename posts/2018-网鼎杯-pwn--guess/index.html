@@ -25,7 +25,7 @@
 <meta name="application-name" content="FixIt">
 <meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-pwn--guess/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-pwn--guess/" /><link rel="prev" href="http://localhost:1313/posts/cacti-sql%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E-cve-2023-49085/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
   {
     "@context": "http://schema.org",
     "@type": "BlogPosting",
@@ -66,7 +66,13 @@
                 href="/tags/"
                 
                 
-              >Tags</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+              >Tags</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/about/"
+                
+                
+              >About</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
             <input type="text" placeholder="Search titles or contents ..." id="search-input-desktop">
             <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
               <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
@@ -129,7 +135,14 @@
                   href="/tags/"
                   
                   
-                >Tags</a></li><li class="menu-item menu-system">
+                >Tags</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/about/"
+                  
+                  
+                >About</a></li><li class="menu-item menu-system">
           <span class="menu-system-item theme-switch" title="Switch Theme"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
       </ul>
     </nav>
@@ -168,7 +181,6 @@
       </div><div class="content" id="content"><h2 id="checksec">checksec</h2>
 <h2 id="开了-canarynx"><strong>开了 canary，nx</strong></h2>
 <p><img loading="lazy" src="images/net-img-1629950550147-ff28e13e-7705-4952-baab-6afe4d5c5eef-20220825205211-txk1dyk.png" srcset="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-pwn--guess/images/net-img-1629950550147-ff28e13e-7705-4952-baab-6afe4d5c5eef-20220825205211-txk1dyk.png, images/net-img-1629950550147-ff28e13e-7705-4952-baab-6afe4d5c5eef-20220825205211-txk1dyk.png 1.5x, /posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-pwn--guess/images/net-img-1629950550147-ff28e13e-7705-4952-baab-6afe4d5c5eef-20220825205211-txk1dyk.png 2x" sizes="auto" data-title="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-pwn--guess/images/net-img-1629950550147-ff28e13e-7705-4952-baab-6afe4d5c5eef-20220825205211-txk1dyk.png" data-alt="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-pwn--guess/images/net-img-1629950550147-ff28e13e-7705-4952-baab-6afe4d5c5eef-20220825205211-txk1dyk.png" width="980" height="277" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
-<!-- raw HTML omitted -->
 <h2 id="主函数">主函数</h2>
 <p><img loading="lazy" src="images/net-img-1629950520545-cae87c1e-b3e6-42b2-940c-77a9e4072e5e-20220825205211-5hs7e0e.png" srcset="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-pwn--guess/images/net-img-1629950520545-cae87c1e-b3e6-42b2-940c-77a9e4072e5e-20220825205211-5hs7e0e.png, images/net-img-1629950520545-cae87c1e-b3e6-42b2-940c-77a9e4072e5e-20220825205211-5hs7e0e.png 1.5x, /posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-pwn--guess/images/net-img-1629950520545-cae87c1e-b3e6-42b2-940c-77a9e4072e5e-20220825205211-5hs7e0e.png 2x" sizes="auto" data-title="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-pwn--guess/images/net-img-1629950520545-cae87c1e-b3e6-42b2-940c-77a9e4072e5e-20220825205211-5hs7e0e.png" data-alt="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-pwn--guess/images/net-img-1629950520545-cae87c1e-b3e6-42b2-940c-77a9e4072e5e-20220825205211-5hs7e0e.png" width="1149" height="844" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <h2 id="分析">分析</h2>
@@ -299,7 +311,8 @@
 </span></span><span class="line"><span class="cl"><span class="nb">print</span> <span class="n">flag</span>
 </span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span></span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>参考：</strong><a href="https://github.com/lhc328/pwn/blob/master/2018%20%E7%BD%91%E9%BC%8E%E6%9D%AF%20pwn--GUESS.md"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/lhc328/pwn/blob/master/2018%20%E7%BD%91%E9%BC%8E%E6%9D%AF%20pwn&ndash;GUESS.md</a></p></div><div class="post-footer" id="post-footer">
+</div><p><strong>参考：</strong><a href="https://github.com/lhc328/pwn/blob/master/2018%20%E7%BD%91%E9%BC%8E%E6%9D%AF%20pwn--GUESS.md"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/lhc328/pwn/blob/master/2018%20%E7%BD%91%E9%BC%8E%E6%9D%AF%20pwn&ndash;GUESS.md</a></p>
+</div><div class="post-footer" id="post-footer">
   <div class="post-info">
     <div class="post-info-line">
       <div class="post-info-mod">
@@ -328,7 +341,7 @@
     </section>
   </div>
 
-  <div class="post-nav"></div>
+  <div class="post-nav"><a href="/posts/cacti-sql%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E-cve-2023-49085/" class="post-nav-item" rel="prev" title="Cacti SQL注入漏洞-CVE-2023-49085"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Cacti SQL注入漏洞-CVE-2023-49085</a></div>
 </div>
 </article></main><footer class="footer">
     <div class="footer-container"><div class="footer-line powered">Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.123.8">Hugo</a> | Theme - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18-lts.1"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>

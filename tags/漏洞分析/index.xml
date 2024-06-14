@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>漏洞分析 - Tag - xia0le&#39;s Blog</title>
+    <link>http://localhost:1313/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/</link>
+    <description>漏洞分析 - Tag - xia0le&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 15 Oct 2023 21:47:44 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" rel="self" type="application/rss+xml" /><item>
+  <title>Cacti SQL注入漏洞-CVE-2023-49085</title>
+  <link>http://localhost:1313/posts/cacti-sql%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E-cve-2023-49085/cacti-sql%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E-cve-2023-49085/</link>
+  <pubDate>Sun, 15 Oct 2023 21:47:44 &#43;0800</pubDate>
+  <author>Author</author>
+  <guid>http://localhost:1313/posts/cacti-sql%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E-cve-2023-49085/cacti-sql%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E-cve-2023-49085/</guid>
+  <description><![CDATA[Cacti SQL注入漏洞-CVE-2023-49085 漏洞披露 发布日期：2023-12-22 更新日期： 2024-03-15 受影响系统： Cacti Cacti &lt; =&ldquo;1.2.25 描述： CVE(CAN) ID: CVE-2023-49085 Cacti是]]></description>
+</item>
+</channel>
+</rss>
