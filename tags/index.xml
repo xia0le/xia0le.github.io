@@ -1,46 +1,46 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
   <channel>
     <title>Tags - Tag - xia0le&#39;s Blog</title>
-    <link>http://example.org/tags/</link>
+    <link>http://localhost:1313/tags/</link>
     <description>Tags - Tag - xia0le&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 02 Apr 2024 21:47:44 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/" rel="self" type="application/rss+xml" /><item>
+    <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 02 Apr 2024 21:47:44 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/tags/" rel="self" type="application/rss+xml" /><item>
   <title>Cacti</title>
-  <link>http://example.org/tags/cacti/</link>
+  <link>http://localhost:1313/tags/cacti/</link>
   <pubDate>Tue, 02 Apr 2024 21:47:44 &#43;0800</pubDate>
   <author>Author</author>
-  <guid>http://example.org/tags/cacti/</guid>
+  <guid>http://localhost:1313/tags/cacti/</guid>
   <description><![CDATA[]]></description>
 </item>
 <item>
   <title>PHP</title>
-  <link>http://example.org/tags/php/</link>
+  <link>http://localhost:1313/tags/php/</link>
   <pubDate>Tue, 02 Apr 2024 21:47:44 &#43;0800</pubDate>
   <author>Author</author>
-  <guid>http://example.org/tags/php/</guid>
+  <guid>http://localhost:1313/tags/php/</guid>
   <description><![CDATA[]]></description>
 </item>
 <item>
   <title>Binary</title>
-  <link>http://example.org/tags/binary/</link>
+  <link>http://localhost:1313/tags/binary/</link>
   <pubDate>Sun, 15 Oct 2023 21:47:44 &#43;0800</pubDate>
   <author>Author</author>
-  <guid>http://example.org/tags/binary/</guid>
+  <guid>http://localhost:1313/tags/binary/</guid>
   <description><![CDATA[]]></description>
 </item>
 <item>
   <title>PWN</title>
-  <link>http://example.org/tags/pwn/</link>
+  <link>http://localhost:1313/tags/pwn/</link>
   <pubDate>Sun, 15 Oct 2023 21:47:44 &#43;0800</pubDate>
   <author>Author</author>
-  <guid>http://example.org/tags/pwn/</guid>
+  <guid>http://localhost:1313/tags/pwn/</guid>
   <description><![CDATA[]]></description>
 </item>
 <item>
   <title>病毒分析</title>
-  <link>http://example.org/tags/%E7%97%85%E6%AF%92%E5%88%86%E6%9E%90/</link>
+  <link>http://localhost:1313/tags/%E7%97%85%E6%AF%92%E5%88%86%E6%9E%90/</link>
   <pubDate>Mon, 28 Mar 2022 21:47:44 &#43;0800</pubDate>
   <author>Author</author>
-  <guid>http://example.org/tags/%E7%97%85%E6%AF%92%E5%88%86%E6%9E%90/</guid>
+  <guid>http://localhost:1313/tags/%E7%97%85%E6%AF%92%E5%88%86%E6%9E%90/</guid>
   <description><![CDATA[]]></description>
 </item>
 </channel>
