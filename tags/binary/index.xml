@@ -21,6 +21,14 @@
 </item>
 <item>
   <title>恶意代码分析实战Lab1</title>
+  <link>http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/</link>
+  <pubDate>Mon, 28 Mar 2022 21:47:44 &#43;0800</pubDate>
+  <author>Author</author>
+  <guid>http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/</guid>
+  <description><![CDATA[哥斯拉ekp版本流量分析 前言 实战中使用的webshell连接工具基本上都是魔改或内部研发的，通过网上公开的哥斯拉ekp版本来学习如果HW中遇]]></description>
+</item>
+<item>
+  <title>恶意代码分析实战Lab1</title>
   <link>http://localhost:1313/posts/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90lab1/</link>
   <pubDate>Mon, 28 Mar 2022 21:47:44 &#43;0800</pubDate>
   <author>Author</author>
