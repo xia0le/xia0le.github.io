@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>哥斯拉4.0流量分析 - xia0le&#39;s Blog</title><meta name="author" content="">
+<meta name="author-link" content="">
+<meta name="description" content="哥斯拉4.0-流量分析 请你登录服务器结合数据包附件来分析黑客的入侵行为 用户名：root 密码：toor SSH连接：ssh root@ip -p222 1、黑客的IP是什" /><meta name="keywords" content='应急响应, 玄机, 哥斯拉流量分析' /><meta itemprop="name" content="哥斯拉4.0流量分析">
+<meta itemprop="description" content="哥斯拉4.0-流量分析 请你登录服务器结合数据包附件来分析黑客的入侵行为 用户名：root 密码：toor SSH连接：ssh root@ip -p222 1、黑客的IP是什"><meta itemprop="datePublished" content="2024-11-27T21:47:44+08:00" />
+<meta itemprop="dateModified" content="2024-11-27T21:47:44+08:00" />
+<meta itemprop="wordCount" content="1022"><meta itemprop="image" content="http://localhost:1313/logo.png" />
+<meta itemprop="keywords" content="应急响应,玄机,哥斯拉流量分析," /><meta property="og:title" content="哥斯拉4.0流量分析" />
+<meta property="og:description" content="哥斯拉4.0-流量分析 请你登录服务器结合数据包附件来分析黑客的入侵行为 用户名：root 密码：toor SSH连接：ssh root@ip -p222 1、黑客的IP是什" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" /><meta property="og:image" content="http://localhost:1313/logo.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-11-27T21:47:44+08:00" />
+<meta property="article:modified_time" content="2024-11-27T21:47:44+08:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="http://localhost:1313/logo.png" /><meta name="twitter:title" content="哥斯拉4.0流量分析"/>
+<meta name="twitter:description" content="哥斯拉4.0-流量分析 请你登录服务器结合数据包附件来分析黑客的入侵行为 用户名：root 密码：toor SSH连接：ssh root@ip -p222 1、黑客的IP是什"/>
+<meta name="twitter:site" content="@XL_xiaole"/>
+<meta name="application-name" content="FixIt">
+<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" /><link rel="prev" href="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" /><link rel="next" href="http://localhost:1313/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "哥斯拉4.0流量分析",
+    "inLanguage": "en",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "http:\/\/localhost:1313\/posts\/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90\/"
+    },"genre": "posts","keywords": "应急响应, 玄机, 哥斯拉流量分析","wordcount":  1022 ,
+    "url": "http:\/\/localhost:1313\/posts\/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90\/","datePublished": "2024-11-27T21:47:44+08:00","dateModified": "2024-11-27T21:47:44+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "xia0le"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="xia0le&#39;s Blog"><span id="typeit-header-desktop" class="typeit"></span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              >Posts</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              >Categories</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              >Tags</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/about/"
+                
+                
+              >About</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="Search titles or contents ..." id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="Switch Theme">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="xia0le&#39;s Blog"><span id="typeit-header-title-mobile" class="typeit"></span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="Search titles or contents ..." id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              Cancel
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                >Posts</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                >Categories</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                >Tags</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/about/"
+                  
+                  
+                >About</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="Switch Theme"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="container"><aside class="toc" id="toc-auto"></aside>
+
+  <aside class="aside-custom">
+    </aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span title="Repost" class="icon-repost"><i class="fa-solid fa-share fa-fw" aria-hidden="true"></i></span><span>哥斯拉4.0流量分析</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      xia0le</span></span>
+          <span class="post-category">included in <a href="/categories/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 应急响应</a></span></div>
+      <div class="post-meta-line"><span title="published on 2024-11-27 21:47:44"><i class="fa-regular fa-calendar-alt fa-fw me-1" aria-hidden="true"></i><time datetime="2024-11-27">2024-11-27</time></span>&nbsp;<span title="Updated on 2024-11-27 21:47:44"><i class="fa-regular fa-edit fa-fw me-1" aria-hidden="true"></i><time datetime="2024-11-27">2024-11-27</time></span>&nbsp;<span title="1022 words"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>About 1100 words</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>3 minutes</span>&nbsp;</div>
+    </div><div class="content" id="content"><h1 id="哥斯拉40-流量分析">哥斯拉4.0-流量分析</h1>
+<p>请你登录服务器结合数据包附件来分析黑客的入侵行为</p>
+<p>用户名：root</p>
+<p>密码：toor</p>
+<p>SSH连接：ssh root@ip -p222</p>
+<h1 id="1黑客的ip是什么">1、黑客的IP是什么？</h1>
+<p>过滤http发现192.168.31.190对192.168.31.168有扫描</p>
+<p>​<img loading="lazy" src="images/QQ_1726809981434-20240920132623-l8j7gvr.png" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726809981434-20240920132623-l8j7gvr.png, images/QQ_1726809981434-20240920132623-l8j7gvr.png 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726809981434-20240920132623-l8j7gvr.png 2x" sizes="auto" data-title="QQ_1726809981434" data-alt="QQ_1726809981434" width="3840" height="1996" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>然后使用PUT协议上传了hello.jsp</p>
+<p>​<img loading="lazy" src="images/QQ_1726810054589-20240920132736-q7a0yj8.png" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810054589-20240920132736-q7a0yj8.png, images/QQ_1726810054589-20240920132736-q7a0yj8.png 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810054589-20240920132736-q7a0yj8.png 2x" sizes="auto" data-title="QQ_1726810054589" data-alt="QQ_1726810054589" width="2152" height="1686" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>flag{192.168.31.190}</p>
+<h1 id="2黑客是通过什么漏洞进入服务器的提交cve编号">2、黑客是通过什么漏洞进入服务器的？（提交CVE编号）</h1>
+<p>搜索一下tomcat put协议上传漏洞就能得到漏洞CVE编号</p>
+<p>flag{CVE-2017-12615}</p>
+<h1 id="3黑客上传的木马文件名是什么提交文件名">3、黑客上传的木马文件名是什么？(提交文件名)</h1>
+<p>flag{hello.jsp}</p>
+<h1 id="4黑客上传的木马连接密码是什么">4、黑客上传的木马连接密码是什么？</h1>
+<p>通过流量中的传参数得到是7f0e6f</p>
+<p>​<img loading="lazy" src="images/QQ_1726810170462-20240920132934-dlyjfdk.png" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810170462-20240920132934-dlyjfdk.png, images/QQ_1726810170462-20240920132934-dlyjfdk.png 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810170462-20240920132934-dlyjfdk.png 2x" sizes="auto" data-title="QQ_1726810170462" data-alt="QQ_1726810170462" width="2152" height="1686" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>也可以从hello.jsp里看到</p>
+<p>​<img loading="lazy" src="images/QQ_1726810235290-20240920133037-vv50gc9.png" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810235290-20240920133037-vv50gc9.png, images/QQ_1726810235290-20240920133037-vv50gc9.png 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810235290-20240920133037-vv50gc9.png 2x" sizes="auto" data-title="QQ_1726810235290" data-alt="QQ_1726810235290" width="1454" height="98" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>flag{7f0e6f}</p>
+<h1 id="5黑客上传的木马解密密钥是什么">5、黑客上传的木马解密密钥是什么？</h1>
+<p>格式化代码在15行可以看到用来加密的key是xc得到​1710acba6220f62b</p>
+<p>​<img loading="lazy" src="images/QQ_1726810334298-20240920133218-75mbe2t.png" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810334298-20240920133218-75mbe2t.png, images/QQ_1726810334298-20240920133218-75mbe2t.png 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810334298-20240920133218-75mbe2t.png 2x" sizes="auto" data-title="QQ_1726810334298" data-alt="QQ_1726810334298" width="2128" height="1284" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>flag{​1710acba6220f62b}</p>
+<h1 id="6黑客连接webshell后执行的第一条命令是什么">6、黑客连接webshell后执行的第一条命令是什么？</h1>
+<p>​<img loading="lazy" src="images/QQ_1726810617700-20240920133702-arlw4xt.png" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810617700-20240920133702-arlw4xt.png, images/QQ_1726810617700-20240920133702-arlw4xt.png 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810617700-20240920133702-arlw4xt.png 2x" sizes="auto" data-title="QQ_1726810617700" data-alt="QQ_1726810617700" width="2596" height="1826" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>得到内容返回结果是4.19.0-25-amd64</p>
+<p>​<img loading="lazy" src="images/QQ_1726810638755-20240920133720-85nthqa.png" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810638755-20240920133720-85nthqa.png, images/QQ_1726810638755-20240920133720-85nthqa.png 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810638755-20240920133720-85nthqa.png 2x" sizes="auto" data-title="QQ_1726810638755" data-alt="QQ_1726810638755" width="2596" height="1826" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>flag{uname -r}</p>
+<h1 id="7黑客连接webshell时查询当前shell的权限是什么">7、黑客连接webshell时查询当前shell的权限是什么？</h1>
+<p>继续查看流量，发现执行了id命令</p>
+<p>​<img loading="lazy" src="images/QQ_1726810699010-20240920133821-nf42xkh.png" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810699010-20240920133821-nf42xkh.png, images/QQ_1726810699010-20240920133821-nf42xkh.png 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810699010-20240920133821-nf42xkh.png 2x" sizes="auto" data-title="QQ_1726810699010" data-alt="QQ_1726810699010" width="2596" height="1826" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>命令执行结果为root</p>
+<p>​<img loading="lazy" src="images/QQ_1726810721870-20240920133843-3pnf7gj.png" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810721870-20240920133843-3pnf7gj.png, images/QQ_1726810721870-20240920133843-3pnf7gj.png 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810721870-20240920133843-3pnf7gj.png 2x" sizes="auto" data-title="QQ_1726810721870" data-alt="QQ_1726810721870" width="2596" height="1826" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>flag{root}</p>
+<h1 id="8黑客利用webshell执行命令查询服务器linux系统发行版本是什么">8、黑客利用webshell执行命令查询服务器Linux系统发行版本是什么？</h1>
+<p>这里使用cat /etc/os-release命令查看了系统发行版本</p>
+<p>​<img loading="lazy" src="images/QQ_1726810763585-20240920133926-n7srvkh.png" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810763585-20240920133926-n7srvkh.png, images/QQ_1726810763585-20240920133926-n7srvkh.png 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810763585-20240920133926-n7srvkh.png 2x" sizes="auto" data-title="QQ_1726810763585" data-alt="QQ_1726810763585" width="2596" height="1826" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>得到结果</p>
+<p>​<img loading="lazy" src="images/QQ_1726810811910-20240920134014-31u85af.png" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810811910-20240920134014-31u85af.png, images/QQ_1726810811910-20240920134014-31u85af.png 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810811910-20240920134014-31u85af.png 2x" sizes="auto" data-title="QQ_1726810811910" data-alt="QQ_1726810811910" width="1272" height="596" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>flag{Debian GNU/Linux 10 (buster)}</p>
+<h1 id="9黑客利用webshell执行命令还查询并过滤了什么提交整条执行成功的命令">9、黑客利用webshell执行命令还查询并过滤了什么？（提交整条执行成功的命令）</h1>
+<p>这里执行了rpm -qa | grep pam</p>
+<p>​<img loading="lazy" src="images/QQ_1726810944209-20240920134228-yqr4pqs.png" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810944209-20240920134228-yqr4pqs.png, images/QQ_1726810944209-20240920134228-yqr4pqs.png 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810944209-20240920134228-yqr4pqs.png 2x" sizes="auto" data-title="QQ_1726810944209" data-alt="QQ_1726810944209" width="2596" height="1826" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>但是并没有执行成功</p>
+<p>​<img loading="lazy" src="images/QQ_1726810982900-20240920134306-y8hitgr.png" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810982900-20240920134306-y8hitgr.png, images/QQ_1726810982900-20240920134306-y8hitgr.png 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810982900-20240920134306-y8hitgr.png 2x" sizes="auto" data-title="QQ_1726810982900" data-alt="QQ_1726810982900" width="840" height="252" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>‍</p>
+<p>然后执行了dpkg -l libpam-modules:amd64</p>
+<p>​<img loading="lazy" src="images/QQ_1726810998984-20240920134321-mhmo1t0.png" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810998984-20240920134321-mhmo1t0.png, images/QQ_1726810998984-20240920134321-mhmo1t0.png 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726810998984-20240920134321-mhmo1t0.png 2x" sizes="auto" data-title="QQ_1726810998984" data-alt="QQ_1726810998984" width="2596" height="1826" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>执行成功得到pam版本</p>
+<p>​<img loading="lazy" src="images/QQ_1726811014382-20240920134338-56heaua.png" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726811014382-20240920134338-56heaua.png, images/QQ_1726811014382-20240920134338-56heaua.png 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726811014382-20240920134338-56heaua.png 2x" sizes="auto" data-title="QQ_1726811014382" data-alt="QQ_1726811014382" width="2548" height="520" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>flag{dpkg -l libpam-modules:amd64}</p>
+<h1 id="10黑客留下后门的反连的ip和port是什么ipport">10、黑客留下后门的反连的IP和PORT是什么？（IP:PORT)</h1>
+<p>echo 了一个base64数据并执行</p>
+<p>​<img loading="lazy" src="images/QQ_1726811096175-20240920134457-n91tx14.png" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726811096175-20240920134457-n91tx14.png, images/QQ_1726811096175-20240920134457-n91tx14.png 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726811096175-20240920134457-n91tx14.png 2x" sizes="auto" data-title="QQ_1726811096175" data-alt="QQ_1726811096175" width="2596" height="1826" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>解密得到ip port</p>
+<p>​<img loading="lazy" src="images/QQ_1726811127294-20240920134529-nognk3a.png" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726811127294-20240920134529-nognk3a.png, images/QQ_1726811127294-20240920134529-nognk3a.png 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726811127294-20240920134529-nognk3a.png 2x" sizes="auto" data-title="QQ_1726811127294" data-alt="QQ_1726811127294" width="1320" height="412" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>flag{192.168.31.143:1313}</p>
+<h1 id="11黑客通过什么文件留下了后门">11、黑客通过什么文件留下了后门？</h1>
+<p>继续解密流量发现上传了一个pam_unix.so文件到/tmp/下</p>
+<p>​<img loading="lazy" src="images/QQ_1726811221129-20240920134703-f53a7me.png" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726811221129-20240920134703-f53a7me.png, images/QQ_1726811221129-20240920134703-f53a7me.png 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726811221129-20240920134703-f53a7me.png 2x" sizes="auto" data-title="QQ_1726811221129" data-alt="QQ_1726811221129" width="2596" height="1826" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>flag{pam_unix.so}</p>
+<h1 id="12黑客设置的后门密码是什么">12、黑客设置的后门密码是什么？</h1>
+<p>ssh查看服务器history得到将/tmp/pam_unix.so复制到了/lib/x86_64-linux-gnu/security/pam_unix.so</p>
+<p>​<img loading="lazy" src="images/QQ_1726811602490-20240920135330-y21irly.png" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726811602490-20240920135330-y21irly.png, images/QQ_1726811602490-20240920135330-y21irly.png 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726811602490-20240920135330-y21irly.png 2x" sizes="auto" data-title="QQ_1726811602490" data-alt="QQ_1726811602490" width="1332" height="472" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>将pam_unix.so文件下载下来ida打开分析查看函数pam_sm_authenticate 这个函数是用来控制认证的，pam后门常常放在这里</p>
+<p>使用strcmp判断如果密码是XJ@123就登录成功</p>
+<p>​<img loading="lazy" src="images/QQ_1726749130782-20240919203219-yzxjltl.png" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726749130782-20240919203219-yzxjltl.png, images/QQ_1726749130782-20240919203219-yzxjltl.png 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1726749130782-20240919203219-yzxjltl.png 2x" sizes="auto" data-title="QQ_1726749130782" data-alt="QQ_1726749130782" width="2644" height="1734" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/>​</p>
+<p>flag{XJ@123}</p>
+<h1 id="13黑客的恶意dnslog服务器地址是什么">13、黑客的恶意dnslog服务器地址是什么？</h1>
+<p>将登陆成功的用户和密码使用dnslog发送到服务器</p>
+<p>flag{c0ee2ad2d8.ipv6.xxx.eu.org.}</p>
+<p>‍</p>
+</div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="Updated on 2024-11-27 21:47:44">Updated on 2024-11-27&nbsp;</span>
+      </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"></div>
+      <div class="post-info-share">
+        <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" data-title="哥斯拉4.0流量分析" data-via="XL_xiaole" data-hashtags="应急响应,玄机,哥斯拉流量分析"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" data-hashtag="应急响应"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on WhatsApp" data-sharer="whatsapp" data-url="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" data-title="哥斯拉4.0流量分析" data-web><i class="fa-brands fa-whatsapp fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" data-title="哥斯拉4.0流量分析"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" data-title="哥斯拉4.0流量分析"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Myspace" data-sharer="myspace" data-url="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" data-title="哥斯拉4.0流量分析" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Blogger" data-sharer="blogger" data-url="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" data-title="哥斯拉4.0流量分析" data-description=""><i class="fa-brands fa-blogger fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Evernote" data-sharer="evernote" data-url="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" data-title="哥斯拉4.0流量分析"><i class="fa-brands fa-evernote fa-fw" aria-hidden="true"></i></a>
+  </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/' class="post-tag">应急响应</a><a href='/tags/%E7%8E%84%E6%9C%BA/' class="post-tag">玄机</a><a href='/tags/%E5%93%A5%E6%96%AF%E6%8B%89%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/' class="post-tag">哥斯拉流量分析</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+    </section>
+  </div>
+
+  <div class="post-nav"><a href="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" class="post-nav-item" rel="prev" title="哥斯拉ekp版本流量分析"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>哥斯拉ekp版本流量分析</a>
+      <a href="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" class="post-nav-item" rel="next" title="某变异Webshell流量分析">某变异Webshell流量分析<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.123.8">Hugo</a> | Theme - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18-lts.1"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2021 - 2025</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div><div class="footer-line visitor">
+          <span id="busuanzi_container_site_uv" title='Total visitors'><i class="fa-regular fa-user fa-fw" aria-hidden="true"></i>&nbsp;<span id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span></span><span id="busuanzi_container_site_pv" class="footer-divider" title='Total visits'><i class="fa-regular fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span></span>
+        </div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">Theme FixIt works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/typeit/index.umd.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async defer></script><script>window.config={"code":{"copyTitle":"Copy to clipboard","editLockTitle":"Lock editable code block","editUnLockTitle":"Unlock editable code block","editable":true,"maxShownLines":500},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"typeit-header-desktop":"xia0le's Blog","typeit-header-title-mobile":"xia0le's Blog"},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"typeit-header-desktop":["typeit-header-desktop"],"typeit-header-title-mobile":["typeit-header-title-mobile"]},"duration":-1,"loop":false,"speed":100}};</script><script src="/js/theme.min.js" defer></script></body>
+</html>

@@ -3,13 +3,13 @@
     <title>哥斯拉流量分析 - Tag - xia0le&#39;s Blog</title>
     <link>http://localhost:1313/tags/%E5%93%A5%E6%96%AF%E6%8B%89%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/</link>
     <description>哥斯拉流量分析 - Tag - xia0le&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 30 Dec 2024 21:47:44 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%E5%93%A5%E6%96%AF%E6%8B%89%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" rel="self" type="application/rss+xml" /><item>
-  <title>某变异Webshell流量分析</title>
-  <link>http://localhost:1313/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/</link>
-  <pubDate>Mon, 30 Dec 2024 21:47:44 &#43;0800</pubDate>
+    <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 27 Nov 2024 21:47:44 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%E5%93%A5%E6%96%AF%E6%8B%89%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" rel="self" type="application/rss+xml" /><item>
+  <title>哥斯拉4.0流量分析</title>
+  <link>http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/</link>
+  <pubDate>Wed, 27 Nov 2024 21:47:44 &#43;0800</pubDate>
   <author>Author</author>
-  <guid>http://localhost:1313/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/</guid>
-  <description><![CDATA[某变异Webshell流量分析 某变异Webshell流量分析 1 2 3 用户名：root 密码：xj@byshell ssh root@ip -p 222 1、黑客上传的木马文件名]]></description>
+  <guid>http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/</guid>
+  <description><![CDATA[哥斯拉4.0-流量分析 请你登录服务器结合数据包附件来分析黑客的入侵行为 用户名：root 密码：toor SSH连接：ssh root@ip -p222 1、黑客的IP是什]]></description>
 </item>
 <item>
   <title>哥斯拉ekp版本流量分析</title>
