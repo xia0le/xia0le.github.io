@@ -9,7 +9,7 @@
   <pubDate>Mon, 30 Dec 2024 21:47:44 &#43;0800</pubDate>
   <author>Author</author>
   <guid>http://localhost:1313/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/</guid>
-  <description><![CDATA[某变异Webshell流量分析 某变异Webshell流量分析 1 2 3 用户名：root 密码：xj@byshell ssh root@ip -p 222 1、黑客上传的木马文件名]]></description>
+  <description><![CDATA[某变异Webshell流量分析 某变异Webshell流量分析 1 不提供，渗透进入 1、黑客上传的木马文件名是什么？ 过滤http最下面就是 ​ flag{hello.jsp} 2、]]></description>
 </item>
 </channel>
 </rss>
