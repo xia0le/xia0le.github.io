@@ -6,20 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>MSSQL注入流量分析 - xia0le&#39;s Blog</title><meta name="author" content="xia0le">
-<meta name="description" content="不提供，需渗透进入
-知识点 1.MSSQL盲注流量分析
+<meta name="description" content="MSSQL注入流量分析
 "><meta name="keywords" content='应急响应, 玄机, 红队流量分析'>
   <meta itemprop="name" content="MSSQL注入流量分析">
-  <meta itemprop="description" content="不提供，需渗透进入
-知识点 1.MSSQL盲注流量分析">
+  <meta itemprop="description" content="MSSQL注入流量分析">
   <meta itemprop="datePublished" content="2025-01-20T21:47:44+08:00">
   <meta itemprop="dateModified" content="2025-01-20T21:47:44+08:00">
-  <meta itemprop="wordCount" content="1420">
+  <meta itemprop="wordCount" content="1425">
   <meta itemprop="keywords" content="应急响应,玄机,红队流量分析"><meta property="og:url" content="http://localhost:1313/posts/mssql%E6%B3%A8%E5%85%A5%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/">
   <meta property="og:site_name" content="xia0le&#39;s Blog">
   <meta property="og:title" content="MSSQL注入流量分析">
-  <meta property="og:description" content="不提供，需渗透进入
-知识点 1.MSSQL盲注流量分析">
+  <meta property="og:description" content="MSSQL注入流量分析">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -31,8 +28,7 @@
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="MSSQL注入流量分析">
-  <meta name="twitter:description" content="不提供，需渗透进入
-知识点 1.MSSQL盲注流量分析">
+  <meta name="twitter:description" content="MSSQL注入流量分析">
 <meta name="application-name" content="FixIt">
 <meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -47,7 +43,7 @@
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "http:\/\/localhost:1313\/posts\/mssql%E6%B3%A8%E5%85%A5%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90\/"
-    },"genre": "posts","keywords": "应急响应, 玄机, 红队流量分析","wordcount":  1420 ,
+    },"genre": "posts","keywords": "应急响应, 玄机, 红队流量分析","wordcount":  1425 ,
     "url": "http:\/\/localhost:1313\/posts\/mssql%E6%B3%A8%E5%85%A5%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90\/","datePublished": "2025-01-20T21:47:44+08:00","dateModified": "2025-01-20T21:47:44+08:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -91,13 +87,20 @@
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span title="Repost" class="icon-repost"><i class="fa-solid fa-share fa-fw" aria-hidden="true"></i></span><span>MSSQL注入流量分析</span>
       </h1></div><div class="post-meta">
       <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      xia0le</span></span><span class="post-included-in">&nbsp;included in <a href="/categories/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" class="post-category" title="Category - 应急响应"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 应急响应</a></span></div><div class="post-meta-line"><span title="published on 2025-01-20 21:47:44"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2025-01-20">2025-01-20</time></span>&nbsp;<span title="1420 words"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>About 1500 words</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>7 minutes</span>&nbsp;</div>
+      xia0le</span></span><span class="post-included-in">&nbsp;included in <a href="/categories/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" class="post-category" title="Category - 应急响应"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 应急响应</a></span></div><div class="post-meta-line"><span title="published on 2025-01-20 21:47:44"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2025-01-20">2025-01-20</time></span>&nbsp;<span title="1425 words"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>About 1500 words</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>7 minutes</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>Contents</span>
           <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
         </div>
         <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#题目信息">题目信息</a></li>
+    <li><a href="#题目名mssql注入流量分析">题目名：MSSQL注入流量分析</a></li>
+    <li><a href="#难度困难">难度：困难</a></li>
+    <li><a href="#连接信息">连接信息：</a></li>
+  </ul>
+
   <ul>
     <li><a href="#1分析数据包黑客拿到的数据库权限是什么">1.分析数据包，黑客拿到的数据库权限是什么？</a></li>
     <li><a href="#2分析数据包找到黑客获取数据库中的敏感信息是什么">2.分析数据包，找到黑客获取数据库中的敏感信息是什么？</a></li>
@@ -109,7 +112,24 @@
     <li><a href="#8找到黑客留下的后门名称和木马路径并提交">8.找到黑客留下的后门名称和木马路径并提交</a></li>
   </ul>
 </nav></div>
-      </div><div class="content" id="content"><p>不提供，需渗透进入</p>
+      </div><div class="content" id="content"><p>MSSQL注入流量分析</p>
+<h2 id="题目信息" class="heading-element"><span>题目信息</span>
+  <a href="#%e9%a2%98%e7%9b%ae%e4%bf%a1%e6%81%af" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h2 id="题目名mssql注入流量分析" class="heading-element"><span>题目名：MSSQL注入流量分析</span>
+  <a href="#%e9%a2%98%e7%9b%ae%e5%90%8dmssql%e6%b3%a8%e5%85%a5%e6%b5%81%e9%87%8f%e5%88%86%e6%9e%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h2 id="难度困难" class="heading-element"><span>难度：困难</span>
+  <a href="#%e9%9a%be%e5%ba%a6%e5%9b%b0%e9%9a%be" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h2 id="连接信息" class="heading-element"><span>连接信息：</span>
+  <a href="#%e8%bf%9e%e6%8e%a5%e4%bf%a1%e6%81%af" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>不提供，需渗透进入</p>
 <h2 id="知识点" class="heading-element"><span>知识点</span>
   <a href="#%e7%9f%a5%e8%af%86%e7%82%b9" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
