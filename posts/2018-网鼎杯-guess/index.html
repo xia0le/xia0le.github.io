@@ -6,16 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>2018 网鼎杯-GUESS - xia0le&#39;s Blog</title><meta name="author" content="xia0le">
-<meta name="description" content="checksec 开了 canary，nx "><meta name="keywords" content='Binary, PWN'>
+<meta name="description" content="2018 网鼎杯-GUESS
+"><meta name="keywords" content='Binary, PWN'>
   <meta itemprop="name" content="2018 网鼎杯-GUESS">
-  <meta itemprop="description" content="checksec 开了 canary，nx">
+  <meta itemprop="description" content="2018 网鼎杯-GUESS">
   <meta itemprop="datePublished" content="2023-10-15T21:47:44+08:00">
   <meta itemprop="dateModified" content="2023-10-15T21:47:44+08:00">
-  <meta itemprop="wordCount" content="277">
+  <meta itemprop="wordCount" content="279">
   <meta itemprop="keywords" content="Binary,PWN"><meta property="og:url" content="http://localhost:1313/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/">
   <meta property="og:site_name" content="xia0le&#39;s Blog">
   <meta property="og:title" content="2018 网鼎杯-GUESS">
-  <meta property="og:description" content="checksec 开了 canary，nx">
+  <meta property="og:description" content="2018 网鼎杯-GUESS">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -26,7 +27,7 @@
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="2018 网鼎杯-GUESS">
-  <meta name="twitter:description" content="checksec 开了 canary，nx">
+  <meta name="twitter:description" content="2018 网鼎杯-GUESS">
 <meta name="application-name" content="FixIt">
 <meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -41,7 +42,7 @@
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "http:\/\/localhost:1313\/posts\/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess\/"
-    },"genre": "posts","keywords": "Binary, PWN","wordcount":  277 ,
+    },"genre": "posts","keywords": "Binary, PWN","wordcount":  279 ,
     "url": "http:\/\/localhost:1313\/posts\/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess\/","datePublished": "2023-10-15T21:47:44+08:00","dateModified": "2023-10-15T21:47:44+08:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -85,7 +86,7 @@
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span title="Repost" class="icon-repost"><i class="fa-solid fa-share fa-fw" aria-hidden="true"></i></span><span>2018 网鼎杯-GUESS</span>
       </h1></div><div class="post-meta">
       <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      xia0le</span></span><span class="post-included-in">&nbsp;included in <a href="/categories/ctf/" class="post-category" title="Category - CTF"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> CTF</a></span></div><div class="post-meta-line"><span title="published on 2023-10-15 21:47:44"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2023-10-15">2023-10-15</time></span>&nbsp;<span title="277 words"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>About 300 words</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>2 minutes</span>&nbsp;</div>
+      xia0le</span></span><span class="post-included-in">&nbsp;included in <a href="/categories/ctf/" class="post-category" title="Category - CTF"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> CTF</a></span></div><div class="post-meta-line"><span title="published on 2023-10-15 21:47:44"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2023-10-15">2023-10-15</time></span>&nbsp;<span title="279 words"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>About 300 words</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>2 minutes</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>Contents</span>
@@ -99,7 +100,8 @@
     <li><a href="#分析">分析</a></li>
   </ul>
 </nav></div>
-      </div><div class="content" id="content"><h2 id="checksec" class="heading-element"><span>checksec</span>
+      </div><div class="content" id="content"><p>2018 网鼎杯-GUESS</p>
+<h2 id="checksec" class="heading-element"><span>checksec</span>
   <a href="#checksec" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
@@ -107,7 +109,8 @@
   <a href="#%e5%bc%80%e4%ba%86-canarynx" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h2><p><img loading="lazy" src="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950550147-ff28e13e-7705-4952-baab-6afe4d5c5eef-20220825205211-txk1dyk.png" alt="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950550147-ff28e13e-7705-4952-baab-6afe4d5c5eef-20220825205211-txk1dyk.png" srcset="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950550147-ff28e13e-7705-4952-baab-6afe4d5c5eef-20220825205211-txk1dyk.png?size=small, /posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950550147-ff28e13e-7705-4952-baab-6afe4d5c5eef-20220825205211-txk1dyk.png?size=medium 1.5x, /posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950550147-ff28e13e-7705-4952-baab-6afe4d5c5eef-20220825205211-txk1dyk.png?size=large 2x" data-title="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950550147-ff28e13e-7705-4952-baab-6afe4d5c5eef-20220825205211-txk1dyk.png" style="--width: 980px;--aspect-ratio: 980 / 277;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+</h2><!-- raw HTML omitted -->
+<p><img loading="lazy" src="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950550147-ff28e13e-7705-4952-baab-6afe4d5c5eef-20220825205211-txk1dyk.png" alt="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950550147-ff28e13e-7705-4952-baab-6afe4d5c5eef-20220825205211-txk1dyk.png" srcset="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950550147-ff28e13e-7705-4952-baab-6afe4d5c5eef-20220825205211-txk1dyk.png?size=small, /posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950550147-ff28e13e-7705-4952-baab-6afe4d5c5eef-20220825205211-txk1dyk.png?size=medium 1.5x, /posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950550147-ff28e13e-7705-4952-baab-6afe4d5c5eef-20220825205211-txk1dyk.png?size=large 2x" data-title="/posts/2018-%E7%BD%91%E9%BC%8E%E6%9D%AF-guess/images/net-img-1629950550147-ff28e13e-7705-4952-baab-6afe4d5c5eef-20220825205211-txk1dyk.png" style="--width: 980px;--aspect-ratio: 980 / 277;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
 <h2 id="主函数" class="heading-element"><span>主函数</span>
   <a href="#%e4%b8%bb%e5%87%bd%e6%95%b0" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>

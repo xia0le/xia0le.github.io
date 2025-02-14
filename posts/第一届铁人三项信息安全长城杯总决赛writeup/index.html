@@ -6,17 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>第一届铁人三项信息安全长城杯总决赛Writeup - xia0le&#39;s Blog</title><meta name="author" content="xia0le">
-<meta name="description" content="by 安徽工业经济职业技术学院 第一阶段 Zip_guessinteger 第一层bkcrack攻击部分明文，注意偏移
+<meta name="description" content="第一届铁人三项信息安全长城杯总决赛Writeup
 ">
   <meta itemprop="name" content="第一届铁人三项信息安全长城杯总决赛Writeup">
-  <meta itemprop="description" content="by 安徽工业经济职业技术学院 第一阶段 Zip_guessinteger 第一层bkcrack攻击部分明文，注意偏移">
+  <meta itemprop="description" content="第一届铁人三项信息安全长城杯总决赛Writeup">
   <meta itemprop="datePublished" content="2024-05-28T21:47:44+08:00">
   <meta itemprop="dateModified" content="2024-05-28T21:47:44+08:00">
-  <meta itemprop="wordCount" content="3092">
+  <meta itemprop="wordCount" content="3093">
   <meta itemprop="keywords" content="CTF"><meta property="og:url" content="http://localhost:1313/posts/%E7%AC%AC%E4%B8%80%E5%B1%8A%E9%93%81%E4%BA%BA%E4%B8%89%E9%A1%B9%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E9%95%BF%E5%9F%8E%E6%9D%AF%E6%80%BB%E5%86%B3%E8%B5%9Bwriteup/">
   <meta property="og:site_name" content="xia0le&#39;s Blog">
   <meta property="og:title" content="第一届铁人三项信息安全长城杯总决赛Writeup">
-  <meta property="og:description" content="by 安徽工业经济职业技术学院 第一阶段 Zip_guessinteger 第一层bkcrack攻击部分明文，注意偏移">
+  <meta property="og:description" content="第一届铁人三项信息安全长城杯总决赛Writeup">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -25,7 +25,7 @@
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="第一届铁人三项信息安全长城杯总决赛Writeup">
-  <meta name="twitter:description" content="by 安徽工业经济职业技术学院 第一阶段 Zip_guessinteger 第一层bkcrack攻击部分明文，注意偏移">
+  <meta name="twitter:description" content="第一届铁人三项信息安全长城杯总决赛Writeup">
 <meta name="application-name" content="FixIt">
 <meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -40,7 +40,7 @@
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "http:\/\/localhost:1313\/posts\/%E7%AC%AC%E4%B8%80%E5%B1%8A%E9%93%81%E4%BA%BA%E4%B8%89%E9%A1%B9%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E9%95%BF%E5%9F%8E%E6%9D%AF%E6%80%BB%E5%86%B3%E8%B5%9Bwriteup\/"
-    },"genre": "posts","wordcount":  3092 ,
+    },"genre": "posts","wordcount":  3093 ,
     "url": "http:\/\/localhost:1313\/posts\/%E7%AC%AC%E4%B8%80%E5%B1%8A%E9%93%81%E4%BA%BA%E4%B8%89%E9%A1%B9%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E9%95%BF%E5%9F%8E%E6%9D%AF%E6%80%BB%E5%86%B3%E8%B5%9Bwriteup\/","datePublished": "2024-05-28T21:47:44+08:00","dateModified": "2024-05-28T21:47:44+08:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -84,7 +84,7 @@
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span title="Repost" class="icon-repost"><i class="fa-solid fa-share fa-fw" aria-hidden="true"></i></span><span>第一届铁人三项信息安全长城杯总决赛Writeup</span>
       </h1></div><div class="post-meta">
       <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      xia0le</span></span><span class="post-included-in">&nbsp;included in <a href="/categories/ctf/" class="post-category" title="Category - CTF"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> CTF</a></span></div><div class="post-meta-line"><span title="published on 2024-05-28 21:47:44"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2024-05-28">2024-05-28</time></span>&nbsp;<span title="3092 words"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>About 3100 words</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>15 minutes</span>&nbsp;</div>
+      xia0le</span></span><span class="post-included-in">&nbsp;included in <a href="/categories/ctf/" class="post-category" title="Category - CTF"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> CTF</a></span></div><div class="post-meta-line"><span title="published on 2024-05-28 21:47:44"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2024-05-28">2024-05-28</time></span>&nbsp;<span title="3093 words"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>About 3100 words</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>15 minutes</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>Contents</span>
@@ -138,7 +138,8 @@
     </li>
   </ul>
 </nav></div>
-      </div><div class="content" id="content"><h2 id="by-安徽工业经济职业技术学院" class="heading-element"><span>by 安徽工业经济职业技术学院</span>
+      </div><div class="content" id="content"><p>第一届铁人三项信息安全长城杯总决赛Writeup</p>
+<h2 id="by-安徽工业经济职业技术学院" class="heading-element"><span>by 安徽工业经济职业技术学院</span>
   <a href="#by-%e5%ae%89%e5%be%bd%e5%b7%a5%e4%b8%9a%e7%bb%8f%e6%b5%8e%e8%81%8c%e4%b8%9a%e6%8a%80%e6%9c%af%e5%ad%a6%e9%99%a2" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
@@ -2072,8 +2073,7 @@
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h3><p>‍</p>
-<p><img loading="lazy" src="/posts/%E7%AC%AC%E4%B8%80%E5%B1%8A%E9%93%81%E4%BA%BA%E4%B8%89%E9%A1%B9%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E9%95%BF%E5%9F%8E%E6%9D%AF%E6%80%BB%E5%86%B3%E8%B5%9Bwriteup/images/image-20240524171354-4ulzdk3.png" alt="image" srcset="/posts/%E7%AC%AC%E4%B8%80%E5%B1%8A%E9%93%81%E4%BA%BA%E4%B8%89%E9%A1%B9%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E9%95%BF%E5%9F%8E%E6%9D%AF%E6%80%BB%E5%86%B3%E8%B5%9Bwriteup/images/image-20240524171354-4ulzdk3.png?size=small, /posts/%E7%AC%AC%E4%B8%80%E5%B1%8A%E9%93%81%E4%BA%BA%E4%B8%89%E9%A1%B9%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E9%95%BF%E5%9F%8E%E6%9D%AF%E6%80%BB%E5%86%B3%E8%B5%9Bwriteup/images/image-20240524171354-4ulzdk3.png?size=medium 1.5x, /posts/%E7%AC%AC%E4%B8%80%E5%B1%8A%E9%93%81%E4%BA%BA%E4%B8%89%E9%A1%B9%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E9%95%BF%E5%9F%8E%E6%9D%AF%E6%80%BB%E5%86%B3%E8%B5%9Bwriteup/images/image-20240524171354-4ulzdk3.png?size=large 2x" data-title="image" style="--width: 1652px;--aspect-ratio: 1652 / 1431;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p>
-</div><div class="post-footer" id="post-footer">
+<p><img loading="lazy" src="/posts/%E7%AC%AC%E4%B8%80%E5%B1%8A%E9%93%81%E4%BA%BA%E4%B8%89%E9%A1%B9%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E9%95%BF%E5%9F%8E%E6%9D%AF%E6%80%BB%E5%86%B3%E8%B5%9Bwriteup/images/image-20240524171354-4ulzdk3.png" alt="image" srcset="/posts/%E7%AC%AC%E4%B8%80%E5%B1%8A%E9%93%81%E4%BA%BA%E4%B8%89%E9%A1%B9%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E9%95%BF%E5%9F%8E%E6%9D%AF%E6%80%BB%E5%86%B3%E8%B5%9Bwriteup/images/image-20240524171354-4ulzdk3.png?size=small, /posts/%E7%AC%AC%E4%B8%80%E5%B1%8A%E9%93%81%E4%BA%BA%E4%B8%89%E9%A1%B9%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E9%95%BF%E5%9F%8E%E6%9D%AF%E6%80%BB%E5%86%B3%E8%B5%9Bwriteup/images/image-20240524171354-4ulzdk3.png?size=medium 1.5x, /posts/%E7%AC%AC%E4%B8%80%E5%B1%8A%E9%93%81%E4%BA%BA%E4%B8%89%E9%A1%B9%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E9%95%BF%E5%9F%8E%E6%9D%AF%E6%80%BB%E5%86%B3%E8%B5%9Bwriteup/images/image-20240524171354-4ulzdk3.png?size=large 2x" data-title="image" style="--width: 1652px;--aspect-ratio: 1652 / 1431;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>​</p></div><div class="post-footer" id="post-footer">
   <div class="post-info">
     <div class="post-info-line">
       <div class="post-info-mod">
