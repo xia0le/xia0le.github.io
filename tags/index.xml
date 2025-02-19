@@ -8,26 +8,26 @@
     <language>en-us</language>
     <managingEditor>xiaolesec@outlook.com (xiaole)</managingEditor>
     <webMaster>xiaolesec@outlook.com (xiaole)</webMaster>
-    <lastBuildDate>Mon, 20 Jan 2025 21:47:44 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 19 Feb 2025 19:00:44 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>应急响应</title>
       <link>http://localhost:1313/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/</link>
-      <pubDate>Mon, 20 Jan 2025 21:47:44 +0800</pubDate><author>xiaolesec@outlook.com (xiaole)</author>
+      <pubDate>Wed, 19 Feb 2025 19:00:44 +0800</pubDate><author>xiaolesec@outlook.com (xiaole)</author>
       <guid>http://localhost:1313/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/</guid>
       <description>应急响应</description>
     </item>
     <item>
       <title>玄机</title>
       <link>http://localhost:1313/tags/%E7%8E%84%E6%9C%BA/</link>
-      <pubDate>Mon, 20 Jan 2025 21:47:44 +0800</pubDate><author>xiaolesec@outlook.com (xiaole)</author>
+      <pubDate>Wed, 19 Feb 2025 19:00:44 +0800</pubDate><author>xiaolesec@outlook.com (xiaole)</author>
       <guid>http://localhost:1313/tags/%E7%8E%84%E6%9C%BA/</guid>
       <description>玄机</description>
     </item>
     <item>
       <title>红队流量分析</title>
       <link>http://localhost:1313/tags/%E7%BA%A2%E9%98%9F%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/</link>
-      <pubDate>Mon, 20 Jan 2025 21:47:44 +0800</pubDate><author>xiaolesec@outlook.com (xiaole)</author>
+      <pubDate>Wed, 19 Feb 2025 19:00:44 +0800</pubDate><author>xiaolesec@outlook.com (xiaole)</author>
       <guid>http://localhost:1313/tags/%E7%BA%A2%E9%98%9F%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/</guid>
       <description>红队流量分析</description>
     </item>
@@ -69,7 +69,7 @@
     <item>
       <title>病毒分析</title>
       <link>http://localhost:1313/tags/%E7%97%85%E6%AF%92%E5%88%86%E6%9E%90/</link>
-      <pubDate>Tue, 29 Mar 2022 21:47:44 +0800</pubDate><author>xiaolesec@outlook.com (xiaole)</author>
+      <pubDate>Fri, 01 Apr 2022 21:47:44 +0800</pubDate><author>xiaolesec@outlook.com (xiaole)</author>
       <guid>http://localhost:1313/tags/%E7%97%85%E6%AF%92%E5%88%86%E6%9E%90/</guid>
       <description>病毒分析</description>
     </item>
